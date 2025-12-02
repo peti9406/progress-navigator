@@ -1,5 +1,6 @@
-export default function Home() {
+export default function Home({name}) {
+
     return (<p className="text-4xl">
-        Hello World!
+        Hello {name}!
     </p>)
 }

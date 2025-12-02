@@ -6,7 +6,7 @@ import ErrorComponent from "../components/ErrorComponent.jsx";
 import {useNavigate} from "react-router-dom";
 import LoadingComponent from "../components/LoadingComponent.jsx";
 
-export default function Login() {
+export default function Login({setName}) {
     const [user, setUser] = useState({});
     const [error, setError] = useState({});
     const navigate = useNavigate();
@@ -17,7 +17,9 @@ export default function Login() {
 
         try {
             await api.get("/sanctum/csrf-cookie");
-            await api.post("/api/login", user);
+            const {data} = await api.post("/api/login", user);
+            localStorage.setItem('name', data.name);
+            setName(data.name);
             navigate("/");
         } catch (error) {
             setError(error.response.data);
