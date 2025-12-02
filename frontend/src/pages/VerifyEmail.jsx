@@ -20,7 +20,6 @@ export default function VerifyEmail() {
             try {
                 const {data} = await api.get(`/api/email/verify/${id}/${hash}`);
                 setStatus(data.message);
-
             } catch (error) {
                 setStatus("Verification failed");
             }
