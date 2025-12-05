@@ -9,6 +9,7 @@ import LoadingComponent from "../components/LoadingComponent.jsx";
 export default function Login({setName}) {
     const [user, setUser] = useState({});
     const [error, setError] = useState({});
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     async function handleSubmit(event) {
@@ -16,6 +17,7 @@ export default function Login({setName}) {
         setError({});
 
         try {
+            setLoading(true);
             await api.get("/sanctum/csrf-cookie");
             const {data} = await api.post("/api/login", user);
             localStorage.setItem('name', data.name);
@@ -23,7 +25,16 @@ export default function Login({setName}) {
             navigate("/");
         } catch (error) {
             setError(error.response.data);
+        } finally {
+            setLoading(false);
         }
+    }
+
+    if (loading) {
+        return (<div className="flex items-center justify-center my-2">
+                <LoadingComponent/>
+            </div>
+        );
     }
 
     return (

@@ -5,19 +5,29 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Home from "./pages/Home.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import CreateGoal from "./pages/CreateGoal.jsx";
 
 function App() {
     const [name, setName] = useState('Guest');
 
+    useEffect(() => {
+        function getName() {
+            setName(localStorage.getItem('name') || 'Guest');
+        }
+        getName();
+    }, [])
+
     return (<BrowserRouter>
-            <Navbar setName={setName} />
+            <Navbar name={name} setName={setName} />
             <div>
                 <Routes>
-                    <Route path="/" element={<Home name={name}/> }/>
+                    <Route path="/" element={<Home /> }/>
                     <Route path="/login" element={<Login setName={setName}/>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/verify-email" element={<VerifyEmail />} />
+
+                    <Route path="/create" element={<CreateGoal />}/>
                 </Routes>
             </div>
         </BrowserRouter>

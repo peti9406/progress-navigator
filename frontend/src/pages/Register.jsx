@@ -19,9 +19,10 @@ export default function Register() {
             await api.get("/sanctum/csrf-cookie");
             await api.post("/api/register", user);
             setSubmitted(true);
-            setLoading(false);
         } catch (error) {
             setError(error.response.data.errors);
+        } finally {
+            setLoading(false);
         }
     }
 

@@ -1,6 +1,11 @@
-export default function Home({name}) {
+import {useState} from "react";
 
-    return (<p className="text-4xl">
-        Hello {name}!
-    </p>)
+export default function Home() {
+    const [goals, setGoals] = useState(null);
+
+
+
+    return (<div>
+        Goals
+    </div>)
 }
