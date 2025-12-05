@@ -31,7 +31,7 @@ class ProgressionService
         return response()->json(['message' => 'Goal created'], 201);
     }
 
-    public function getGoals(): JsonResponse
+    public function getGoals(Request $request): JsonResponse
     {
         $user = Auth::user();
 

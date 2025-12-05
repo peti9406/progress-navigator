@@ -5,12 +5,14 @@ import api from "../api/axios.js";
 import ErrorComponent from "../components/ErrorComponent.jsx";
 import {useNavigate} from "react-router-dom";
 import LoadingComponent from "../components/LoadingComponent.jsx";
+import useAuth from "../hooks/useAuth.js";
 
-export default function Login({setName}) {
-    const [user, setUser] = useState({});
+export default function Login() {
+    const [user, setUserData] = useState({});
     const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const {setUser} = useAuth();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -20,8 +22,8 @@ export default function Login({setName}) {
             setLoading(true);
             await api.get("/sanctum/csrf-cookie");
             const {data} = await api.post("/api/login", user);
-            localStorage.setItem('name', data.name);
-            setName(data.name);
+            setUser(data.name);
+            localStorage.setItem("user", JSON.stringify(data.name));
             navigate("/");
         } catch (error) {
             setError(error.response.data);
@@ -31,23 +33,20 @@ export default function Login({setName}) {
     }
 
     if (loading) {
-        return (<div className="flex items-center justify-center my-2">
-                <LoadingComponent/>
-            </div>
-        );
+        return <LoadingComponent />;
     }
 
     return (
         <Form onSubmit={handleSubmit} header='Sign in!' buttonText="Sign in">
             <InputField id="email" label="Email:" placeholder="example@email.com" type="email"
-                        onChange={(event) => setUser(prev =>
+                        onChange={(event) => setUserData(prev =>
                             ({
                                 ...prev,
                                 [event.target.name]: event.target.value
                             }))}/>
 
             <InputField id="password" label="Password:" type="password"
-                        onChange={(event) => setUser(prev =>
+                        onChange={(event) => setUserData(prev =>
                             ({
                                 ...prev,
                                 [event.target.name]: event.target.value

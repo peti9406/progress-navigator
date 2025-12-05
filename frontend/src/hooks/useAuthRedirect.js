@@ -1,13 +1,14 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import useAuth from "./useAuth.js";
 
 export default function useAuthRedirect() {
     const navigate = useNavigate();
+    const {user} = useAuth();
 
     useEffect(() => {
-        const name = localStorage.getItem("name");
-        if (!name) {
+        if (!user) {
             navigate("/login");
         }
-    }, [navigate]);
+    }, [navigate, user]);
 }

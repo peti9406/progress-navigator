@@ -11,6 +11,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/create', [ProgressionController::class, 'create']);
+    Route::get('/goals', [ProgressionController::class, 'index']);
 });
 
 
