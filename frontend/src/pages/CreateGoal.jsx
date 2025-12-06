@@ -29,7 +29,7 @@ export default function CreateGoal() {
         try {
             setLoading(true);
             await api.get("/sanctum/csrf-cookie");
-            await api.post("/api/create", {goal, deadline, steps});
+            await api.post("/api/goals", {goal, deadline, steps});
             setSubmitted(true);
             navigate("/");
         } catch (error) {

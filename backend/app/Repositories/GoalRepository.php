@@ -17,4 +17,11 @@ class GoalRepository
     {
         return Goal::create($data);
     }
+
+    public function update(string $id, array $array)
+    {
+        Goal::where('id', $id)->update($array);
+    }
+
+
 }

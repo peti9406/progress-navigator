@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('goal');
             $table->date('deadline');
+            $table->boolean('completed')->default(false);
+            $table->date('achieved_at')->nullable();
             $table->timestamps();
         });
     }

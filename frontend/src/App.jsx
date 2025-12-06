@@ -18,7 +18,6 @@ function App() {
         await api.get('sanctum/csrf-cookie');
         await api.post("/api/logout");
         setUser(null);
-        localStorage.removeItem("user");
     }
 
     return (<BrowserRouter>
