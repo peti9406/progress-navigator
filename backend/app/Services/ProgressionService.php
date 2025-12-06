@@ -8,6 +8,7 @@ use App\Repositories\StepRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 
 class ProgressionService
 {
@@ -31,7 +32,7 @@ class ProgressionService
         return response()->json(['message' => 'Goal created'], 201);
     }
 
-    public function getGoals(): JsonResponse
+    public function getGoals(Request $request): JsonResponse
     {
         $user = Auth::user();
 
@@ -65,6 +66,34 @@ class ProgressionService
                 'step' => $step,
             ]);
         }
+    }
+
+    public function toggleCompleted(string $id): JsonResponse
+    {
+        $this->stepRepository->toggleCompleted($id);
+        return response()->json(['message' => 'Goal updated'], 201);
+    }
+
+    public function completeGoal(string $id): JsonResponse
+    {
+        $this->goalRepository->update(
+            $id,
+            [
+                'completed' => 1,
+                'achieved_at' => Date::now(),
+            ]
+        );
+
+        $steps = $this->stepRepository->findByGoalId($id);
+
+        foreach ($steps as $step) {
+            $this->stepRepository->complete($step->id,
+                [
+                'completed' => 1,
+            ]);
+        }
+
+        return response()->json(['message' => 'Goal completed'], 201);
     }
 
 }

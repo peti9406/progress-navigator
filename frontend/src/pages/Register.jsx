@@ -27,10 +27,7 @@ export default function Register() {
     }
 
     if (loading) {
-        return (<div className="flex items-center justify-center my-2">
-                <LoadingComponent/>
-            </div>
-        );
+        return <LoadingComponent />;
     }
 
     return (<>

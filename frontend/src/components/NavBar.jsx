@@ -1,32 +1,21 @@
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Button from "./Button.jsx";
-import api from "../api/axios.js";
+import useAuth from "../hooks/useAuth.js";
 
-export default function Navbar({name, setName}) {
-    const navigate = useNavigate();
-    const isLoggedIn = !!localStorage.getItem('name');
+export default function Navbar({onLogout}) {
+    const {user} = useAuth();
 
-    async function handleLogout(event) {
-        event.preventDefault();
-
-        await api.get('sanctum/csrf-cookie');
-        await api.post("/api/logout");
-        localStorage.clear();
-        setName('Guest');
-        navigate('/');
-    }
-
-    return (<div className='flex flex-row justify-center items-center'>
-            <p>Logged in as: {name}!</p>
+    return (<div className='flex flex-row justify-center items-center w-full min-w-max'>
             <Link to='/'>
                 <Button text='Home' />
             </Link>
-            {isLoggedIn ?
+            {user ?
                 (<>
                     <Link to='/create'>
                         <Button text='Set new goal'/>
                     </Link>
-                    <Button onclick={handleLogout} text='Log out'/>
+                    <Button onclick={onLogout} text='Log out'/>
+                    <p>Logged in as: {user}!</p>
                 </> )
                 : (<>
                     <Link to='/register'>

@@ -47,12 +47,12 @@ class AuthorizationService
 
     public function loginUser(Request $request): JsonResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (!Auth::attempt($validated)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 

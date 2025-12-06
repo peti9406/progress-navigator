@@ -1,5 +1,5 @@
 import Form from "../components/form/Form.jsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import InputField from "../components/form/InputField.jsx";
 import api from "../api/axios.js";
 import LoadingComponent from "../components/LoadingComponent.jsx";
@@ -29,7 +29,7 @@ export default function CreateGoal() {
         try {
             setLoading(true);
             await api.get("/sanctum/csrf-cookie");
-            await api.post("/api/create", {goal, deadline, steps});
+            await api.post("/api/goals", {goal, deadline, steps});
             setSubmitted(true);
             navigate("/");
         } catch (error) {
@@ -58,10 +58,7 @@ export default function CreateGoal() {
     }
 
     if (loading) {
-        return (<div className="flex items-center justify-center my-2">
-                <LoadingComponent/>
-            </div>
-        );
+        return <LoadingComponent/>
     }
 
     return (<>

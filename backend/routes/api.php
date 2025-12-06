@@ -10,7 +10,10 @@ Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])-
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/create', [ProgressionController::class, 'create']);
+    Route::post('/goals', [ProgressionController::class, 'store']);
+    Route::get('/goals', [ProgressionController::class, 'index']);
+    Route::put('/goals/{id}', [ProgressionController::class, 'complete']);
+    Route::patch('/steps/{id}/toggle', [ProgressionController::class, 'toggle']);
 });
 
 

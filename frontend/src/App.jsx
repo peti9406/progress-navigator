@@ -5,31 +5,31 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Home from "./pages/Home.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
-import {useEffect, useState} from "react";
 import CreateGoal from "./pages/CreateGoal.jsx";
+import api from "./api/axios.js";
+import useAuth from "./hooks/useAuth.js";
 
 function App() {
-    const [name, setName] = useState('Guest');
+    const {user, setUser} = useAuth();
 
-    useEffect(() => {
-        function getName() {
-            setName(localStorage.getItem('name') || 'Guest');
-        }
-        getName();
-    }, [])
+    async function handleLogout(event) {
+        event.preventDefault();
+
+        await api.get('sanctum/csrf-cookie');
+        await api.post("/api/logout");
+        setUser(null);
+    }
 
     return (<BrowserRouter>
-            <Navbar name={name} setName={setName} />
-            <div>
-                <Routes>
-                    <Route path="/" element={<Home /> }/>
-                    <Route path="/login" element={<Login setName={setName}/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="/verify-email" element={<VerifyEmail />} />
+            <Navbar user={user} onLogout={handleLogout} />
+            <Routes>
+                <Route path="/" element={<Home />}/>
+                <Route path="/login" element={<Login />}/>
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/verify-email" element={<VerifyEmail/>}/>
 
-                    <Route path="/create" element={<CreateGoal />}/>
-                </Routes>
-            </div>
+                <Route path="/create" element={<CreateGoal/>}/>
+            </Routes>
         </BrowserRouter>
     )
 }

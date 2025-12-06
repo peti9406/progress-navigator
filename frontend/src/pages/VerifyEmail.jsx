@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {Link, useNavigate, useSearchParams} from "react-router-dom";
 import api from "../api/axios.js";
 
 export default function VerifyEmail() {
     const [searchParams] = useSearchParams();
     const [status, setStatus] = useState("Verifying...");
-    const navigate = useNavigate();
 
     useEffect(() => {
         async function verifyEmail() {
@@ -32,8 +31,8 @@ export default function VerifyEmail() {
         <div>
             <h1 className='text-xl font-bold my-2'>{status}</h1>
             <p>Click
-                <a className="hover:cursor-pointer text-blue-600 hover:text-blue-300"
-                   onClick={() => navigate("/")}> here </a>
+                <Link className="text-blue-600 hover:text-blue-300"
+                   to='/'> here </Link>
                 to return to the home page!</p>
         </div>
     )
