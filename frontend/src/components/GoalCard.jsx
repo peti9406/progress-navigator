@@ -34,8 +34,9 @@ export default function GoalCard({goal, open, setOpen}) {
         }
     }
 
-    return <div  className={`${completed? 'bg-gray-400' : ''} border-2 rounded-lg m-4 p-4 w-full sm:w-[300px] max-h-min`}>
-        <div className='cursor-pointer'
+    return <div
+        className={`${completed ? 'bg-gray-400' : ''} border-2 rounded-lg m-4 py-4 w-full sm:w-[300px] max-h-min`}>
+        <div className='cursor-pointer p-2'
              onClick={setOpen}>
 
             <h1 className='text-xl font-bold border-b-1'>{goal.goal}</h1>
@@ -56,11 +57,15 @@ export default function GoalCard({goal, open, setOpen}) {
         </div>
 
         <div className={`my-2 overflow-hidden transition-all duration-300 ${open ? "max-h-[2000px] mt-2" : "max-h-0"}`}>
-            <ul className='mt-2'>
-                {goalSteps.map(step => (
-                    <StepElement key={step.id} step={step} onCheck={completed ? null : setCompletedSteps}/>
+            <table className='mt-2 w-full'>
+                <tbody>
+                {goalSteps.map((step, index) => (
+                    <tr key={step.id} className={`flex justify-between w-full ${index % 2 === 0 ? 'bg-blue-400' : 'bg-blue-300'}`}>
+                        <StepElement key={step.id} step={step} onCheck={completed ? null : setCompletedSteps}/>
+                    </tr>
                 ))}
-            </ul>
+                </tbody>
+            </table>
         </div>
 
         {!completed && <Button onclick={handleCompletion} text='Complete'/>}
