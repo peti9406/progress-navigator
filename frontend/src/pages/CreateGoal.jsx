@@ -11,7 +11,8 @@ export default function CreateGoal() {
     const [goal, setGoal] = useState('');
     const [deadline, setDeadline] = useState('');
     const [steps, setSteps] = useState(['']);
-    const [error, setError] = useState({});
+
+    const [error, setError] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function CreateGoal() {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        setError({});
+        setError(null);
 
         try {
             setLoading(true);
@@ -67,19 +68,19 @@ export default function CreateGoal() {
             : (
                 <Form onSubmit={handleSubmit} header='Set new Goal' buttonText='Set Goal'>
 
-                    <InputField id="goal" label="Goal:" placeholder="Learn..." type="text" error={error}
+                    <InputField label="Goal:" placeholder="Learn..." type="text" value={goal}
                                 onChange={(event) => setGoal(event.target.value)}/>
 
-                    <InputField id="deadline" label="Deadline:" type="date" min={minDate} error={error}
+                    <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}
                                 onChange={(event) => setDeadline(event.target.value)}/>
 
-                    <div className='my-2 w-full max-w-min space-y-1'>
+                    <div className='my-2 max-w-min space-y-1'>
                         {steps.map((step, index) => (
-                            <div key={index} className='flex flex-row space-x-3'>
-                                <InputField id={`step${index + 1}`} label={`Step ${index + 1}:`} type="text"
-                                            value={steps[index]} error={error}
+                            <div key={index} className='flex flex-row space-x-3 min-w-md'>
+                                <InputField label={`Step ${index + 1}:`} type="text" size='small'
+                                            value={steps[index]}
                                             onChange={(event) => handleStepChange(index, event.target.value)}/>
-                                <span className="cursor-pointer" onClick={() => removeStep(index)}>❌</span>
+                                {steps.length > 1 && <span className="cursor-pointer" onClick={() => removeStep(index)}>❌</span>}
                             </div>))}
                     </div>
 

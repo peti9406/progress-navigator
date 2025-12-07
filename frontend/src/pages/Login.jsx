@@ -8,7 +8,8 @@ import LoadingComponent from "../components/LoadingComponent.jsx";
 import useAuth from "../hooks/useAuth.js";
 
 export default function Login() {
-    const [user, setUserData] = useState({});
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Login() {
 
         try {
             await api.get("/sanctum/csrf-cookie");
-            const {data} = await api.post("/api/login", user);
+            const {data} = await api.post("/api/login", {email, password});
             setUser(data.name);
             navigate("/");
         } catch (error) {
@@ -37,19 +38,11 @@ export default function Login() {
 
     return (
         <Form onSubmit={handleSubmit} header='Sign in!' buttonText="Sign in">
-            <InputField id="email" label="Email:" placeholder="example@email.com" type="email" value={user.email}
-                        onChange={(event) => setUserData(prev =>
-                            ({
-                                ...prev,
-                                [event.target.name]: event.target.value
-                            }))}/>
+            <InputField label="Email:" placeholder="example@email.com" type="email" value={email}
+                        onChange={(event) => setEmail(event.target.value)}/>
 
-            <InputField id="password" label="Password:" type="password" value={user.password}
-                        onChange={(event) => setUserData(prev =>
-                            ({
-                                ...prev,
-                                [event.target.name]: event.target.value
-                            }))}/>
+            <InputField label="Password:" type="password" value={password}
+                        onChange={(event) => setPassword(event.target.value)}/>
 
             {error && <ErrorComponent message={error.message}/>}
         </Form>
