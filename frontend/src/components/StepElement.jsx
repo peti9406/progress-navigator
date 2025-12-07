@@ -17,8 +17,12 @@ export default function StepElement({step, onCheck}) {
         }
     }
 
-    return <li className='flex justify-between gap-x-5'>
-        {step.step}
-        <input type='checkbox' checked={checked} onChange={() => handleCheck(step.id)}/>
-    </li>
+    return <>
+        <td>
+            <p className='text-left text-wrap'>{step.step}</p>
+        </td>
+        <td>
+            <input type='checkbox' checked={checked} onChange={() => handleCheck(step.id)}/>
+        </td>
+    </>
 }

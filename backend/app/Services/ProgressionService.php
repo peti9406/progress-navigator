@@ -36,7 +36,9 @@ class ProgressionService
     {
         $user = Auth::user();
 
-        $goals = $this->goalRepository->findAll($user->id);
+        $completed = $request->completed;
+
+        $goals = $this->goalRepository->findAll($user->id, $completed);
         return response()->json($goals);
     }
 
