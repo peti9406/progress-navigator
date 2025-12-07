@@ -5,3 +5,8 @@
   text-align: center;
 }
 
+body {
+    background: linear-gradient(to bottom, #b3d9ff, #0066cc);
+    min-height: 100vh;
+}
+
