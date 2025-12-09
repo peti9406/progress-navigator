@@ -17,12 +17,8 @@ export default function StepElement({step, onCheck}) {
         }
     }
 
-    return <>
-        <td>
-            <p className='text-left text-wrap px-2'>{step.step}</p>
-        </td>
-        <td className='flex items-center px-2'>
-            <input className='cursor-pointer' type='checkbox' checked={checked} onChange={() => handleCheck(step.id)}/>
-        </td>
-    </>
+    return <li className='flex items-center space-x-6'>
+        <input className='cursor-pointer' type='checkbox' checked={checked} onChange={() => handleCheck(step.id)}/>
+        <p className='text-left text-wrap px-2'>{step.step}</p>
+    </li>
 }
