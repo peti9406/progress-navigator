@@ -35,7 +35,8 @@ export default function GoalCard({goal, open, setOpen}) {
     }
 
     return <div
-        className={`${completed ? 'bg-gray-400' : ''} border-2 rounded-lg m-4 py-4 w-full sm:w-[300px] max-h-min`}>
+        className={`${completed ? 'bg-gray-400/50' : 'bg-white/20'}
+         backdrop-blur-md border border-gray-800/20 hover:shadow-2xl hover:scale-110 duration-300 rounded-lg m-4 py-4 w-full sm:w-[300px] max-h-min`}>
         <div className='cursor-pointer p-2'
              onClick={setOpen}>
 
@@ -60,7 +61,7 @@ export default function GoalCard({goal, open, setOpen}) {
             <table className='mt-2 w-full'>
                 <tbody>
                 {goalSteps.map((step, index) => (
-                    <tr key={step.id} className={`flex justify-between w-full ${index % 2 === 0 ? 'bg-blue-400' : 'bg-blue-300'}`}>
+                    <tr key={step.id} className={`flex justify-between w-full  ${goal.completed ? '' : index % 2 === 0 ? 'bg-white/15' : ''}`}>
                         <StepElement key={step.id} step={step} onCheck={completed ? null : setCompletedSteps}/>
                     </tr>
                 ))}

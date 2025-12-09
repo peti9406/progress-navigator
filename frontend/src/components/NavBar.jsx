@@ -5,7 +5,8 @@ import useAuth from "../hooks/useAuth.js";
 export default function Navbar({onLogout}) {
     const {user} = useAuth();
 
-    return (<div className='flex flex-row justify-center items-center w-full min-w-max'>
+    return (<div className='flex flex-row justify-center items-center w-full min-w-max
+    bg-b3d9ff'>
             <Link to='/'>
                 <Button text='Home' />
             </Link>
@@ -14,8 +15,10 @@ export default function Navbar({onLogout}) {
                     <Link to='/create'>
                         <Button text='Set new goal'/>
                     </Link>
-                    <Button onclick={onLogout} text='Log out'/>
-                    <p>Logged in as: {user}!</p>
+                    <div className='flex flex-row items-center ml-auto space-x-4'>
+                        <p>Hi {user}!</p>
+                        <Button onclick={onLogout} text='Log out'/>
+                    </div>
                 </> )
                 : (<>
                     <Link to='/register'>
