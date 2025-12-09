@@ -6,7 +6,7 @@ export default function Navbar({onLogout}) {
     const {user} = useAuth();
 
     return (<div className='flex flex-row justify-center items-center w-full min-w-max
-    bg-gradient-to-r from-gray-200 via-gray-400 to-gray-200'>
+    bg-b3d9ff'>
             <Link to='/'>
                 <Button text='Home' />
             </Link>
@@ -15,7 +15,7 @@ export default function Navbar({onLogout}) {
                     <Link to='/create'>
                         <Button text='Set new goal'/>
                     </Link>
-                    <div className='flex flex-row items-center ml-auto'>
+                    <div className='flex flex-row items-center ml-auto space-x-4'>
                         <p>Hi {user}!</p>
                         <Button onclick={onLogout} text='Log out'/>
                     </div>
