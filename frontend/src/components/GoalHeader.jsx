@@ -1,7 +1,9 @@
 import ProgressionBar from "./ProgressionBar.jsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {GoalContext} from "../contexts/GoalContext.js";
 
 export default function GoalHeader({goal, open, setOpen}) {
+    const {deleteGoal} = useContext(GoalContext);
     const [completed, setCompleted] = useState(goal.completed);
     const [completedSteps, setCompletedSteps] = useState(goal.steps.filter((step) => step.completed === 1).length);
 
@@ -15,7 +17,7 @@ export default function GoalHeader({goal, open, setOpen}) {
 
     return (
         <div className={`flex items-center w-full font-bold p-2 rounded-md ${open ? 'bg-white/5 border-1 border-white/5 backdrop-blur-md ' : ''}`}>
-            <div className='flex items-center w-1/2 gap-2'>
+            <div className='flex items-center w-1/3 gap-2'>
                     <span onClick={() => setOpen(goal.id)}
                           className='cursor-pointer'>
                         {open ? '⬇️' : '➡️'}
@@ -24,7 +26,7 @@ export default function GoalHeader({goal, open, setOpen}) {
                 <span>{goal.goal}</span>
             </div>
 
-            <div className='grid grid-cols-3 w-1/2'>
+            <div className='grid grid-cols-[1fr_1fr_1fr_auto] w-2/3 items-center'>
                 <span>
                         {daysLeft > 0 ? (
                             <h2 className=' text-sm'>{daysLeft} days left!</h2>
@@ -41,6 +43,11 @@ export default function GoalHeader({goal, open, setOpen}) {
 
                 <span>
                         {!completed && <ProgressionBar percentage={percentage}/>}
+                </span>
+
+                <span className='relative left-1'>
+                    <i onClick={() => deleteGoal(goal.id)}
+                        className="fa-solid fa-trash cursor-pointer"></i>
                 </span>
             </div>
         </div>)

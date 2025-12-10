@@ -1,16 +1,18 @@
 import Form from "../components/form/Form.jsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import InputField from "../components/form/InputField.jsx";
 import api from "../api/axios.js";
 import LoadingComponent from "../components/LoadingComponent.jsx";
 import Button from "../components/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import useAuthRedirect from "../hooks/useAuthRedirect.js";
+import {GoalContext} from "../contexts/GoalContext.js";
 
 export default function CreateGoal() {
     const [goal, setGoal] = useState('');
     const [deadline, setDeadline] = useState('');
     const [steps, setSteps] = useState(['']);
+    const {setGoals} = useContext(GoalContext);
 
     const [error, setError] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -30,7 +32,8 @@ export default function CreateGoal() {
         try {
             setLoading(true);
             await api.get("/sanctum/csrf-cookie");
-            await api.post("/api/goals", {goal, deadline, steps});
+            const {data} = await api.post("/api/goals", {goal, deadline, steps});
+            setGoals((prev) => [...prev, data.goal]);
             setSubmitted(true);
             navigate("/");
         } catch (error) {

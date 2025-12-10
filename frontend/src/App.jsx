@@ -21,10 +21,10 @@ function App() {
     }
 
     return (<BrowserRouter>
-            <Navbar user={user} onLogout={handleLogout} />
+            <Navbar user={user} onLogout={handleLogout}/>
             <Routes>
-                <Route path="/" element={<Home />}/>
-                <Route path="/login" element={<Login />}/>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/verify-email" element={<VerifyEmail/>}/>
 

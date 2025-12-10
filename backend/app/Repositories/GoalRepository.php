@@ -22,9 +22,19 @@ class GoalRepository
         return Goal::create($data);
     }
 
-    public function update(string $id, array $array)
+    public function update(string $id, array $array): void
     {
         Goal::where('id', $id)->update($array);
+    }
+
+    public function delete(string $id): void
+    {
+        Goal::destroy($id);
+    }
+
+    public function find(mixed $id): Goal
+    {
+        return Goal::with('steps')->findOrFail($id);
     }
 
 

@@ -29,5 +29,9 @@ class ProgressionController extends Controller
         return ProgService::completeGoal($id);
     }
 
+    public function delete(string $id): JsonResponse
+    {
+        return ProgService::delete($id);
+    }
 
 }
