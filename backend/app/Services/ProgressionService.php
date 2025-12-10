@@ -50,6 +50,7 @@ class ProgressionService
             'goal' => 'required|string|max:50',
             'deadline' => 'required|date|after:today',
             'steps' => 'required|array|max:12',
+            'steps.*' => 'required|min:1'
         ]);
     }
 

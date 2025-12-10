@@ -26,7 +26,7 @@ export default function Login() {
             setUser(data.name);
             navigate("/");
         } catch (error) {
-            setError(error.response.data);
+            setError(error.response?.data || error.message);
         } finally {
             setLoading(false);
         }

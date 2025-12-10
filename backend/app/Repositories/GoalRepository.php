@@ -29,7 +29,8 @@ class GoalRepository
 
     public function delete(string $id): void
     {
-        Goal::destroy($id);
+        $goal = Goal::findOrFail($id);
+        $goal->delete();
     }
 
     public function find(mixed $id): Goal

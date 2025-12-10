@@ -15,6 +15,14 @@ export default function GoalHeader({goal, open, setOpen}) {
     const diffMs = deadline - today;
     const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
+    async function handleDelete(id) {
+        try {
+            await deleteGoal(id);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className={`flex items-center w-full font-bold p-2 rounded-md ${open ? 'bg-white/5 border-1 border-white/5 backdrop-blur-md ' : ''}`}>
             <div className='flex items-center w-1/3 gap-2'>
@@ -46,7 +54,7 @@ export default function GoalHeader({goal, open, setOpen}) {
                 </span>
 
                 <span className='relative left-1'>
-                    <i onClick={() => deleteGoal(goal.id)}
+                    <i onClick={() => handleDelete(goal.id)}
                         className="fa-solid fa-trash cursor-pointer"></i>
                 </span>
             </div>
