@@ -29,7 +29,9 @@ class ProgressionService
         $goal = $this->createGoalEntity($user->id, $validated);
         $this->createSteps($goal->id, $validated['steps']);
 
-        return response()->json(['message' => 'Goal created'], 201);
+        $created = $this->goalRepository->find($goal->id);
+
+        return response()->json(['message' => 'Goal created', 'goal' => $created], 201);
     }
 
     public function getGoals(Request $request): JsonResponse
@@ -48,6 +50,7 @@ class ProgressionService
             'goal' => 'required|string|max:50',
             'deadline' => 'required|date|after:today',
             'steps' => 'required|array|max:12',
+            'steps.*' => 'required|min:1'
         ]);
     }
 
@@ -96,6 +99,12 @@ class ProgressionService
         }
 
         return response()->json(['message' => 'Goal completed'], 201);
+    }
+
+    public function delete(string $id): JsonResponse
+    {
+        $this->goalRepository->delete($id);
+        return response()->json(['message' => 'Goal deleted'], 201);
     }
 
 }

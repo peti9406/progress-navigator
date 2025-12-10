@@ -14,6 +14,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/goals', [ProgressionController::class, 'index']);
     Route::put('/goals/{id}', [ProgressionController::class, 'complete']);
     Route::patch('/steps/{id}/toggle', [ProgressionController::class, 'toggle']);
+    Route::delete('/goals/{id}', [ProgressionController::class, 'delete']);
 });
 
 
