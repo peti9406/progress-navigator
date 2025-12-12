@@ -1,24 +1,19 @@
-import api from "../api/axios.js";
-import {useState} from "react";
+import {useContext} from "react";
+import {GoalContext} from "../contexts/GoalContext.js";
 
-export default function StepElement({step, onCheck}) {
-    const [checked, setChecked] = useState(step.completed);
+export default function StepElement({step, goalId, goalCompleted}) {
+    const {toggleStep} = useContext(GoalContext);
 
-    async function handleCheck(id) {
-
+    async function handleCheck() {
         try {
-            checked ? onCheck(prev => prev - 1) : onCheck(prev => prev + 1);
-            setChecked(!checked);
-
-            await api.get('/sanctum/csrf-cookie');
-            await api.patch(`/api/steps/${id}/toggle`);
+            await toggleStep(goalId, step.id);
         } catch (error) {
             console.log(error)
         }
     }
 
     return <li className='flex items-center space-x-6'>
-        <input className='cursor-pointer' type='checkbox' checked={checked} onChange={() => handleCheck(step.id)}/>
+        {!goalCompleted && <input className='cursor-pointer' type='checkbox' checked={!!step.completed} onChange={handleCheck}/>}
         <p className='text-left text-wrap px-2'>{step.step}</p>
     </li>
 }
