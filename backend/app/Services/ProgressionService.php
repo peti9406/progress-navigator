@@ -81,30 +81,40 @@ class ProgressionService
 
     public function completeGoal(string $id): JsonResponse
     {
-        $this->goalRepository->update(
-            $id,
-            [
-                'completed' => 1,
-                'achieved_at' => Date::now(),
-            ]
-        );
+        $isCompleted = $this->validateGoalCompletion($id);
 
-        $steps = $this->stepRepository->findByGoalId($id);
-
-        foreach ($steps as $step) {
-            $this->stepRepository->complete($step->id,
+        if ($isCompleted) {
+            $this->goalRepository->update(
+                $id,
                 [
-                'completed' => 1,
-            ]);
+                    'completed' => 1,
+                    'achieved_at' => Date::now(),
+                ]
+            );
+
+            return response()->json(['message' => 'Goal completed'], 201);
+        } else {
+            return response()->json(['message' => 'You need to complete the steps first!'], 422);
         }
 
-        return response()->json(['message' => 'Goal completed'], 201);
     }
 
     public function delete(string $id): JsonResponse
     {
         $this->goalRepository->delete($id);
         return response()->json(['message' => 'Goal deleted'], 201);
+    }
+
+    private function validateGoalCompletion(string $id): bool
+    {
+        $goal = $this->goalRepository->find($id);
+
+        foreach ($goal->steps as $step) {
+            if ($step->completed === 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

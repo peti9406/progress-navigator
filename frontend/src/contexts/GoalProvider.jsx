@@ -10,6 +10,7 @@ export function GoalProvider({children}) {
     useEffect(() => {
         async function loadGoals() {
             setLoading(true);
+            setError(null);
             try {
                 await api.get('/sanctum/csrf-cookie');
                 const {data} = await api.get('/api/goals?completed=0');
@@ -40,10 +41,46 @@ export function GoalProvider({children}) {
     }
 
     async function deleteGoal(id) {
+        const prev = goals;
+        setGoals(goals.filter(g => g.id !== id));
+
         try {
             await api.delete(`/api/goals/${id}`);
-            setGoals(goals.filter(g => g.id !== id));
         } catch (error) {
+            setGoals(prev);
+            setError(error.response?.data?.errors || error.message);
+            throw error;
+        }
+    }
+
+    async function toggleStep(goalId, stepId) {
+        setError(null);
+        const prev = goals;
+        setGoals((gList) => gList.map((g) => g.id === goalId ? {
+            ...g,
+            steps: g.steps.map((s) => s.id === stepId ? {...s, completed: s.completed ? 0 : 1} : s)
+        } : g));
+
+        try {
+            await api.get("/sanctum/csrf-cookie");
+            await api.patch(`/api/steps/${stepId}/toggle`);
+        } catch (error) {
+            setGoals(prev);
+            setError(error.response?.data?.errors || error.message);
+            throw error;
+        }
+    }
+
+    async function completeGoal(goalId) {
+        setError(null);
+        const prev = goals;
+        setGoals((gList) => gList.map((g) => g.id === goalId ? {...g, completed: 1} : g));
+
+        try {
+            await api.get("/sanctum/csrf-cookie");
+            await api.patch(`/api/goals/${goalId}/complete`);
+        } catch (error) {
+            setGoals(prev);
             setError(error.response?.data?.errors || error.message);
             throw error;
         }
@@ -52,12 +89,14 @@ export function GoalProvider({children}) {
     return (
         <GoalContext.Provider value={{
             goals,
-            addGoal,
-            deleteGoal,
             loading,
             error,
             setLoading,
             setError,
+            addGoal,
+            deleteGoal,
+            toggleStep,
+            completeGoal,
         }}>
             {children}
         </GoalContext.Provider>

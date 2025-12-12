@@ -12,10 +12,10 @@ export default function Home() {
 
     return (<>
         {loading && <LoadingComponent/>}
-        {error && <ErrorComponent message={error} />}
+        {error && <ErrorComponent message={error}/>}
 
         {!loading && !error && (
-            goals.length > 0  ? (
+            goals.length > 0 ? (
                     <GoalTable goals={goals}/>
                 )
                 : (

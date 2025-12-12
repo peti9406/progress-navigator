@@ -15,9 +15,9 @@ function App() {
     async function handleLogout(event) {
         event.preventDefault();
 
+        setUser(null);
         await api.get('sanctum/csrf-cookie');
         await api.post("/api/logout");
-        setUser(null);
     }
 
     return (<BrowserRouter>

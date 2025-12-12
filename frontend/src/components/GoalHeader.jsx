@@ -2,10 +2,8 @@ import ProgressionBar from "./ProgressionBar.jsx";
 import {useContext, useState} from "react";
 import {GoalContext} from "../contexts/GoalContext.js";
 
-export default function GoalHeader({goal, open, setOpen}) {
+export default function GoalHeader({goal, open, setOpen, completedSteps}) {
     const {deleteGoal} = useContext(GoalContext);
-    const [completed, setCompleted] = useState(goal.completed);
-    const [completedSteps, setCompletedSteps] = useState(goal.steps.filter((step) => step.completed === 1).length);
 
     const steps = goal.steps.length;
     const percentage = Math.round(completedSteps / steps * 100);
@@ -50,7 +48,7 @@ export default function GoalHeader({goal, open, setOpen}) {
                 </span>
 
                 <span>
-                        {!completed && <ProgressionBar percentage={percentage}/>}
+                        <ProgressionBar percentage={percentage}/>
                 </span>
 
                 <span className='relative left-1'>
