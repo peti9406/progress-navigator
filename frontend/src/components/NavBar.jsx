@@ -15,9 +15,6 @@ export default function Navbar({onLogout}) {
             </Link>
             {user ?
                 (<>
-                    <Link to='/create'>
-                        <Button onclick={() => setError(null)} text='Set new goal'/>
-                    </Link>
                     <div className='flex flex-row items-center ml-auto space-x-4'>
                         <p>Hi {user}!</p>
                         <Button onclick={onLogout} text='Log out'/>

@@ -37,10 +37,9 @@ class ProgressionService
     public function getGoals(Request $request): JsonResponse
     {
         $user = Auth::user();
+        $filter = $this->getFilter($request->filter);
 
-        $completed = $request->completed;
-
-        $goals = $this->goalRepository->findAll($user->id, $completed);
+        $goals = $this->goalRepository->findAll($user->id, $filter);
         return response()->json($goals);
     }
 
@@ -115,6 +114,16 @@ class ProgressionService
             }
         }
         return true;
+    }
+
+    private function getFilter(string $filter): ?array
+    {
+        return match ($filter) {
+            'Completed' => ['completed' => 1],
+            'Not Completed' => ['completed' => 0],
+            default => null,
+        };
+
     }
 
 }
