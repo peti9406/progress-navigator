@@ -1,8 +1,8 @@
 import StepElement from "./StepElement.jsx";
 import GoalHeader from "./GoalHeader.jsx";
-import Button from "./Button.jsx";
+import Button from "../Button.jsx";
 import {useContext} from "react";
-import {GoalContext} from "../contexts/GoalContext.js";
+import {GoalContext} from "../../contexts/GoalContext.js";
 
 export default function Goal({goal, open, setOpen}) {
     const {completeGoal} = useContext(GoalContext);

@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {GoalContext} from "../contexts/GoalContext.js";
+import {GoalContext} from "../../contexts/GoalContext.js";
 
 export default function StepElement({step, goalId, goalCompleted}) {
     const {toggleStep} = useContext(GoalContext);

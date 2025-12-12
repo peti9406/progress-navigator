@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Collection;
 class GoalRepository
 {
 
-    public function findAll(mixed $id, bool $completed): Collection
+    public function findAll(mixed $id, array $filter): Collection
     {
         return Goal::with('steps')
             ->where('user_id', $id)
-            ->where('completed', $completed)
-            ->orderBy('achieved_at', 'desc')
+            ->where($filter)
             ->get();
     }
 

@@ -1,29 +1,34 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import api from "../api/axios.js";
 import {GoalContext} from "./GoalContext.js";
+import AuthContext from "./AuthContext.js";
 
 export function GoalProvider({children}) {
     const [goals, setGoals] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [filter, setFilter] = useState("Not Completed");
+    const [sorted, setSorted] = useState("Ascending");
+    const {user} = useContext(AuthContext);
+
+    async function fetchGoals(filter = 'Not Completed') {
+        setLoading(true);
+        setError(null);
+        try {
+            await api.get('/sanctum/csrf-cookie');
+            const {data} = await api.get(`/api/goals?filter=${filter}`);
+            setGoals(data.sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
+        } catch (error) {
+            setError(error.response?.data?.message || error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-        async function loadGoals() {
-            setLoading(true);
-            setError(null);
-            try {
-                await api.get('/sanctum/csrf-cookie');
-                const {data} = await api.get('/api/goals?completed=0');
-                setGoals(data);
-            } catch (error) {
-                setError(error.response?.data?.message || error.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        loadGoals();
-    }, []);
+        if (!user) return;
+        fetchGoals();
+    }, [user]);
 
     async function addGoal(goal) {
         setLoading(true);
@@ -86,6 +91,26 @@ export function GoalProvider({children}) {
         }
     }
 
+    async function filterGoals(filter) {
+        setFilter(filter);
+        await fetchGoals(filter);
+    }
+
+    function sortGoals(sort) {
+        setSorted(sort);
+
+        if (sort === 'Ascending') {
+            setGoals((prev) => {
+                return prev.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+            });
+        } else {
+            setGoals((prev) => {
+                return prev.sort((a,b) => new Date(b.deadline) - new Date(a.deadline))
+            });
+        }
+    }
+
+
     return (
         <GoalContext.Provider value={{
             goals,
@@ -97,6 +122,10 @@ export function GoalProvider({children}) {
             deleteGoal,
             toggleStep,
             completeGoal,
+            filter,
+            filterGoals,
+            sorted,
+            sortGoals
         }}>
             {children}
         </GoalContext.Provider>
