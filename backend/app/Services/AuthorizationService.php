@@ -3,78 +3,75 @@
 namespace App\Services;
 
 
+use App\DTO\LoginData;
+use App\DTO\UserData;
+use App\DTO\VerifyEmailData;
+use App\Exceptions\EmailAlreadyVerifiedException;
+use App\Exceptions\EmailNotVerifiedException;
+use App\Exceptions\InvalidVerificationLinkException;
 use App\Models\User;
+use App\Repositories\UserRepository;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthorizationService
 {
-    public function verifyEmail(Request $request): JsonResponse
-    {
-        $user = User::findOrFail($request->id);
+    protected UserRepository $userRepository;
 
-        if (sha1($user->email) !== $request->hash) {
-            return response()->json(['message' => 'Invalid verification link'], 400);
+    public function __construct(UserRepository $userRepository){
+        $this->userRepository = $userRepository;
+    }
+
+    public function register(UserData $data): void
+    {
+        $user = $this->userRepository->create($data->toArray());
+        $user->sendEmailVerificationNotification();
+    }
+
+    /**
+     * @throws InvalidVerificationLinkException
+     * @throws EmailAlreadyVerifiedException
+     */
+    public function verifyEmail(VerifyEmailData $data): void
+    {
+        $user = $this->userRepository->find($data->userId);
+
+        if (sha1($user->email) !== $data->hash) {
+            throw new InvalidVerificationLinkException('Invalid verification link.');
         }
 
         if ($user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Email already verified']);
+            throw new EmailAlreadyVerifiedException('Email already verified.');
         }
 
         $user->markEmailAsVerified();
-
-        return response()->json(['message' => 'Email successfully verified']);
-    }
-    public function registerUser(Request $request): JsonResponse
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:30',
-            'email' => 'required|email|unique:users|confirmed',
-            'email_confirmation' => 'required',
-            'password' => 'required|min:6',
-        ]);
-
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password']
-        ]);
-
-        $user->sendEmailVerificationNotification();
-        return response()->json('User successfully registered', 201);
     }
 
-    public function loginUser(Request $request): JsonResponse
+    /**
+     * @throws AuthenticationException
+     * @throws EmailNotVerifiedException
+     */
+    public function login(LoginData $data): User
     {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (!Auth::attempt($validated)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+        if (!Auth::attempt($data->toArray())) {
+            throw new AuthenticationException('Invalid credentials.');
         }
 
         $user = Auth::user();
 
         if (!$user->hasVerifiedEmail()) {
             Auth::logout();
-            return response()->json(['message' => 'Your email address is not verified.'], 403);
+            throw new EmailNotVerifiedException('Your email address is not verified.');
         }
 
-        $request->session()->regenerate();
-
-        return response()->json([
-            'message' => 'User successfully logged in',
-            'name' => $user->name,
-        ]);
+        return $user;
     }
 
-    public function logoutUser(): JsonResponse
+    public function logout(): void
     {
         Auth::logout();
-        return response()->json(['message' => 'User successfully signed out']);
     }
 
 }

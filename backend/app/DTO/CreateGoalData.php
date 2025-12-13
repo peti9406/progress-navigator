@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-class CreateGoalData
+readonly class CreateGoalData
 {
     public function __construct(
         public int $userId,

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Step;
-use Illuminate\Database\Eloquent\Collection;
 
 class StepRepository
 {
@@ -19,17 +18,5 @@ class StepRepository
         $step->completed = !$step->completed;
         $step->save();
         return $step;
-    }
-
-    public function findByGoalId(string $id): Collection
-    {
-        return Step::where('goal_id', $id)->get();
-    }
-
-    public function complete($id, array $array): void
-    {
-        $step = Step::findOrFail($id);
-        $step->completed = 1;
-        $step->save();
     }
 }
