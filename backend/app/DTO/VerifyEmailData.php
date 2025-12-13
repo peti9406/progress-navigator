@@ -2,10 +2,10 @@
 
 namespace App\DTO;
 
-readonly class GoalQuery
+readonly class VerifyEmailData
 {
     public function __construct(
         public int $userId,
-        public ?string $status,
+        public string $hash
     ) {}
 }

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Link, useNavigate, useSearchParams} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import api from "../api/axios.js";
 
 export default function VerifyEmail() {
@@ -20,7 +20,7 @@ export default function VerifyEmail() {
                 const {data} = await api.get(`/api/email/verify/${id}/${hash}`);
                 setStatus(data.message);
             } catch (error) {
-                setStatus("Verification failed");
+                setStatus(error.response?.data?.message || error.message);
             }
         }
 
