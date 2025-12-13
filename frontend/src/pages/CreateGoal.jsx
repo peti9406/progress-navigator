@@ -55,9 +55,7 @@ export default function CreateGoal() {
     }
 
     return (<>
-        {error && <div>
-            {Object.values(error).map((err, index) => <ErrorComponent key={index} message={err} />)}
-        </div>}
+        {error &&  <ErrorComponent message={error} />}
 
         <Form onSubmit={handleSubmit} header='Set new Goal' buttonText='Set Goal'>
 

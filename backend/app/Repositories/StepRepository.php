@@ -13,11 +13,12 @@ class StepRepository
         Step::create($data);
     }
 
-    public function toggleCompleted(int $id): void
+    public function toggleCompleted(int $id): Step
     {
         $step = Step::findOrFail($id);
         $step->completed = !$step->completed;
         $step->save();
+        return $step;
     }
 
     public function findByGoalId(string $id): Collection

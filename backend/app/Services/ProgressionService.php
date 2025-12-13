@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\DTO\CreateGoalData;
+use App\DTO\GoalQuery;
 use App\Models\Goal;
+use App\Models\Step;
 use App\Repositories\GoalRepository;
 use App\Repositories\StepRepository;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 
 class ProgressionService
@@ -21,109 +22,62 @@ class ProgressionService
         $this->stepRepository = $stepRepository;
     }
 
-    public function createGoal(Request $request): JsonResponse
+    public function createGoal(CreateGoalData $data): Goal
     {
-        $user = Auth::user();
-
-        $validated = $this->validateGoalRequest($request);
-        $goal = $this->createGoalEntity($user->id, $validated);
-        $this->createSteps($goal->id, $validated['steps']);
-
-        $created = $this->goalRepository->find($goal->id);
-
-        return response()->json(['message' => 'Goal created', 'goal' => $created], 201);
-    }
-
-    public function getGoals(Request $request): JsonResponse
-    {
-        $user = Auth::user();
-        $filter = $this->getFilter($request->filter);
-
-        $goals = $this->goalRepository->findAll($user->id, $filter);
-        return response()->json($goals);
-    }
-
-    private function validateGoalRequest(Request $request): array
-    {
-        return $request->validate([
-            'goal' => 'required|string|max:50',
-            'deadline' => 'required|date|after:today',
-            'steps' => 'required|array|max:12',
-            'steps.*' => 'required|min:1'
+        $goal = $this->goalRepository->save([
+            'user_id' => $data->userId,
+            'goal' => $data->goal,
+            'deadline' => $data->deadline,
         ]);
-    }
 
-    private function createGoalEntity(int $userId, array $validated): Goal
-    {
-        return $this->goalRepository->save([
-            'user_id' => $userId,
-            'goal' => $validated['goal'],
-            'deadline' => $validated['deadline'],
-        ]);
-    }
-
-    private function createSteps(mixed $goalId, array $steps): void
-    {
-        foreach ($steps as $step) {
+        foreach ($data->steps as $step) {
             $this->stepRepository->save([
-                'goal_id' => $goalId,
+                'goal_id' => $goal->id,
                 'step' => $step,
             ]);
         }
+
+        return $this->goalRepository->find($goal->id);
     }
 
-    public function toggleCompleted(string $id): JsonResponse
+    public function getGoals(GoalQuery $query): Collection|Goal
     {
-        $this->stepRepository->toggleCompleted($id);
-        return response()->json(['message' => 'Goal updated'], 201);
+        $filter = match ($query->status) {
+            'Completed' => ['completed' => 1],
+            'Not Completed' => ['completed' => 0],
+            default => [],
+        };
+
+        return $this->goalRepository->findAll($query->userId, $filter);
     }
 
-    public function completeGoal(string $id): JsonResponse
+
+    public function toggleCompleted(string $id): Step
     {
-        $isCompleted = $this->validateGoalCompletion($id);
-
-        if ($isCompleted) {
-            $this->goalRepository->update(
-                $id,
-                [
-                    'completed' => 1,
-                    'achieved_at' => Date::now(),
-                ]
-            );
-
-            return response()->json(['message' => 'Goal completed'], 201);
-        } else {
-            return response()->json(['message' => 'You need to complete the steps first!'], 422);
-        }
-
+        return $this->stepRepository->toggleCompleted($id);
     }
 
-    public function delete(string $id): JsonResponse
-    {
-        $this->goalRepository->delete($id);
-        return response()->json(['message' => 'Goal deleted'], 201);
-    }
-
-    private function validateGoalCompletion(string $id): bool
+    public function completeGoal(string $id): void
     {
         $goal = $this->goalRepository->find($id);
 
         foreach ($goal->steps as $step) {
             if ($step->completed === 0) {
-                return false;
+                throw new \RuntimeException('You need to complete the steps first!');
             }
         }
-        return true;
+
+        $this->goalRepository->update(
+            $id,
+            [
+                'completed' => 1,
+                'achieved_at' => Date::now(),
+            ]
+        );
     }
 
-    private function getFilter(string $filter): ?array
+    public function delete(string $id): void
     {
-        return match ($filter) {
-            'Completed' => ['completed' => 1],
-            'Not Completed' => ['completed' => 0],
-            default => null,
-        };
-
+        $this->goalRepository->delete($id);
     }
-
 }
