@@ -14,35 +14,34 @@ jobs:
       # Check code from the repository
       - uses: actions/checkout@v3
 
-      # Install PHP and dependencies
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
           extensions: mbstring, bcmath, pdo_sqlite, intl, xml, curl
 
-      # Install Composer
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist
+        working-directory: ./backend
 
-      # Configure .env for testing
       - name: Copy .env for testing
         run: cp .env.example .env
+        working-directory: ./backend
 
-      # Laravel app key generation
       - name: Generate application key
         run: php artisan key:generate
+        working-directory: ./backend
 
-      # Configure Test Database to SQLite in-memory
       - name: Configure testing database
         run: |
           echo "DB_CONNECTION=sqlite" >> .env
           echo "DB_DATABASE=:memory:" >> .env
+        working-directory: ./backend
 
-      # Run Database migrations
       - name: Run migrations
         run: php artisan migrate --env=testing
+        working-directory: ./backend
 
-      # Run Unit tests
       - name: Run PHPUnit tests
         run: php artisan test --env=testing
+        working-directory: ./backend
