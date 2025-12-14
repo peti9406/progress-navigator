@@ -1,0 +1,48 @@
+name: Run Laravel Unit Tests (SQLite in-memory)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  phpunit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check code from the repository
+      - uses: actions/checkout@v3
+
+      # Install PHP and dependencies
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, bcmath, pdo_sqlite, intl, xml, curl
+
+      # Install Composer
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist
+
+      # Configure .env for testing
+      - name: Copy .env for testing
+        run: cp .env.example .env
+
+      # Laravel app key generation
+      - name: Generate application key
+        run: php artisan key:generate
+
+      # Configure Test Database to SQLite in-memory
+      - name: Configure testing database
+        run: |
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=:memory:" >> .env
+
+      # Run Database migrations
+      - name: Run migrations
+        run: php artisan migrate --env=testing
+
+      # Run Unit tests
+      - name: Run PHPUnit tests
+        run: php artisan test --env=testing
