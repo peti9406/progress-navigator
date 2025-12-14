@@ -66,7 +66,9 @@ class AuthController extends Controller
 
         try {
             $user = AuthService::login($data);
+
             $request->session()->regenerate();
+
             return response()->json([
                 'message' => 'User successfully logged in',
                 'name' => $user->name
