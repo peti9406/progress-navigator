@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Services;
 
 use App\DTO\LoginData;
 use App\DTO\UserData;
@@ -167,9 +167,6 @@ class AuthorizationServiceTest extends TestCase
         Auth::shouldReceive('user')
             ->once()
             ->andReturn($user);
-
-        Auth::shouldReceive('logout')
-            ->once();
 
         $data = new LoginData(
             'not_verified@gmail.com',

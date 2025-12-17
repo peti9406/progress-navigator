@@ -61,16 +61,9 @@ class AuthorizationService
         $user = Auth::user();
 
         if (!$user->hasVerifiedEmail()) {
-            Auth::logout();
             throw new EmailNotVerifiedException('Your email address is not verified.');
         }
 
         return $user;
     }
-
-    public function logout(): void
-    {
-        Auth::logout();
-    }
-
 }

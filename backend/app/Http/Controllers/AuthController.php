@@ -9,12 +9,20 @@ use App\Exceptions\EmailAlreadyVerifiedException;
 use App\Exceptions\EmailNotVerifiedException;
 use App\Exceptions\InvalidVerificationLinkException;
 use App\Facades\AuthService;
+use App\Services\AuthorizationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    protected AuthorizationService $authorizationService;
+
+    public function __construct(AuthorizationService $authorizationService)
+    {
+        $this->authorizationService = $authorizationService;
+    }
+
     //
     public function register(Request $request): JsonResponse
     {
@@ -31,8 +39,8 @@ class AuthController extends Controller
             $validated['password'],
         );
 
-        AuthService::register($data);
-        return response()->json('User successfully registered', 201);
+        $this->authorizationService->register($data);
+        return response()->json(['message' => 'User successfully registered'], 201);
     }
 
     public function verifyEmail(Request $request): JsonResponse
@@ -43,8 +51,8 @@ class AuthController extends Controller
         );
 
         try {
-            AuthService::verifyEmail($data);
-            return response()->json('Email verified successfully');
+            $this->authorizationService->verifyEmail($data);
+            return response()->json(['message' => 'Email verified successfully']);
         } catch (InvalidVerificationLinkException $exception) {
             return response()->json(['message' => $exception->getMessage()], 400);
         } catch (EmailAlreadyVerifiedException $exception) {
@@ -65,17 +73,18 @@ class AuthController extends Controller
         );
 
         try {
-            $user = AuthService::login($data);
-
-            $request->session()->regenerate();
+            $user = $this->authorizationService->login($data);
+            $token = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([
                 'message' => 'User successfully logged in',
-                'name' => $user->name
-                ]);
-        } catch(AuthenticationException $exception) {
+                'name' => $user->name,
+                'token' => $token,
+            ]);
+        } catch (AuthenticationException $exception) {
             return response()->json(['message' => $exception->getMessage()], 401);
-        } catch(EmailNotVerifiedException $exception) {
+        } catch (EmailNotVerifiedException $exception) {
+            $request->user()?->tokens()->delete();
             return response()->json(['message' => $exception->getMessage()], 403);
         }
     }
@@ -83,9 +92,7 @@ class AuthController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        AuthService::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return response()->json('User successfully logged out');
+        $request->user()?->tokens()->delete();
+        return response()->json(['message' => 'User successfully logged out']);
     }
 }
