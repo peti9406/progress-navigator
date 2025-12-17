@@ -24,18 +24,14 @@ jobs:
         run: composer install --no-progress --prefer-dist
         working-directory: ./backend
 
-      - name: Copy .env for testing
-        run: cp .env.example .env
-        working-directory: ./backend
+      - name: Ensure .env.testing exists
+        run: |
+          if [ ! -f ./backend/.env.testing ]; then
+            cp ./backend/.env.example ./backend/.env.testing
+          fi
 
       - name: Generate application key
         run: php artisan key:generate
-        working-directory: ./backend
-
-      - name: Configure testing database
-        run: |
-          echo "DB_CONNECTION=sqlite" >> .env
-          echo "DB_DATABASE=:memory:" >> .env
         working-directory: ./backend
 
       - name: Run migrations
@@ -43,5 +39,5 @@ jobs:
         working-directory: ./backend
 
       - name: Run PHPUnit tests
-        run: php artisan test --env=testing
+        run: php artisan test --env=testing --verbose
         working-directory: ./backend
