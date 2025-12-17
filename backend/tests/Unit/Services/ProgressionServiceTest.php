@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Services;
 
 use App\DTO\CreateGoalData;
 use App\DTO\GoalQuery;
