@@ -25,12 +25,10 @@ class GoalFactory extends Factory
         ];
     }
 
-    public function configure(): Factory|GoalFactory
+    public function withSteps(int $count = 3): static
     {
-        return $this->afterCreating(function (Goal $goal) {
-            Step::factory(random_int(4, 12))->create([
-                'goal_id' => $goal->id
-            ]);
-        });
+        return $this->has(
+            Step::factory()->count($count)
+        );
     }
 }

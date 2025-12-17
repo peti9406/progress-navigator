@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use App\DTO\CreateGoalData;
 use App\DTO\GoalQuery;
+use App\Exceptions\StepsNotCompletedException;
 use App\Facades\ProgService;
+use App\Services\ProgressionService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProgressionController extends Controller
 {
+    protected ProgressionService $progressionService;
+
+    public function __construct(ProgressionService $progressionService)
+    {
+        $this->progressionService = $progressionService;
+    }
+
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -27,7 +36,7 @@ class ProgressionController extends Controller
             $validated['steps']
         );
 
-        $goal = ProgService::createGoal($data);
+        $goal = $this->progressionService->createGoal($data);
 
         return response()->json([
             'message' => 'Goal created',
@@ -41,8 +50,7 @@ class ProgressionController extends Controller
             auth()->id(),
             $request->filter
         );
-
-        $goals = ProgService::getGoals($query);
+        $goals = $this->progressionService->getGoals($query);
 
         return response()->json($goals);
     }
@@ -50,7 +58,7 @@ class ProgressionController extends Controller
     public function toggle(string $id): JsonResponse
     {
         try {
-            ProgService::toggleCompleted($id);
+            $this->progressionService->toggleCompleted($id);
             return response()->json(['message' => 'Step updated']);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Step not found'], 404);
@@ -60,9 +68,9 @@ class ProgressionController extends Controller
     public function complete(string $id): JsonResponse
     {
         try {
-            ProgService::completeGoal($id);
-            return response()->json(['message' => 'Goal completed']);
-        } catch (\RuntimeException $e) {
+            $this->progressionService->completeGoal($id);
+            return response()->json(['message' => 'Goal completed'], 204);
+        } catch (StepsNotCompletedException  $e) {
             return response()->json(['message' => $e->getMessage()], 422);
         }
     }
@@ -70,8 +78,8 @@ class ProgressionController extends Controller
     public function delete(string $id): JsonResponse
     {
         try {
-            ProgService::delete($id);
-            return response()->json(['message' => 'Goal deleted'], 204);
+            $this->progressionService->delete($id);
+            return response()->json(['message' => 'Goal deleted']);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Goal not found'], 404);
         }

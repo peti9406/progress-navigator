@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\CreateGoalData;
 use App\DTO\GoalQuery;
+use App\Exceptions\StepsNotCompletedException;
 use App\Models\Goal;
 use App\Models\Step;
 use App\Repositories\GoalRepository;
@@ -57,13 +58,16 @@ class ProgressionService
         return $this->stepRepository->toggleCompleted($id);
     }
 
+    /**
+     * @throws StepsNotCompletedException
+     */
     public function completeGoal(string $id): void
     {
         $goal = $this->goalRepository->find($id);
 
         foreach ($goal->steps as $step) {
             if ($step->completed === 0) {
-                throw new \RuntimeException('You need to complete the steps first!');
+                throw new StepsNotCompletedException ('You need to complete the steps first!');
             }
         }
 

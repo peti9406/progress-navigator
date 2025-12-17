@@ -4,6 +4,7 @@ namespace Services;
 
 use App\DTO\CreateGoalData;
 use App\DTO\GoalQuery;
+use App\Exceptions\StepsNotCompletedException;
 use App\Models\Goal;
 use App\Models\Step;
 use App\Repositories\GoalRepository;
@@ -222,7 +223,7 @@ class ProgressionServiceTest extends TestCase
             ->with($goal->id)
             ->andReturn($goal);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(StepsNotCompletedException ::class);
         $this->underTest->completeGoal($goal->id);
     }
 
