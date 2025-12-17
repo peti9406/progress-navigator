@@ -2,6 +2,7 @@
 
 namespace Auth;
 
+use App\Exceptions\EmailAlreadyVerifiedException;
 use App\Models\User;
 use App\Services\AuthorizationService;
 use Illuminate\Auth\AuthenticationException;
@@ -20,7 +21,7 @@ class VerifyEmailAlreadyVerifiedTest extends TestCase
         $authService
             ->shouldReceive('verifyEmail')
             ->once()
-            ->andThrow(new AuthenticationException('Email already verified.'));
+            ->andThrow(new EmailAlreadyVerifiedException('Email already verified.'));
 
         $response = $this->getJson("/api/email/verify/{$user->id}/validhash");
         $response
