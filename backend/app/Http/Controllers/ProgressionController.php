@@ -69,7 +69,7 @@ class ProgressionController extends Controller
     {
         try {
             $this->progressionService->completeGoal($id);
-            return response()->json(['message' => 'Goal completed'], 204);
+            return response()->json(['message' => 'Goal completed']);
         } catch (StepsNotCompletedException  $e) {
             return response()->json(['message' => $e->getMessage()], 422);
         }
