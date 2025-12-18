@@ -31,19 +31,11 @@ export function GoalProvider({children}) {
     }, [user]);
 
     async function addGoal(goal) {
-        setLoading(true);
-        setError(null);
-        try {
-            await api.get("/sanctum/csrf-cookie");
-            const {data} = await api.post("/api/goals", goal);
-            setGoals((prev) => [...prev, data.goal]);
-        } catch (error) {
-            setError(error.response?.data?.errors || error.message);
-            throw error;
-        } finally {
-            setLoading(false);
-        }
+        await api.get("/sanctum/csrf-cookie");
+        const {data} = await api.post("/api/goals", goal);
+        setGoals((prev) => [...prev, data.goal]);
     }
+
 
     async function deleteGoal(id) {
         const prev = goals;
@@ -103,7 +95,7 @@ export function GoalProvider({children}) {
             });
         } else {
             setGoals((prev) => {
-                return prev.sort((a,b) => new Date(b.deadline) - new Date(a.deadline))
+                return prev.sort((a, b) => new Date(b.deadline) - new Date(a.deadline))
             });
         }
     }
