@@ -1,5 +1,5 @@
 import ProgressionBar from "./ProgressionBar.jsx";
-import ConfirmDelete from "../ConfirmDelete.jsx";
+import DeleteModal from "../modal/DeleteModal.jsx";
 
 export default function GoalHeader({goal, open, setOpen, completedSteps}) {
     const steps = goal.steps.length;
@@ -45,7 +45,7 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                 </span>
 
                 <span>
-                    <ConfirmDelete goal={goal.goal} id={goal.id}/>
+                    <DeleteModal goal={goal.goal} id={goal.id}/>
                 </span>
             </div>
         </div>)
