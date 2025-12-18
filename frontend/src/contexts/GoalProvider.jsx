@@ -53,7 +53,6 @@ export function GoalProvider({children}) {
             await api.delete(`/api/goals/${id}`);
         } catch (error) {
             setGoals(prev);
-            // setError(error.response?.data?.errors || error.message);
             throw error;
         }
     }
@@ -86,7 +85,6 @@ export function GoalProvider({children}) {
             await api.patch(`/api/goals/${goalId}/complete`);
         } catch (error) {
             setGoals(prev);
-            // setError(error.response?.data?.errors || error.message);
             throw error;
         }
     }

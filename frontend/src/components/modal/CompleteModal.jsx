@@ -11,7 +11,7 @@ export default function CompleteModal({goal, id}) {
     }
 
     return <ConfirmModal
-        trigger={<Button text='Complete'/>}
+        trigger={<Button>Complete</Button>}
         title={`Complete goal: ${goal}`}
         description='Are you sure you want to complete this goal?'
         confirmText='Complete'
