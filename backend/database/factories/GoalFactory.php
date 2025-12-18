@@ -21,7 +21,7 @@ class GoalFactory extends Factory
         return [
             'user_id' => 1,
             'goal' => $this->faker->word(),
-            'deadline' => $this->faker->date(),
+            'deadline' => now()->addDays(rand(7, 365)),
         ];
     }
 

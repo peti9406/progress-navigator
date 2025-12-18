@@ -1,5 +1,4 @@
 import {useContext} from "react";
-import {Link} from "react-router-dom";
 import ErrorComponent from "../components/ErrorComponent.jsx";
 import LoadingComponent from "../components/LoadingComponent.jsx";
 import useAuthRedirect from "../hooks/useAuthRedirect.js";

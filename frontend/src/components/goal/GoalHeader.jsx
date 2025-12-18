@@ -1,10 +1,7 @@
 import ProgressionBar from "./ProgressionBar.jsx";
-import {useContext} from "react";
-import {GoalContext} from "../../contexts/GoalContext.js";
+import ConfirmDelete from "../ConfirmDelete.jsx";
 
 export default function GoalHeader({goal, open, setOpen, completedSteps}) {
-    const {deleteGoal} = useContext(GoalContext);
-
     const steps = goal.steps.length;
     const percentage = Math.round(completedSteps / steps * 100);
 
@@ -12,14 +9,6 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
     const deadline = new Date(goal.deadline.replace(/\./g, '-'));
     const diffMs = deadline - today;
     const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-
-    async function handleDelete(id) {
-        try {
-            await deleteGoal(id);
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     return (
         <div
@@ -36,28 +25,27 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
             <div className='grid grid-cols-[1fr_1fr_1fr_auto] w-2/3 items-center'>
                 <span>
                         {goal.completed ? (
-                            <h2 >{goal.achieved_at}</h2>
+                                <h2>{goal.achieved_at}</h2>
                             )
                             : daysLeft > 0 ? (
-                            <h2 className=' text-sm'>{daysLeft} days left!</h2>
-                        ) : daysLeft === 0 ? (
-                            <h2 className='text-sm text-yellow-500'>Deadline is today!</h2>
-                        ) : (
-                            <h2 className=' text-sm text-red-500'>{Math.abs(daysLeft)} days late!</h2>
-                        )}
+                                <h2 className=' text-sm'>{daysLeft} days left!</h2>
+                            ) : daysLeft === 0 ? (
+                                <h2 className='text-sm text-yellow-500'>Deadline is today!</h2>
+                            ) : (
+                                <h2 className=' text-sm text-red-500'>{Math.abs(daysLeft)} days late!</h2>
+                            )}
                 </span>
 
                 <span>
-                        {completedSteps} / {steps}
+                    {completedSteps} / {steps}
                 </span>
 
                 <span>
-                        <ProgressionBar percentage={percentage}/>
+                    <ProgressionBar percentage={percentage}/>
                 </span>
 
-                <span className='relative left-1'>
-                    <i onClick={() => handleDelete(goal.id)}
-                       className="fa-solid fa-trash cursor-pointer"></i>
+                <span>
+                    <ConfirmDelete goal={goal.goal} id={goal.id}/>
                 </span>
             </div>
         </div>)
