@@ -125,7 +125,7 @@ export function GoalProvider({children}) {
             filter,
             filterGoals,
             sorted,
-            sortGoals
+            sortGoals,
         }}>
             {children}
         </GoalContext.Provider>
