@@ -7,11 +7,7 @@ export default function CompleteModal({goal, id}) {
     const {completeGoal} = useContext(GoalContext);
 
     async function handleComplete() {
-        try {
-            await completeGoal(id);
-        } catch (error) {
-            console.error(error);
-        }
+        await completeGoal(id);
     }
 
     return <ConfirmModal

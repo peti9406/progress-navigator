@@ -11,21 +11,29 @@ export default function Navbar({onLogout}) {
     return (<div className='flex flex-row justify-center items-center w-full min-w-max
     bg-b3d9ff'>
             <Link to='/'>
-                <Button onclick={() => setError(null)} text='Home' />
+                <Button onclick={() => setError(null)}>
+                    Home
+                </Button>
             </Link>
             {user ?
                 (<>
                     <div className='flex flex-row items-center ml-auto space-x-4'>
                         <p>Hi {user}!</p>
-                        <Button onclick={onLogout} text='Log out'/>
+                        <Button onclick={onLogout}>
+                            Log out
+                        </Button>
                     </div>
                 </> )
                 : (<>
                     <Link to='/register'>
-                        <Button text='Register'/>
+                        <Button>
+                            Register
+                        </Button>
                     </Link>
                     <Link to='/login'>
-                        <Button text='Sign in'/>
+                        <Button>
+                            Sign in
+                        </Button>
                     </Link>
                 </>)}
         </div>

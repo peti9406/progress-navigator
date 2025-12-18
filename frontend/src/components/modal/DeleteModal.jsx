@@ -6,11 +6,7 @@ export default function DeleteModal({goal, id}) {
     const {deleteGoal} = useContext(GoalContext);
 
     async function handleDelete() {
-        try {
-            await deleteGoal(id);
-        } catch (error) {
-            console.log(error);
-        }
+        await deleteGoal(id);
     }
 
     return <ConfirmModal

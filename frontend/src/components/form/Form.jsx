@@ -10,6 +10,8 @@ export default function Form({children, onSubmit, header, buttonText}) {
                 {children}
             </div>
 
-            <Button type="submit" text={buttonText}/>
+            <Button type="submit">
+                {buttonText}
+            </Button>
         </form>)
 }

@@ -36,7 +36,9 @@ export default function TableTools() {
 
             <span>
                     <Link to='/create'>
-                        <Button onclick={() => setError(null)} text='Set new goal'/>
+                        <Button onclick={() => setError(null)}>
+                            Set new goal
+                        </Button>
                     </Link>
                 </span>
         </div>
