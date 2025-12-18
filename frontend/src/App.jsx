@@ -5,7 +5,6 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Home from "./pages/Home.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
-import CreateGoal from "./pages/CreateGoal.jsx";
 import api from "./api/axios.js";
 import useAuth from "./hooks/useAuth.js";
 
@@ -27,8 +26,6 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/verify-email" element={<VerifyEmail/>}/>
-
-                <Route path="/create" element={<CreateGoal/>}/>
             </Routes>
         </BrowserRouter>
     )

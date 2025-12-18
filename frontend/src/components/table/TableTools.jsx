@@ -2,10 +2,11 @@ import {Link} from "react-router-dom";
 import Button from "../Button.jsx";
 import {useContext, useState} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
+import NewGoalModal from "../modal/NewGoalModal.jsx";
 
 export default function TableTools() {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const {setError,filter, sorted, filterGoals, sortGoals} = useContext(GoalContext);
+    const {setError, filter, sorted, filterGoals, sortGoals} = useContext(GoalContext);
 
     async function handleFilter(event) {
         await filterGoals(event.target.value);
@@ -35,12 +36,8 @@ export default function TableTools() {
             </div>
 
             <span>
-                    <Link to='/create'>
-                        <Button onclick={() => setError(null)}>
-                            Set new goal
-                        </Button>
-                    </Link>
-                </span>
+                <NewGoalModal />
+            </span>
         </div>
     )
 }
