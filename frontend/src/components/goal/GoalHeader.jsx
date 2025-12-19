@@ -1,5 +1,6 @@
 import ProgressionBar from "./ProgressionBar.jsx";
 import DeleteModal from "../modal/DeleteModal.jsx";
+import ToolTip from "../ToolTip.jsx";
 
 export default function GoalHeader({goal, open, setOpen, completedSteps}) {
     const steps = goal.steps.length;
@@ -47,9 +48,9 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                     <ProgressionBar percentage={percentage}/>
                 </span>
 
-                <span className='ml-1'>
+                <ToolTip tip='Delete Goal'>
                     <DeleteModal goal={goal.goal} id={goal.id}/>
-                </span>
+                </ToolTip>
             </div>
         </div>)
 }
