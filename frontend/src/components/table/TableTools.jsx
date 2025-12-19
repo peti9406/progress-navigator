@@ -1,27 +1,18 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
 import NewGoalModal from "../modal/NewGoalModal.jsx";
+import FilterSelect from "../FilterSelect.jsx";
 
 export default function TableTools() {
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const {filter, filterGoals, sortBy} = useContext(GoalContext);
+    const {filter, sortBy} = useContext(GoalContext);
 
-    async function handleFilter(event) {
-        await filterGoals(event.target.value);
-    }
 
     return (
         <div className='flex mb-2 font-bold w-full justify-between items-center'>
             <div className='space-x-4'>
                 <span className='bg-white/60 rounded-md  p-2'>Filtered by: {filter}</span>
-                <span onClick={() => setIsFilterOpen(true)} className='cursor-pointer bg-white/60 p-2 rounded-md'>
-                    <i className="fa-solid fa-filter"></i></span>
-                {isFilterOpen && (
-                    <select onChange={handleFilter} value={filter}>
-                        <option value='Completed'>Completed</option>
-                        <option value='Not Completed'>Not Completed</option>
-                    </select>
-                )}
+
+                <FilterSelect/>
 
                 <span className='bg-white/60 rounded-md  p-2'>Sorted by: {sortBy}</span>
             </div>
