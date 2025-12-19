@@ -1,10 +1,12 @@
 import {ArrowDown, ArrowUp} from "lucide-react";
 
-export default function SortIcon({active, direction})
-{
-    if (!active) return null;
+export default function SortIcon({active, direction}) {
 
-    return direction === "Ascending"
-        ? <ArrowUp size={16} opacity='80' className='inline ml-1'/>
-        : <ArrowDown size={16} opacity='80' className='inline ml-1' />;
+    return (
+        <span className='inline-flex w-4 ml-1'>
+                {direction === "Ascending"
+                    ? <ArrowUp size={18} className={active ? 'opacity-60' : 'opacity-0'}/>
+                    : <ArrowDown size={18} className={active ? 'opacity-60' : 'opacity-0'}/>
+                }
+        </span>)
 }

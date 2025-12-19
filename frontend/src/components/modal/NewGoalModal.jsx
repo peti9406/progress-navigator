@@ -3,7 +3,6 @@ import {
     DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -14,6 +13,7 @@ import ErrorComponent from "../ErrorComponent.jsx";
 import {GoalContext} from "../../contexts/GoalContext.js";
 import InputField from "../form/InputField.jsx";
 import loadingGif from "../../assets/loading.gif";
+import {X} from "lucide-react";
 
 export default function NewGoalModal() {
     const [open, setOpen] = useState(false);
@@ -96,7 +96,7 @@ export default function NewGoalModal() {
                                             value={steps[index]}
                                             onChange={(event) => handleStepChange(index, event.target.value)}/>
                                 {steps.length > 1 &&
-                                    <span className="cursor-pointer" onClick={() => removeStep(index)}>❌</span>}
+                                        <X className='text-red-400 cursor-pointer mt-2' onClick={() => removeStep(index)}/>}
                             </div>))}
                     </div>
 

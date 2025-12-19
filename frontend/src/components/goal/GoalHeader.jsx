@@ -17,8 +17,9 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                     <span onClick={() => setOpen(goal.id)}
                           className='cursor-pointer'>
                         {open
-                            ? '⬇️'
-                            : '➡️'}
+                            ? <i className="fa-solid fa-caret-down"></i>
+                            : <i className="fa-solid fa-caret-right"></i>
+                        }
                     </span>
 
                 <span>{goal.goal}</span>
@@ -46,7 +47,7 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                     <ProgressionBar percentage={percentage}/>
                 </span>
 
-                <span>
+                <span className='ml-1'>
                     <DeleteModal goal={goal.goal} id={goal.id}/>
                 </span>
             </div>
