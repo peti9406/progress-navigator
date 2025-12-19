@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import Button from "../Button.jsx";
+import Button from "../ui/Button.jsx";
 import ConfirmModal from "./ConfirmModal.jsx";
 
 export default function CompleteModal({goal, id}) {

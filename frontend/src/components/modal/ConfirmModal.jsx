@@ -8,7 +8,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../ui/dialog.jsx";
-import Button from "../Button.jsx";
+import Button from "../ui/Button.jsx";
 import {useState} from "react";
 import ErrorComponent from "../ErrorComponent.jsx";
 import loadingGif from "../../assets/loading.gif"

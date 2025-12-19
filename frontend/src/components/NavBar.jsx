@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import Button from "./Button.jsx";
+import Button from "./ui/Button.jsx";
 import useAuth from "../hooks/useAuth.js";
 import {useContext} from "react";
 import {GoalContext} from "../contexts/GoalContext.js";

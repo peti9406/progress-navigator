@@ -7,7 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../ui/dialog.jsx";
-import Button from "../Button.jsx";
+import Button from "../ui/Button.jsx";
 import {useContext, useState} from "react";
 import ErrorComponent from "../ErrorComponent.jsx";
 import {GoalContext} from "../../contexts/GoalContext.js";

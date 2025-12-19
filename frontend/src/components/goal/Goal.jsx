@@ -2,7 +2,7 @@ import StepElement from "./StepElement.jsx";
 import GoalHeader from "./GoalHeader.jsx";
 import {GoalContext} from "../../contexts/GoalContext";
 import CompleteModal from "../modal/CompleteModal.jsx";
-import Button from "../Button.jsx";
+import Button from "../ui/Button.jsx";
 
 export default function Goal({goal, open, setOpen}) {
     const completedSteps = goal.steps.filter((step) => step.completed === 1).length;
