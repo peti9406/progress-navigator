@@ -11,7 +11,7 @@ export default function Navbar({onLogout}) {
     return (<div className='flex flex-row justify-center items-center w-full min-w-max
     bg-b3d9ff'>
             <Link to='/'>
-                <Button onclick={() => setError(null)}>
+                <Button onClick={() => setError(null)}>
                     Home
                 </Button>
             </Link>
@@ -19,7 +19,7 @@ export default function Navbar({onLogout}) {
                 (<>
                     <div className='flex flex-row items-center ml-auto space-x-4'>
                         <p>Hi {user}!</p>
-                        <Button onclick={onLogout}>
+                        <Button onClick={onLogout}>
                             Log out
                         </Button>
                     </div>
