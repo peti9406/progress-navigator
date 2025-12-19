@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import SortIcon from "../SortIcon.jsx";
+import SortIcon from "../ui/SortIcon.jsx";
 
 export default function TableHeader() {
     const {filter, sortGoals, sorted, sortBy} = useContext(GoalContext);
