@@ -1,20 +1,13 @@
-import {Link} from "react-router-dom";
-import Button from "../Button.jsx";
 import {useContext, useState} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
 import NewGoalModal from "../modal/NewGoalModal.jsx";
 
 export default function TableTools() {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const {setError, filter, sorted, filterGoals, sortGoals} = useContext(GoalContext);
+    const {filter, sorted, filterGoals, sortBy} = useContext(GoalContext);
 
     async function handleFilter(event) {
         await filterGoals(event.target.value);
-    }
-
-    function handleSort() {
-        const sort = sorted === 'Ascending' ? 'Descending' : 'Ascending';
-        sortGoals(sort);
     }
 
     return (
@@ -30,14 +23,10 @@ export default function TableTools() {
                     </select>
                 )}
 
-                <span className='bg-white/60 rounded-md  p-2'>Sorted by: {sorted} Deadline</span>
-                <span onClick={handleSort} className='cursor-pointer bg-white/60 p-2 rounded-md'><i
-                    className="fa-solid fa-sort"></i></span>
+                <span className='bg-white/60 rounded-md  p-2'>Sorted by: {sortBy} - {sorted}</span>
             </div>
 
-            <span>
-                <NewGoalModal />
-            </span>
+            <NewGoalModal/>
         </div>
     )
 }

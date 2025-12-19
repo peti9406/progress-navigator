@@ -9,6 +9,7 @@ export function GoalProvider({children}) {
     const [loading, setLoading] = useState(false);
     const [filter, setFilter] = useState("Not Completed");
     const [sorted, setSorted] = useState("Ascending");
+    const [sortBy, setSortBy] = useState("Deadline")
     const {user} = useContext(AuthContext);
 
     async function fetchGoals(filter = 'Not Completed') {
@@ -87,17 +88,26 @@ export function GoalProvider({children}) {
     }
 
     function sortGoals(sort) {
-        setSorted(sort);
+        let newSorted = sorted;
 
-        if (sort === 'Ascending') {
-            setGoals((prev) => {
-                return prev.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-            });
-        } else {
-            setGoals((prev) => {
-                return prev.sort((a, b) => new Date(b.deadline) - new Date(a.deadline))
-            });
+        if (sortBy === sort) {
+            newSorted = sorted === "Ascending" ? "Descending" : "Ascending";
+            setSorted(newSorted);
         }
+
+        setSortBy(sort);
+        const direction = newSorted === "Ascending" ? 1 : -1;
+
+        const completedCount = goal => goal.steps.filter(step => step.completed).length;
+
+        const sortMap = {
+            Deadline: (a, b) => direction * (new Date(a.deadline) - new Date(b.deadline)),
+            "Goal List": (a, b) => direction * a.goal.localeCompare(b.goal),
+            Completed: (a, b) => direction * (completedCount(a) - completedCount(b)),
+            Progression: (a, b) => direction * (completedCount(a) / a.steps.length - completedCount(b) / b.steps.length),
+        }
+
+        setGoals((prev) => [...prev].sort(sortMap[sort]));
     }
 
 
@@ -115,6 +125,7 @@ export function GoalProvider({children}) {
             filter,
             filterGoals,
             sorted,
+            sortBy,
             sortGoals,
         }}>
             {children}
