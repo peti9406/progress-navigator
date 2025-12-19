@@ -16,7 +16,9 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
             <div className='flex items-center w-1/3 gap-2'>
                     <span onClick={() => setOpen(goal.id)}
                           className='cursor-pointer'>
-                        {open ? '⬇️' : '➡️'}
+                        {open
+                            ? '⬇️'
+                            : '➡️'}
                     </span>
 
                 <span>{goal.goal}</span>

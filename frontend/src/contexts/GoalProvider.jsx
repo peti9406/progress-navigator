@@ -104,6 +104,7 @@ export function GoalProvider({children}) {
             Deadline: (a, b) => direction * (new Date(a.deadline) - new Date(b.deadline)),
             "Goal List": (a, b) => direction * a.goal.localeCompare(b.goal),
             Completed: (a, b) => direction * (completedCount(a) - completedCount(b)),
+            "Achieved At": (a, b) => direction * (new Date(a["achieved_at"]) - new Date(b["achieved_at"])),
             Progression: (a, b) => direction * (completedCount(a) / a.steps.length - completedCount(b) / b.steps.length),
         }
 
