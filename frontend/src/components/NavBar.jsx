@@ -1,14 +1,17 @@
 import {Link} from 'react-router-dom'
 import Button from "./ui/Button.jsx";
 import useAuth from "../hooks/useAuth.js";
-import {useContext} from "react";
-import {GoalContext} from "../contexts/GoalContext.js";
+import icon from "../../public/icon.png"
 
 export default function Navbar({onLogout}) {
     const {user} = useAuth();
 
-    return (<div className='flex flex-row justify-center items-center w-full min-w-max
-    bg-b3d9ff'>
+    return (<div className='flex flex-row items-center w-full min-w-max bg-b3d9ff'>
+            <div className='flex flex-row absolute items-center ml-4'>
+                <h1 className='text-3xl font-bold text-left pb-2'>Progress Navigator</h1>
+                <img src={icon} alt='logo' className='w-16' />
+            </div>
+
             {user ?
                 (<>
                     <div className='flex flex-row ml-auto items-center space-x-4'>
@@ -17,8 +20,8 @@ export default function Navbar({onLogout}) {
                             <i className="fa-solid fa-right-from-bracket"></i>
                         </Button>
                     </div>
-                </> )
-                : (<>
+                </>)
+                : (<div className='mx-auto'>
                     <Link to='/register'>
                         <Button className='bg-blue-800 text-white hover:bg-blue-800/70'>
                             Register
@@ -29,7 +32,7 @@ export default function Navbar({onLogout}) {
                             Sign in
                         </Button>
                     </Link>
-                </>)}
+                </div>)}
         </div>
     )
 }
