@@ -34,12 +34,8 @@ export default function Login() {
         }
     }
 
-    if (loading) {
-        return <LoadingComponent/>;
-    }
-
     return (
-        <Form onSubmit={handleSubmit} header='Sign in!' buttonText="Sign in">
+        <Form onSubmit={handleSubmit} header='Sign in!' buttonText="Sign in" loading={loading}>
             <InputField label="Email:" placeholder="example@email.com" type="email" value={email}
                         onChange={(event) => setEmail(event.target.value)}/>
 

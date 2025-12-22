@@ -6,22 +6,20 @@ import icon from "../../public/icon.png"
 export default function Navbar({onLogout}) {
     const {user} = useAuth();
 
-    return (<div className='flex flex-row items-center w-full min-w-max bg-b3d9ff'>
-            <div className='flex flex-row absolute items-center ml-4'>
-                <h1 className='text-3xl font-bold text-left pb-2'>Progress Navigator</h1>
-                <img src={icon} alt='logo' className='w-16' />
+    return (<div className='flex flex-row items-center justify-between w-full min-w-max bg-b3d9ff'>
+            <div className='flex flex-row items-center ml-4'>
+                <img src={icon} alt='logo' className='w-15'/>
+                <h1 className='text-3xl font-bold text-left'>Progress Navigator</h1>
             </div>
 
             {user ?
-                (<>
-                    <div className='flex flex-row ml-auto items-center space-x-4'>
-                        <p className='font-bold'>Hi {user}!</p>
-                        <Button onClick={onLogout} className='bg-blue-800 text-white hover:bg-blue-800/70'>
-                            <i className="fa-solid fa-right-from-bracket"></i>
-                        </Button>
-                    </div>
-                </>)
-                : (<div className='mx-auto'>
+                (<div className='flex flex-row items-center space-x-4'>
+                    <p className='font-bold'>Hi {user}!</p>
+                    <Button onClick={onLogout} className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                    </Button>
+                </div>)
+                : (<div>
                     <Link to='/register'>
                         <Button className='bg-blue-800 text-white hover:bg-blue-800/70'>
                             Register

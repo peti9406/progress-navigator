@@ -1,6 +1,7 @@
 import Button from "../ui/Button.jsx";
+import loadingGif from "../../assets/loading.gif";
 
-export default function Form({children, onSubmit, header, buttonText}) {
+export default function Form({children, onSubmit, header, buttonText, loading}) {
 
     return (
         <form onSubmit={onSubmit} className='mt-8 px-8 py-4 bg-white/20 border-1 border-white/40 rounded-md shadow-md max-w-max mx-auto'>
@@ -10,6 +11,7 @@ export default function Form({children, onSubmit, header, buttonText}) {
             </div>
 
             <Button type="submit" className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                {loading && <img src={loadingGif} alt='loading' className='inline w-6 mr-1'/>}
                 {buttonText}
             </Button>
         </form>)

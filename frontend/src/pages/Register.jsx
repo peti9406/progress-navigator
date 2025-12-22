@@ -31,10 +31,6 @@ export default function Register() {
         }
     }
 
-    if (loading) {
-        return <LoadingComponent/>;
-    }
-
     return (<>
             {submitted
                 ? <div className="mt-8 px-8 pt-2 pb-6 bg-white/20 border-1 border-white/40 rounded-md shadow-md max-w-max mx-auto">
@@ -43,7 +39,7 @@ export default function Register() {
                         sent you.<br/>
                         If you don’t see the email, be sure to check your spam or junk folder as well.</p>
                 </div>
-                : <Form onSubmit={handleSubmit} header="Register Now!" buttonText="Register">
+                : <Form onSubmit={handleSubmit} header="Register Now!" buttonText="Register" loading={loading}>
                     <InputField label="Name:" placeholder="Name" type="text" value={name}
                                 onChange={(event) => setName(event.target.value)}/>
 
