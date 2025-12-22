@@ -11,11 +11,12 @@ export default function CompleteModal({goal, id}) {
     }
 
     return <ConfirmModal
-        trigger={<Button>Complete</Button>}
+        trigger={<Button className='bg-blue-800 text-white hover:bg-blue-800/70'>Complete</Button>}
         title={`Complete goal: ${goal}`}
         description='Are you sure you want to complete this goal?'
         confirmText='Complete'
         onConfirm={handleComplete}
+        confirmButton='bg-green-600 text-white hover:bg-green-600/70'
     />
 
 }
