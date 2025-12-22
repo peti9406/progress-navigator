@@ -8,7 +8,7 @@ export default function GoalTable({goals}) {
     const [openGoalId, setOpenGoalId] = useState(null);
 
     return (
-        <div className='mt-20 mb-10 mx-50 max-w-full min-w-max'>
+        <div className='my-8 px-50 mx-auto max-w-full min-w-max'>
             <TableTools/>
 
             <TableHeader/>

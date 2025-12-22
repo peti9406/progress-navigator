@@ -2,16 +2,12 @@ import StepElement from "./StepElement.jsx";
 import GoalHeader from "./GoalHeader.jsx";
 import {GoalContext} from "../../contexts/GoalContext";
 import CompleteModal from "../modal/CompleteModal.jsx";
-import Button from "../ui/Button.jsx";
 
 export default function Goal({goal, open, setOpen}) {
     const completedSteps = goal.steps.filter((step) => step.completed === 1).length;
 
-    const openStyle = 'bg-white/20 border-1 border-white/40 rounded-md shadow-md';
-    const completedStyle = 'bg-gray-400 border-1 border-gray-500 rounded-md shadow-md';
-
     return (
-        <div className={`${open ? goal.completed ? completedStyle : openStyle : ''} m-4`}>
+        <div className={`${open ? 'bg-white/20 border-1 border-white/40 rounded-md shadow-md' : ''} m-4 pb-1`}>
 
             <GoalHeader goal={goal} open={open} setOpen={setOpen} completedSteps={completedSteps}/>
 
@@ -23,7 +19,7 @@ export default function Goal({goal, open, setOpen}) {
             </ul>
 
             {open && !goal.completed && completedSteps === goal.steps.length &&
-                <span className='flex justify-start my-2 ml-6'>
+                <span className='flex justify-start my-1 ml-6'>
                 <CompleteModal goal={goal.goal} id={goal.id}/>
             </span>}
         </div>
