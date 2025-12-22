@@ -9,7 +9,7 @@ export default function Form({children, onSubmit, header, buttonText}) {
                 {children}
             </div>
 
-            <Button type="submit">
+            <Button type="submit" className='bg-blue-800 text-white hover:bg-blue-800/70'>
                 {buttonText}
             </Button>
         </form>)

@@ -65,7 +65,10 @@ export default function NewGoalModal() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                {<Button><i className="fa-solid fa-plus mr-1"></i>Set new goal</Button>}
+                {<Button className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                    <i className="fa-solid fa-plus mr-1">
+
+                    </i>Set new goal</Button>}
             </DialogTrigger>
             <DialogContent className="p-10 min-w-max">
                 <DialogHeader>
@@ -101,17 +104,17 @@ export default function NewGoalModal() {
                     </div>
 
                     {steps.length < 12 &&
-                        <Button onClick={addStep}>
+                        <Button onClick={addStep} className='bg-blue-800 text-white hover:bg-blue-800/70'>
                             Add Step
                         </Button>
                     }
 
                     <div className="flex justify-between w-full mt-10">
                         <DialogClose asChild>
-                            <Button disabled={loading}>Cancel</Button>
+                            <Button disabled={loading} className='bg-red-500 text-white hover:bg-red-500/70'>Cancel</Button>
                         </DialogClose>
 
-                        <Button type="submit" disabled={loading}>
+                        <Button type="submit" disabled={loading} className='bg-green-600 text-white hover:bg-green-600/70'>
                             {loading && <img src={loadingGif} alt='loading' className='inline w-8 h-8 mr-1'/>}
                             Set goal
                         </Button>
