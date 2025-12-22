@@ -20,8 +20,18 @@ jobs:
           php-version: 8.2
           extensions: mbstring, bcmath, pdo_sqlite, intl, xml, curl
 
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            backend/vendor
+            ~/.composer/cache
+          key: ${{ runner.os }}-php-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
       - name: Install Composer dependencies
-        run: composer install --no-progress --prefer-dist
+        run: composer install --no-interaction --no-progress --prefer-dist
         working-directory: ./backend
 
       - name: Copy .env
