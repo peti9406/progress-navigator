@@ -1,4 +1,4 @@
-export default function AdminTableHeader() {
+export default function UserTableHeader() {
 
     return (
         <div

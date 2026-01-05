@@ -23,9 +23,7 @@ export default function Login() {
         try {
             await api.get("/sanctum/csrf-cookie");
             const {data} = await api.post("/api/login", {email, password});
-            const token = data.token;
-            localStorage.setItem("token", token);
-            setUser(data.name);
+            setUser({name: data.name, isAdmin: data.isAdmin});
             navigate("/");
         } catch (error) {
             setError(error.response?.data || error.message);
