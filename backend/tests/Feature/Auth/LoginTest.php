@@ -40,6 +40,7 @@ class LoginTest extends TestCase
             ->assertJsonStructure([
                 'message',
                 'name',
+                'isAdmin',
                 'token',
             ])
             ->assertJson([

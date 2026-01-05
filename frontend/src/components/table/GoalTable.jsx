@@ -27,7 +27,6 @@ export default function GoalTable({goals}) {
                     <p className='m-4 font-bold'>No goals found.</p>
                 }
             </TableBody>
-
         </div>
     )
 }
