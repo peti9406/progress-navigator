@@ -40,17 +40,17 @@ export default function Register() {
                         If you don’t see the email, be sure to check your spam or junk folder as well.</p>
                 </div>
                 : <Form onSubmit={handleSubmit} header="Register Now!" buttonText="Register" loading={loading}>
-                    <InputField label="Name:" placeholder="Name" type="text" value={name}
+                    <InputField id='name' label="Name:" placeholder="Name" type="text" value={name}
                                 onChange={(event) => setName(event.target.value)}/>
 
-                    <InputField label="Email:" placeholder="example@email.com" type="email" value={email}
+                    <InputField id='email' label="Email:" placeholder="example@email.com" type="email" value={email}
                                 onChange={(event) => setEmail(event.target.value)}/>
 
-                    <InputField label="Confirm Email:" placeholder="example@email.com" value={email_confirmation}
+                    <InputField id='email_confirmation' label="Confirm Email:" placeholder="example@email.com" value={email_confirmation}
                                 type="email"
                                 onChange={(event) => setEmailConfirmation(event.target.value)}/>
 
-                    <InputField label="Password:" type="password" value={password}
+                    <InputField id='password' label="Password:" type="password" value={password}
                                 onChange={(event) => setPassword(event.target.value)}/>
 
                     {error && <div>

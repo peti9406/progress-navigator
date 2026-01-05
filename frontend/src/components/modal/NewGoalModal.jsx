@@ -86,7 +86,7 @@ export default function NewGoalModal() {
 
                 <form onSubmit={handleSubmit} className="flex flex-col items-center my-4">
 
-                    <InputField label="Goal:" placeholder="Learn..." type="text" value={goal}
+                    <InputField id='goal' label="Goal:" placeholder="Learn..." type="text" value={goal}
                                 onChange={(event) => setGoal(event.target.value)}/>
 
                     <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}
@@ -95,7 +95,7 @@ export default function NewGoalModal() {
                     <div className='my-2 max-w-min space-y-1'>
                         {steps.map((step, index) => (
                             <div key={index} className='flex flex-row space-x-3 min-w-md'>
-                                <InputField label={`Step ${index + 1}:`} type="text" size='small'
+                                <InputField id={`step_${index + 1}`} label={`Step ${index + 1}:`} type="text" size='small'
                                             value={steps[index]}
                                             onChange={(event) => handleStepChange(index, event.target.value)}/>
                                 {steps.length > 1 &&
