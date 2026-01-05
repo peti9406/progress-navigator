@@ -36,10 +36,10 @@ export default function Login() {
 
     return (
         <Form onSubmit={handleSubmit} header='Sign in!' buttonText="Sign in" loading={loading}>
-            <InputField label="Email:" placeholder="example@email.com" type="email" value={email}
+            <InputField id='email' label="Email:" placeholder="example@email.com" type="email" value={email}
                         onChange={(event) => setEmail(event.target.value)}/>
 
-            <InputField label="Password:" type="password" value={password}
+            <InputField id='password' label="Password:" type="password" value={password}
                         onChange={(event) => setPassword(event.target.value)}/>
 
             {error && <ErrorComponent message={error.message}/>}
