@@ -8,7 +8,6 @@ use App\DTO\VerifyEmailData;
 use App\Exceptions\EmailAlreadyVerifiedException;
 use App\Exceptions\EmailNotVerifiedException;
 use App\Exceptions\InvalidVerificationLinkException;
-use App\Facades\AuthService;
 use App\Services\AuthorizationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
@@ -79,6 +78,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'User successfully logged in',
                 'name' => $user->name,
+                'isAdmin' => $user->is_admin,
                 'token' => $token,
             ]);
         } catch (AuthenticationException $exception) {
