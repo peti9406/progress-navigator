@@ -4,7 +4,7 @@ namespace Auth;
 
 use App\Exceptions\EmailAlreadyVerifiedException;
 use App\Models\User;
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -17,7 +17,7 @@ class VerifyEmailAlreadyVerifiedTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $authService = $this->mock(AuthorizationService::class);
+        $authService = $this->mock(AuthenticationService::class);
         $authService
             ->shouldReceive('verifyEmail')
             ->once()

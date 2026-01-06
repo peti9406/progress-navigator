@@ -14,7 +14,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 
-class AuthorizationService
+class AuthenticationService
 {
     protected UserRepository $userRepository;
 

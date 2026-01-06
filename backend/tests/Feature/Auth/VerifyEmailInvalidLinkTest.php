@@ -4,7 +4,7 @@ namespace Auth;
 
 use App\Exceptions\InvalidVerificationLinkException;
 use App\Models\User;
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,7 +16,7 @@ class VerifyEmailInvalidLinkTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $authService = $this->mock(AuthorizationService::class);
+        $authService = $this->mock(AuthenticationService::class);
         $authService
             ->shouldReceive('verifyEmail')
             ->once()

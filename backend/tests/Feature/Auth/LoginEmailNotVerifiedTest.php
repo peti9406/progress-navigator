@@ -3,7 +3,7 @@
 namespace Auth;
 
 use App\Exceptions\EmailNotVerifiedException;
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,7 +18,7 @@ class LoginEmailNotVerifiedTest extends TestCase
             'password' => 'password',
         ];
 
-        $authService = $this->mock(AuthorizationService::class);
+        $authService = $this->mock(AuthenticationService::class);
         $authService
             ->shouldReceive('login')
             ->once()
