@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import Button from "./ui/Button.jsx";
 import useAuth from "../hooks/useAuth.js";
-import icon from "../../public/icon.png"
+import icon from "/src/assets/icon.png"
 
 export default function Navbar({onLogout}) {
     const {user} = useAuth();
