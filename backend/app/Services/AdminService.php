@@ -19,5 +19,4 @@ class AdminService
         return $this->userRepository->findAllPaginated();
     }
 
-
 }
