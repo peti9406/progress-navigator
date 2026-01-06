@@ -8,8 +8,8 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div >
-    <img src="/frontend/src/assets/icon.png" alt="Logo" width="80">
+<div align="center">
+    <img src="/frontend/src/assets/icon.png" alt="Logo" width="160">
 
 <h3 >Progress Navigator</h3>
 
@@ -23,7 +23,7 @@
 </div>
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<details >
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -52,7 +52,7 @@ ProgressNavigator is a personalized learning management application that allows 
 custom learning roadmaps. The platform helps learners organize their goals, monitor their progress, and stay motivated
 throughout their learning journey.
 
-Core Features:
+### Core Features:
 
 * Set New Goals
 * Progress Towards Goals
@@ -74,7 +74,7 @@ Core Features:
 
 ## Getting Started
 
-You can run the project with docker or on your own computer.
+You can run the project locally on your computer.
 Please follow the instructions.
 Currently, this is only a test environment.
 
@@ -89,28 +89,43 @@ For the project to run locally on your computer, you need:
 
 ### Installation
 
-**Before deciding how to run the application check out the /client/vite.config.js and set the proxy!**
-
 #### Run locally
 
 1. **Clone the repository**
     ```sh
     git clone https://github.com/peti9406/progress-navigator.git
-    cd rogress-navigator
+    cd progress-navigator
     ```
 2. **Install server dependencies**
-
     ```bash
     cd backend
     composer install
     ```
-
-3. **Install client dependencies**
+3. **Create the environment file**
+    ```bash
+    cp .env.example .env
+    ```
+4. **Configure the environment variables**
+Set the following values in your `.env` file:
+    ```env
+    MAIL_USERNAME=
+    MAIL_PASSWORD=
+    MAIL_FROM_ADDRESS=
+    ```
+5. **Generate the encryption key required for the application to run securely.**
+    ```bash
+    php artisan key:generate
+    ```
+6. **Create the database tables based on the migration files.**
+   ```bash
+   php artisan migrate
+    ```
+7. **Install client dependencies**
     ```bash
     cd ../frontend
     npm install
     ```
-4. **Run the application**
+8. **Run the application**
 
    Open **two terminals**:
 
@@ -121,11 +136,10 @@ For the project to run locally on your computer, you need:
         ```
     - **Client**
         ```bash
-        cd client
+        cd frontend
         npm run dev
         ```
-
-5. **Open the application in your browser**
+9. **Open the application in your browser**
 
     - Frontend: [http://localhost:5173](http://localhost:5173)
 
@@ -135,11 +149,24 @@ For the project to run locally on your computer, you need:
 
 ## Usage
 
-Under work!
+This section is currently under development.
 
 <p>(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
+
+## Roadmap
+
+This roadmap outlines the planned features and improvements for the project.<br>
+Items may change as the project evolves.
+
+- [x] Authentication & authorization
+- [x] Goal management
+- [x] Progress tracking
+- [ ] UI improvements
+- [ ] Light/Dark mode
+- [ ] Docker
+- [ ] Deployment
 
 ## Contact
 
