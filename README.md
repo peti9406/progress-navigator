@@ -8,16 +8,13 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
-    <img src="/client/src/assets/MongoMealsLogo.png" alt="Logo" width="80" height="80">
+<div >
+    <img src="/frontend/src/assets/icon.png" alt="Logo" width="80">
 
-<h3 align="center">Progress Navigator</h3>
+<h3 >Progress Navigator</h3>
 
-  <p align="center">
+  <p >
     Progress tracking application.
-    <br />
-    <a href="https://github.com/peti9406/progress-navigator"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/peti9406/progress-navigator/issues/new?labels=bug">Report Bug</a>
     &middot;
@@ -51,14 +48,17 @@
 
 ## About The Project
 
-ProgressNavigator is a personalized learning management application that allows users to create, track, and manage custom learning roadmaps. The platform helps learners organize their goals, monitor their progress, and stay motivated throughout their learning journey.
+ProgressNavigator is a personalized learning management application that allows users to create, track, and manage
+custom learning roadmaps. The platform helps learners organize their goals, monitor their progress, and stay motivated
+throughout their learning journey.
 
 Core Features:
+
 * Set New Goals
 * Progress Towards Goals
 * Track Your Progression
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p>(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
@@ -68,7 +68,7 @@ Core Features:
 * [![React][React.com]][React-url]
 * [![Tailwind][Tailwind.com]][Tailwind-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p>(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -87,30 +87,9 @@ For the project to run locally on your computer, you need:
 * PHP >= 8.2
 * Composer (for installing dependencies)
 
-Or, if you prefer to run it using Docker:
-
-* Docker Desktop (Windows / macOS)
-* Docker Engine (Linux)
-
 ### Installation
 
 **Before deciding how to run the application check out the /client/vite.config.js and set the proxy!**
-
-#### Run with Docker
-
-1. Clone the repository
-    ```sh
-    git clone https://github.com/peti9406/progress-navigator.git
-    cd rogress-navigator
-    ```
-2. Build the Docker containers
-    ```sh
-    docker compose build
-    ```
-3. Start the containers in detached mode.
-    ```sh
-    docker compose up -d
-    ```
 
 #### Run locally
 
@@ -133,7 +112,7 @@ Or, if you prefer to run it using Docker:
     ```
 4. **Run the application**
 
-    Open **two terminals**:
+   Open **two terminals**:
 
     - **Server**
         ```bash
@@ -150,7 +129,7 @@ Or, if you prefer to run it using Docker:
 
     - Frontend: [http://localhost:5173](http://localhost:5173)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p>(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -158,7 +137,7 @@ Or, if you prefer to run it using Docker:
 
 Under work!
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p>(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 
@@ -168,30 +147,47 @@ Péter Török - p.torok0694@gmail.com
 
 Project Link: https://github.com/peti9406/progress-navigator
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p>(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/peti9406/progress-navigator.svg?style=for-the-badge
+
 [contributors-url]: https://github.com/peti9406/progress-navigator/graphs/contributors
+
 [stars-shield]: https://img.shields.io/github/stars/peti9406/progress-navigator.svg?style=for-the-badge
+
 [stars-url]: https://github.com/peti9406/progress-navigator/stargazers
+
 [issues-shield]: https://img.shields.io/github/issues/peti9406/progress-navigator.svg?style=for-the-badge
+
 [issues-url]: https://github.com/peti9406/progress-navigator/issues
+
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+
 [linkedin-url]: https://www.linkedin.com/in/p%C3%A9ter-t%C3%B6r%C3%B6k-95372315a/
+
 [product-screenshot]: public/images/planner-bg.jpg
 
 <!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->
 
 [Javascript.com]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+
 [Javascript-url]: https://www.javascript.com/
+
 [MySQL.com]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white
+
 [MySQL-url]: https://www.mysql.com/
+
 [Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+
 [Laravel-url]: https://laravel.com
+
 [React.com]: https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black
+
 [React-url]: https://react.dev/
+
 [Tailwind.com]: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white
+
 [Tailwind-url]: https://tailwindcss.com/
