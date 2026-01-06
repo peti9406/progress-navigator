@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Repositories\GoalRepository;
 use App\Repositories\StepRepository;
 use App\Repositories\UserRepository;
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use App\Services\ProgressionService;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton('AuthService', function () {
-            return new AuthorizationService(
+            return new AuthenticationService(
                 app(UserRepository::class),
             );
         });

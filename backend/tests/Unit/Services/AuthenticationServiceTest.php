@@ -10,23 +10,23 @@ use App\Exceptions\EmailNotVerifiedException;
 use App\Exceptions\InvalidVerificationLinkException;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Mockery;
 use Tests\TestCase;
 
-class AuthorizationServiceTest extends TestCase
+class AuthenticationServiceTest extends TestCase
 {
     protected UserRepository $userRepository;
-    protected AuthorizationService $underTest;
+    protected AuthenticationService $underTest;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->userRepository = Mockery::mock(UserRepository::class);
-        $this->underTest = new AuthorizationService($this->userRepository);
+        $this->underTest = new AuthenticationService($this->userRepository);
     }
 
     public function testRegister_ShouldCreateUserAndSendVerificationEmail()

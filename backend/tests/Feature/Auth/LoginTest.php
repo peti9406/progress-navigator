@@ -4,7 +4,7 @@ namespace Auth;
 
 use App\DTO\LoginData;
 use App\Models\User;
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -25,7 +25,7 @@ class LoginTest extends TestCase
             'password' => 'password',
         ];
 
-        $authService = $this->mock(AuthorizationService::class);
+        $authService = $this->mock(AuthenticationService::class);
         $authService
             ->shouldReceive('login')
             ->once()

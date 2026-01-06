@@ -8,16 +8,16 @@ use App\DTO\VerifyEmailData;
 use App\Exceptions\EmailAlreadyVerifiedException;
 use App\Exceptions\EmailNotVerifiedException;
 use App\Exceptions\InvalidVerificationLinkException;
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    protected AuthorizationService $authorizationService;
+    protected AuthenticationService $authorizationService;
 
-    public function __construct(AuthorizationService $authorizationService)
+    public function __construct(AuthenticationService $authorizationService)
     {
         $this->authorizationService = $authorizationService;
     }

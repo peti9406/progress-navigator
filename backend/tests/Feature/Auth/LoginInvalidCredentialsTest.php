@@ -2,7 +2,7 @@
 
 namespace Auth;
 
-use App\Services\AuthorizationService;
+use App\Services\AuthenticationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -18,7 +18,7 @@ class LoginInvalidCredentialsTest extends TestCase
             'password' => 'password',
         ];
 
-        $authService = $this->mock(AuthorizationService::class);
+        $authService = $this->mock(AuthenticationService::class);
         $authService
             ->shouldReceive('login')
             ->once()
