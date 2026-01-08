@@ -13,7 +13,7 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
 
     return (
         <div
-            className={`flex items-center w-full font-bold p-2 rounded-lg ${open ? 'bg-[var(--surface)] border-1 border-[var(--surface)] backdrop-blur-md ' : ''}`}>
+            className={`flex items-center w-full font-bold p-2 rounded-lg ${open ? 'bg-[var(--surface-muted)] border-1 border-[var(--surface-muted)] backdrop-blur-md ' : ''}`}>
             <div className='flex items-center w-1/3 gap-2'>
                     <span onClick={() => setOpen(goal.id)}
                           className='cursor-pointer'>
