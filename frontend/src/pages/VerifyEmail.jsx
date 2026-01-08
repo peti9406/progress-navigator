@@ -1,10 +1,13 @@
 import {useEffect, useState} from "react";
 import {Link, useSearchParams} from "react-router-dom";
 import api from "../api/axios.js";
+import ErrorComponent from "../components/ErrorComponent.jsx";
+import LoadingComponent from "../components/LoadingComponent.jsx";
 
 export default function VerifyEmail() {
     const [searchParams] = useSearchParams();
-    const [status, setStatus] = useState("Verifying...");
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function verifyEmail() {
@@ -12,15 +15,17 @@ export default function VerifyEmail() {
             const hash = searchParams.get("hash");
 
             if (!id || !hash) {
-                setStatus("Invalid verification link");
+                setError("Invalid verification link");
                 return;
             }
 
+            setLoading(true);
             try {
-                const {data} = await api.get(`/api/email/verify/${id}/${hash}`);
-                setStatus(data.message);
+                await api.get(`/api/email/verify/${id}/${hash}`);
             } catch (error) {
-                setStatus(error.response?.data?.message || error.message);
+                setError(error.response?.data?.message || error.message);
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -28,12 +33,18 @@ export default function VerifyEmail() {
     }, [searchParams]);
 
     return (
-        <div>
-            <h1 className='text-xl font-bold my-2'>{status}</h1>
-            <p>Click
-                <Link className="text-blue-600 hover:text-blue-300"
-                   to='/'> here </Link>
-                to return to the home page!</p>
-        </div>
-    )
+        <div
+            className="mt-8 px-8 pt-2 pb-6 bg-[var(--surface)]/20 border-1 border-[var(--surface)]/40 rounded-lg shadow-md max-w-max mx-auto">
+            {loading
+                ? (<LoadingComponent/>)
+                : (<>
+                    {error
+                        ? (<ErrorComponent message={error}/>)
+                        : (<h1 className='text-xl font-bold my-2'>Email verification successful.</h1>)}
+                    <p>Click
+                        <Link className="text-[var(--primary)] hover:text-[var(--primary)]/70"
+                              to='/'> here </Link>
+                        to return to the home page!</p>
+                </>)}
+        < /div>)
 }
