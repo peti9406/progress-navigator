@@ -2,11 +2,12 @@ import {Link} from 'react-router-dom'
 import Button from "./ui/Button.jsx";
 import useAuth from "../hooks/useAuth.js";
 import icon from "/src/assets/icon.png"
+import ThemeToggle from "./ThemeToggle.jsx";
 
 export default function Navbar({onLogout}) {
     const {user} = useAuth();
 
-    return (<div className='grid grid-cols-3 items-center justify-between w-full min-w-max bg-b3d9ff'>
+    return (<div className='grid grid-cols-3 items-center justify-between w-full min-w-max bg-[var(--surface-muted)]/70 rounded-b-sm'>
             <div className='flex items-center'>
                 <Link to='/'>
                     <img src={icon} alt='logo' className='w-15'/>
@@ -25,21 +26,25 @@ export default function Navbar({onLogout}) {
             </div>
 
             <div className='flex justify-end items-center space-x-4'>
+                <ThemeToggle/>
                 {user ?
                     (<>
                         <p className='font-bold'>Hi {user.name}!</p>
-                        <Button onClick={onLogout} className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
+                        <Button onClick={onLogout}
+                                className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                             <i className="fa-solid fa-right-from-bracket"></i>
                         </Button>
                     </>)
                     : (<>
                         <Link to='/register'>
-                            <Button className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
+                            <Button
+                                className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                                 Register
                             </Button>
                         </Link>
                         <Link to='/login'>
-                            <Button className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
+                            <Button
+                                className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                                 Sign in
                             </Button>
                         </Link>

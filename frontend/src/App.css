@@ -4,11 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 .inter-inter {
-            font-family: "Inter", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 100;
-            font-style: normal;
-        }
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+}
 
 #root {
     width: 100%;
@@ -17,11 +17,10 @@
 }
 
 body {
-    background: #f5f7fa;
     min-height: 100vh;
     min-width: max-content;
+    transition-duration: 1.0s;
 }
-
 
 
 @theme inline {
@@ -66,9 +65,10 @@ body {
 }
 
 :root {
-    --bg: #f5f7fa;
+    --background: #f5f7fa;
     --surface: #ffffff;
     --surface-soft: #eef2f7;
+    --surface-muted: #f6f7f8;
 
     --primary: #42619e;
     --primary-muted: #9daddd;
@@ -79,7 +79,6 @@ body {
     --destructive: oklch(0.558 0.186 23.027);
 
     --radius: 0.625rem;
-    --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -111,13 +110,28 @@ body {
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
+    --background: #0f172a;
+    --surface: #1c2538;
+    --surface-soft: #232c42;
+    --surface-muted: #2b3349;
+    --border: #1c2538;
+
+    --primary: #738ebf;
+    --primary-muted: #738ebf;
+
+    --text: #f5f7fa;
+    --text-soft: #f5f7fa;
+
+    --complete: #28aa53;
+    --destructive: oklch(0.558 0.186 23.027);
+
+    --input: #1c2538;
+
+    --foreground: #f5f7fa;
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
     --primary-foreground: oklch(0.205 0 0);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
@@ -125,9 +139,6 @@ body {
     --muted-foreground: oklch(0.708 0 0);
     --accent: oklch(0.269 0 0);
     --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.556 0 0);
     --chart-1: oklch(0.488 0.243 264.376);
     --chart-2: oklch(0.696 0.17 162.48);
