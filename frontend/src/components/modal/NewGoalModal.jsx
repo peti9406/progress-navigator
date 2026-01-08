@@ -65,7 +65,7 @@ export default function NewGoalModal() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                {<Button className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                {<Button className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                     <i className="fa-solid fa-plus mr-1">
 
                     </i>Set new goal</Button>}
@@ -99,22 +99,22 @@ export default function NewGoalModal() {
                                             value={steps[index]}
                                             onChange={(event) => handleStepChange(index, event.target.value)}/>
                                 {steps.length > 1 &&
-                                        <X className='text-red-400 cursor-pointer mt-2' onClick={() => removeStep(index)}/>}
+                                        <X className='text-[var(--destructive)] cursor-pointer mt-2' onClick={() => removeStep(index)}/>}
                             </div>))}
                     </div>
 
                     {steps.length < 12 &&
-                        <Button onClick={addStep} className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                        <Button onClick={addStep} className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                             Add Step
                         </Button>
                     }
 
                     <div className="flex justify-between w-full mt-10">
                         <DialogClose asChild>
-                            <Button disabled={loading} className='bg-red-500 text-white hover:bg-red-500/70'>Cancel</Button>
+                            <Button disabled={loading} className='bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>Cancel</Button>
                         </DialogClose>
 
-                        <Button type="submit" disabled={loading} className='bg-green-600 text-white hover:bg-green-600/70'>
+                        <Button type="submit" disabled={loading} className='bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                             {loading && <img src={loadingGif} alt='loading' className='inline w-8 h-8 mr-1'/>}
                             Set goal
                         </Button>

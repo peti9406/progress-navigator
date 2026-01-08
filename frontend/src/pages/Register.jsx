@@ -33,7 +33,7 @@ export default function Register() {
 
     return (<>
             {submitted
-                ? <div className="mt-8 px-8 pt-2 pb-6 bg-white/20 border-1 border-white/40 rounded-md shadow-md max-w-max mx-auto">
+                ? <div className="mt-8 px-8 pt-2 pb-6 bg-[var(--bg)]/20 border-1 border-[var(--bg)]/40 rounded-lg shadow-md max-w-max mx-auto">
                     <h1 className='text-xl font-bold my-2'>Your account has been created!</h1>
                     <p> To complete your registration, please check your email inbox and click the activation link we’ve
                         sent you.<br/>

@@ -2,7 +2,7 @@ export default function UserTableHeader() {
 
     return (
         <div
-            className='grid grid-cols-4 items-center w-full min-w-min p-2  bg-blue-800 text-white rounded-lg font-bold shadow-md '>
+            className='grid grid-cols-4 items-center w-full min-w-min p-2  bg-[var(--primary)] text-[var(--text-soft)] rounded-lg font-bold shadow-md '>
                 <span className='inline-flex items-center mx-auto'>
                     <p className='hover:underline cursor-pointer'>
                         User Name

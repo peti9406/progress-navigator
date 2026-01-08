@@ -17,7 +17,7 @@ export default function Navbar({onLogout}) {
             <div>
                 {Boolean(user?.isAdmin) &&
                     <Link to='/admin'>
-                        <Button className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                        <Button className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                             Users
                         </Button>
                     </Link>
@@ -28,18 +28,18 @@ export default function Navbar({onLogout}) {
                 {user ?
                     (<>
                         <p className='font-bold'>Hi {user.name}!</p>
-                        <Button onClick={onLogout} className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                        <Button onClick={onLogout} className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                             <i className="fa-solid fa-right-from-bracket"></i>
                         </Button>
                     </>)
                     : (<>
                         <Link to='/register'>
-                            <Button className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                            <Button className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                                 Register
                             </Button>
                         </Link>
                         <Link to='/login'>
-                            <Button className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                            <Button className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                                 Sign in
                             </Button>
                         </Link>

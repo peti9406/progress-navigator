@@ -8,9 +8,9 @@ export default function FilterSelect() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-        <span className='cursor-pointer bg-white/60 p-2 rounded-md'>
-            <i className="fa-solid fa-filter"></i>
-        </span>
+                <span className='cursor-pointer bg-[var(--surface)] p-2 border-1 border-[var(--surface)]/20 rounded-lg backdrop-blur-md shadow-md'>
+                    <i className="fa-solid fa-filter"></i>
+                </span>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="start">

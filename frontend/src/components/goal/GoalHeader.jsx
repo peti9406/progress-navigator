@@ -13,7 +13,7 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
 
     return (
         <div
-            className={`flex items-center w-full font-bold p-2 rounded-md ${open ? 'bg-white/5 border-1 border-white/5 backdrop-blur-md ' : ''}`}>
+            className={`flex items-center w-full font-bold p-2 rounded-lg ${open ? 'bg-[var(--surface)] border-1 border-[var(--surface)] backdrop-blur-md ' : ''}`}>
             <div className='flex items-center w-1/3 gap-2'>
                     <span onClick={() => setOpen(goal.id)}
                           className='cursor-pointer'>
@@ -32,11 +32,11 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                                 <h2>{goal.achieved_at}</h2>
                             )
                             : daysLeft > 0 ? (
-                                <h2 className=' text-sm'>{daysLeft} days left!</h2>
+                                <h2 className='text-sm text-[var(--text)]'>{daysLeft} days left!</h2>
                             ) : daysLeft === 0 ? (
                                 <h2 className='text-sm text-yellow-500'>Deadline is today!</h2>
                             ) : (
-                                <h2 className=' text-sm text-red-500'>{Math.abs(daysLeft)} days late!</h2>
+                                <h2 className='text-sm text-[var(--destructive)]'>{Math.abs(daysLeft)} days late!</h2>
                             )}
                 </span>
 
@@ -44,9 +44,7 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                     {completedSteps} / {steps}
                 </span>
 
-                <span>
-                    <ProgressionBar percentage={percentage}/>
-                </span>
+                <ProgressionBar percentage={percentage}/>
 
                 <ToolTipCustom tip='Delete Goal'>
                     <DeleteModal goal={goal.goal} id={goal.id}/>
