@@ -4,13 +4,13 @@ import loadingGif from "../../assets/loading.gif";
 export default function Form({children, onSubmit, header, buttonText, loading}) {
 
     return (
-        <form onSubmit={onSubmit} className='mt-8 px-8 py-4 bg-white/20 border-1 border-white/40 rounded-md shadow-md max-w-max mx-auto'>
+        <form onSubmit={onSubmit} className='mt-8 px-8 py-4 bg-[var(--bg)]/20 border-1 border-[var(--bg)]/40 rounded-md shadow-md max-w-max mx-auto'>
             <h1 className="text-3xl">{header}</h1>
             <div className="flex flex-col items-center my-4">
                 {children}
             </div>
 
-            <Button type="submit" className='bg-blue-800 text-white hover:bg-blue-800/70'>
+            <Button type="submit" className='bg-[var(--primary)] text-[var(--text)] hover:bg-[var(--primary)]/70'>
                 {loading && <img src={loadingGif} alt='loading' className='inline w-6 mr-1'/>}
                 {buttonText}
             </Button>

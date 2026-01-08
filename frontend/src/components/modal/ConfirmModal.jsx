@@ -13,7 +13,7 @@ import {useState} from "react";
 import ErrorComponent from "../ErrorComponent.jsx";
 import loadingGif from "../../assets/loading.gif"
 
-export default function ConfirmModal({trigger, title, description, confirmText, onConfirm, confirmButton = 'bg-red-500 text-white hover:bg-red-500/70'}) {
+export default function ConfirmModal({trigger, title, description, confirmText, onConfirm, confirmButton = 'bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -50,7 +50,7 @@ export default function ConfirmModal({trigger, title, description, confirmText, 
 
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button disabled={loading} className='bg-blue-800 text-white hover:bg-blue-800/70'>
+                        <Button disabled={loading} className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                             Cancel
                         </Button>
                     </DialogClose>

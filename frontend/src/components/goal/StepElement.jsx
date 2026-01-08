@@ -13,7 +13,8 @@ export default function StepElement({step, goalId, goalCompleted}) {
     }
 
     return <li className='flex items-center space-x-6'>
-        {!goalCompleted && <input className='cursor-pointer' type='checkbox' checked={!!step.completed} onChange={handleCheck}/>}
+        {!goalCompleted && <input className='cursor-pointer accent-[var(--primary)]'
+                                  type='checkbox' checked={!!step.completed} onChange={handleCheck}/>}
         <p className='text-left text-wrap px-2'>{step.step}</p>
     </li>
 }

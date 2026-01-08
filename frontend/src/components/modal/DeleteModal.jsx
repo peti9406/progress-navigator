@@ -10,7 +10,7 @@ export default function DeleteModal({goal, id}) {
     }
 
     return <ConfirmModal
-        trigger={<i className="fa-solid fa-trash cursor-pointer"></i>}
+        trigger={<i className="fa-solid fa-trash cursor-pointer text-[var(--destructive)]"></i>}
         title={`Delete goal: ${goal}`}
         description='Are you sure you want to delete this goal?'
         confirmText='Delete'

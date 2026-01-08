@@ -7,7 +7,7 @@ export default function Goal({goal, open, setOpen}) {
     const completedSteps = goal.steps.filter((step) => step.completed === 1).length;
 
     return (
-        <div className={`${open ? 'bg-white/20 border-1 border-white/40 rounded-md shadow-md' : ''} m-4 pb-1`}>
+        <div className={`${open ? ' rounded-lg shadow-md bg-[var(--surface-soft)] text-[var(--text)]' : ''} m-4 pb-1`}>
 
             <GoalHeader goal={goal} open={open} setOpen={setOpen} completedSteps={completedSteps}/>
 

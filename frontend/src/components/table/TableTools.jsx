@@ -10,11 +10,15 @@ export default function TableTools() {
     return (
         <div className='flex mb-2 font-bold w-full justify-between items-center'>
             <div className='space-x-4'>
-                <span className='bg-white/60 rounded-md  p-2'>Filtered by: {filter}</span>
+                <span className='bg-[var(--surface)] p-2 border-1 border-[var(--surface)]/20 rounded-lg backdrop-blur-md shadow-md'>
+                    Filtered by: {filter}
+                </span>
 
                 <FilterSelect/>
 
-                <span className='bg-white/60 rounded-md  p-2'>Sorted by: {sortBy}</span>
+                <span className='bg-[var(--surface)] p-2 border-1 border-[var(--surface)]/20 rounded-lg backdrop-blur-md shadow-md'>
+                    Sorted by: {sortBy}
+                </span>
             </div>
 
             <NewGoalModal/>
