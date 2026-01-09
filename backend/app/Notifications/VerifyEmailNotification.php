@@ -9,7 +9,7 @@ class VerifyEmailNotification extends VerifyEmail
 {
     protected function verificationUrl($notifiable): array|string
     {
-        $frontendUrl = env('FRONTEND_URL') . '/verify-email';
+        $frontendUrl = config('app.frontend_url') . '/verify-email';
 
         return $frontendUrl
             . '?id=' . $notifiable->getKey()

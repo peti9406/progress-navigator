@@ -74,18 +74,23 @@ throughout their learning journey.
 
 ## Getting Started
 
-You can run the project locally on your computer.
+You can run the project locally on your computer or with docker.
 Please follow the instructions.
 Currently, this is only a test environment.
 
 ### Prerequisites
 
-For the project to run locally on your computer, you need:
+**For the project to run locally on your computer, you need:**
 
 * Node.js >= 18
 * npm (for installing dependencies)
 * PHP >= 8.2
 * Composer (for installing dependencies)
+
+**Or if you want it to run with docker:**
+
+Docker Desktop (Windows/Mac) <br>
+Docker Engine (Linux)
 
 ### Installation
 
@@ -106,7 +111,7 @@ For the project to run locally on your computer, you need:
     cp .env.example .env
     ```
 4. **Configure the environment variables**
-Set the following values in your `.env` file:
+   Set the following values in your `.env` file:
     ```env
     MAIL_USERNAME=
     MAIL_PASSWORD=
@@ -143,6 +148,48 @@ Set the following values in your `.env` file:
 
     - Frontend: [http://localhost:5173](http://localhost:5173)
 
+#### Run with Docker
+
+1. **Clone the repository**
+    ```sh
+    git clone https://github.com/peti9406/progress-navigator.git
+    cd progress-navigator
+    ```
+2. **Navigate to the backend folder**
+    ```bash
+    cd backend
+    ```
+3. **Create the environment file**
+    ```bash
+    cp .env.example .env
+    ```
+4. **Configure the environment variables**
+   Set the following values in your `.env` file:
+    ```env
+    MAIL_USERNAME=
+    MAIL_PASSWORD=
+    MAIL_FROM_ADDRESS=
+    ```
+5. **Build the Docker containers**
+    ```bash
+    docker-compose build
+    ```
+6. **Start the containers in detach mode**
+    ```bash
+   docker-compose up-d
+   ```
+7. **Access the backend application container**
+    ```bash
+   docker exec -it backend sh
+   ```
+8. **Create the database tables based on the migration files.**
+   ```bash
+   php artisan migrate
+    ```
+9. **Open the application in your browser**
+
+    - Frontend: [http://localhost:5173](http://localhost:5173)
+
 <p>(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
@@ -164,8 +211,8 @@ Items may change as the project evolves.
 - [x] Goal management
 - [x] Progress tracking
 - [ ] UI improvements
-- [ ] Light/Dark mode
-- [ ] Docker
+- [x] Light/Dark mode
+- [x] Docker
 - [ ] Deployment
 
 ## Contact
