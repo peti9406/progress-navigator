@@ -34,7 +34,7 @@ export default function VerifyEmail() {
 
     return (
         <div
-            className="mt-8 px-8 pt-2 pb-6 bg-[var(--surface)]/20 border-1 border-[var(--surface)]/40 rounded-lg shadow-md max-w-max mx-auto">
+            className="mt-8 px-8 pt-2 pb-6 bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 rounded-lg shadow-md max-w-max mx-auto">
             {loading
                 ? (<LoadingComponent/>)
                 : (<>
