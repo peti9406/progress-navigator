@@ -8,6 +8,7 @@ import VerifyEmail from "./pages/VerifyEmail.jsx";
 import api from "./api/axios.js";
 import useAuth from "./hooks/useAuth.js";
 import Admin from "./pages/Admin.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 function App() {
     const {user, setUser} = useAuth();
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/verify-email" element={<VerifyEmail/>}/>
                 <Route path="/admin" element={<Admin/>}/>
+                <Route path="*" element={<NotFound />}/>
             </Routes>
         </BrowserRouter>
     )
