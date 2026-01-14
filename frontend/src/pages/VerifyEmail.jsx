@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
-import {Link, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import api from "../api/axios.js";
 import ErrorComponent from "../components/ErrorComponent.jsx";
 import LoadingComponent from "../components/LoadingComponent.jsx";
+import ReturnHome from "../components/ui/ReturnHome.jsx";
 
 export default function VerifyEmail() {
     const [searchParams] = useSearchParams();
@@ -41,10 +42,7 @@ export default function VerifyEmail() {
                     {error
                         ? (<ErrorComponent message={error}/>)
                         : (<h1 className='text-xl font-bold my-2'>Email verification successful.</h1>)}
-                    <p>Click
-                        <Link className="text-[var(--primary)] hover:text-[var(--primary)]/70"
-                              to='/'> here </Link>
-                        to return to the home page!</p>
+                    <ReturnHome/>
                 </>)}
         < /div>)
 }
