@@ -19,7 +19,10 @@
 body {
     min-height: 100vh;
     min-width: max-content;
-    transition-duration: 1.0s;
+}
+
+body.transition-enabled {
+    transition: background-color 1s, color 1s;
 }
 
 

@@ -15,6 +15,7 @@ export default function ThemeProvider({children}) {
     }, [theme]);
 
     function toggleTheme() {
+        document.body.classList.add('transition-enabled');
         setTheme(theme === 'dark' ? 'light' : 'dark');
     }
 
