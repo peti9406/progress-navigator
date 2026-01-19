@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from "./components/NavBar.jsx";
+import Navbar from "./components/navbar/NavBar.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -23,14 +23,14 @@ function App() {
 
     return (<BrowserRouter>
             <Navbar user={user} onLogout={handleLogout}/>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/verify-email" element={<VerifyEmail/>}/>
-                <Route path="/admin" element={<Admin/>}/>
-                <Route path="*" element={<NotFound />}/>
-            </Routes>
+            {/*<Routes>*/}
+            {/*    <Route path="/" element={<Home/>}/>*/}
+            {/*    <Route path="/login" element={<Login/>}/>*/}
+            {/*    <Route path="/register" element={<Register/>}/>*/}
+            {/*    <Route path="/verify-email" element={<VerifyEmail/>}/>*/}
+            {/*    <Route path="/admin" element={<Admin/>}/>*/}
+            {/*    <Route path="*" element={<NotFound />}/>*/}
+            {/*</Routes>*/}
         </BrowserRouter>
     )
 }

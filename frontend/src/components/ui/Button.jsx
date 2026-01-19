@@ -8,7 +8,7 @@ const Button = forwardRef((
             onClick={onClick}
             type={type}
             disabled={disabled}
-            className={`font-bold rounded-lg m-1 p-2 backdrop-blur-md shadow-md cursor-pointer ${className}`}
+            className={`font-bold rounded-lg p-2 text-nowrap backdrop-blur-md shadow-md cursor-pointer ${className}`}
         >
             {children}
         </button>

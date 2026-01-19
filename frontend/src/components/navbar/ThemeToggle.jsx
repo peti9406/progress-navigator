@@ -1,7 +1,7 @@
-import ToolTipCustom from "./ui/ToolTipCustom.jsx";
+import ToolTipCustom from "../ui/ToolTipCustom.jsx";
 import {Moon, Sun} from "lucide-react";
 import {useContext} from "react";
-import ThemeContext from "../contexts/ThemeContext.js";
+import ThemeContext from "../../contexts/ThemeContext.js";
 
 export default function ThemeToggle() {
     const {theme, toggleTheme} = useContext(ThemeContext);
