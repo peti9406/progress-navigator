@@ -16,10 +16,6 @@
     font-family: "Inter", sans-serif;
 }
 
-body {
-    min-height: 100vh;
-}
-
 body.transition-enabled {
     transition: background-color 1s, color 1s;
 }

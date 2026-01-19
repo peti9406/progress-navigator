@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Button from "../ui/Button.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import ThemeToggle from "./ThemeToggle.jsx";
@@ -9,6 +9,7 @@ import MobileTools from "./MobileTools.jsx";
 export default function Navbar({onLogout}) {
     const {user} = useAuth();
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <header className='bg-[var(--surface-muted)]/70 rounded-b-sm w-full overflow-x-hidden'>
@@ -60,7 +61,7 @@ export default function Navbar({onLogout}) {
                 <div className="mt-3 flex flex-col gap-2 w-full md:hidden">
                     {user?.isAdmin && (
                         <Link to="/admin">
-                            <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]">
+                            <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
                                 Users
                             </Button>
                         </Link>
@@ -79,12 +80,12 @@ export default function Navbar({onLogout}) {
                     ) : (
                         <>
                             <Link to="/register">
-                                <Button className="w-full  bg-[var(--primary)] text-[var(--text-soft)]">
+                                <Button className="w-full  bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
                                     Register
                                 </Button>
                             </Link>
                             <Link to="/login">
-                                <Button className="w-full  bg-[var(--primary)] text-[var(--text-soft)]">
+                                <Button className="w-full  bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
                                     Sign in
                                 </Button>
                             </Link>
