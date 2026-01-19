@@ -9,7 +9,11 @@ import MobileTools from "./MobileTools.jsx";
 export default function Navbar({onLogout}) {
     const {user} = useAuth();
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate();
+
+    function handleLogout(event) {
+        onLogout(event);
+        setOpen(false);
+    }
 
     return (
         <header className='bg-[var(--surface-muted)]/70 rounded-b-sm w-full overflow-x-hidden'>
@@ -59,19 +63,18 @@ export default function Navbar({onLogout}) {
 
             {open && (
                 <div className="mt-3 flex flex-col gap-2 w-full md:hidden">
-                    {user?.isAdmin && (
-                        <Link to="/admin">
-                            <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
-                                Users
-                            </Button>
-                        </Link>
-                    )}
-
                     {user ? (
                         <>
                             <p className="font-bold">Hi {user.name}!</p>
+                            {user?.isAdmin && (
+                                <Link to="/admin">
+                                    <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
+                                        Users
+                                    </Button>
+                                </Link>
+                            )}
                             <Button
-                                onClick={onLogout}
+                                onClick={handleLogout}
                                 className="w-full bg-[var(--primary)] text-[var(--text-soft)]"
                             >
                                 Logout
