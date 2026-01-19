@@ -12,7 +12,7 @@ export default function ToolTipCustom({tip, children}) {
                     {children}
                 </div>
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent className='hidden md:block'>
                 <p>{tip}</p>
             </TooltipContent>
         </Tooltip>
