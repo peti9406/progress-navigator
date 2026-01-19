@@ -2,30 +2,22 @@ export default function UserTableHeader() {
 
     return (
         <div
-            className='grid grid-cols-4 items-center w-full min-w-min p-2  bg-[var(--primary)] text-[var(--text-soft)] rounded-lg font-bold shadow-md '>
-                <span className='inline-flex items-center mx-auto'>
-                    <p className='hover:underline cursor-pointer'>
+            className='hidden md:grid grid-cols-4 items-center w-full min-w-min p-2 bg-[var(--primary)] text-[var(--text-soft)] rounded-lg font-bold shadow-md '>
+                    <p className='hover:underline cursor-pointer truncate'>
                         User Name
                     </p>
-                </span>
 
-                <span className='inline-flex items-center mx-auto'>
-                    <p className='hover:underline cursor-pointer'>
+                    <p className='hover:underline cursor-pointer truncate'>
                         Email
                     </p>
-                </span>
 
-                <span className='inline-flex items-center mx-auto'>
-                    <p className='mx-auto hover:underline cursor-pointer inline-flex items-center'>
+                    <p className='hover:underline cursor-pointer truncate'>
                     Date of Registration
                     </p>
-                </span>
 
-                <span className='inline-flex items-center mx-auto'>
-                    <p className='mx-auto hover:underline cursor-pointer inline-flex items-center'>
+                    <p className='hover:underline cursor-pointer truncate'>
                     Goals
                     </p>
-                </span>
         </div>
     )
 }

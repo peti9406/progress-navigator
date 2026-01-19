@@ -4,10 +4,12 @@ import {useEffect, useState} from "react";
 import LoadingComponent from "../components/LoadingComponent.jsx";
 import api from "../api/axios.js";
 import ErrorComponent from "../components/ErrorComponent.jsx";
-import UserRow from "../components/table/UserRow.jsx";
+import UserRow from "../components/table/UserCard.jsx";
 import {ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight} from "lucide-react";
 import useAuth from "../hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
+import UserCard from "../components/table/UserCard.jsx";
+import MobileUserHeader from "../components/table/MobileUserHeader.jsx";
 
 export default function Admin() {
     const [users, setUsers] = useState([]);
@@ -58,14 +60,16 @@ export default function Admin() {
         setPage(1);
     }
 
-    return (<div className='my-8 px-50 mx-auto max-w-full min-w-max'>
+    return (<div className='my-8 text-sm md:text-base md:px-50 mx-auto max-w-full'>
         <UserTableHeader/>
 
         <TableBody>
             {loading ? <LoadingComponent/>
                 : users.length > 0 ? (
-                        users.map(user => (
-                            <UserRow key={user.id} user={user}/>
+                        users.map(user => (<div className='flex flex-row'>
+                            <MobileUserHeader />
+                            <UserCard key={user.id} user={user}/>
+                        </div>
                         ))
                     ) :
                     <ErrorComponent message={error}/>
