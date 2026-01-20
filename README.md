@@ -211,7 +211,7 @@ This application helps users track and manage their goals by breaking them down 
 ### Basic Flow
 1. Register on the platform
 2. Verify your email address 
-   > Email verification is handled via SMTP using Gmail in production.
+   > Email verification is handled via SMTP using Gmail in development.
 3. Create a new goal
 4. Add steps to the goal
 5. Mark steps as completed
