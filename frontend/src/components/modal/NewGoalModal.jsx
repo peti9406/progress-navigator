@@ -132,12 +132,12 @@ export default function NewGoalModal() {
 
                     {steps.length < 12 &&
                         <Button onClick={addStep}
-                                className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                                className='mt-4 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                             Add Step
                         </Button>
                     }
 
-                    <div className="flex justify-between w-full mt-10">
+                    <div className="flex justify-between w-full mt-4">
                         <DialogClose asChild>
                             <Button disabled={loading}
                                     className='bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>
