@@ -60,7 +60,7 @@ export default function Admin() {
         setPage(1);
     }
 
-    return (<div className='my-8 text-sm md:text-base md:px-50 mx-auto max-w-full'>
+    return (<div className='my-8 text-sm md:text-base md:px-[clamp(4rem,10vw,16rem)] mx-auto max-w-full'>
         <UserTableHeader/>
 
         <TableBody>

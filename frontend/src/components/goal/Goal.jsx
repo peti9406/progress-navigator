@@ -7,7 +7,8 @@ export default function Goal({goal, open, setOpen}) {
     const completedSteps = goal.steps.filter((step) => step.completed === 1).length;
 
     return (
-        <div className={`${open ? ' rounded-lg shadow-md bg-[var(--surface-soft)] text-[var(--text)]' : ''} m-4 pb-1`}>
+        <div
+            className={`${open ? 'rounded-lg shadow-md bg-[var(--surface-soft)] text-[var(--text)]' : ''} m-4 pb-1 border-b-1`}>
 
             <GoalHeader goal={goal} open={open} setOpen={setOpen} completedSteps={completedSteps}/>
 
@@ -19,9 +20,10 @@ export default function Goal({goal, open, setOpen}) {
             </ul>
 
             {open && !goal.completed && completedSteps === goal.steps.length &&
-                <span className='flex justify-start my-1 ml-6'>
-                <CompleteModal goal={goal.goal} id={goal.id}/>
-            </span>}
+                <span className='flex justify-center md:justify-start my-1 ml-6'>
+                    <CompleteModal goal={goal.goal} id={goal.id}/>
+                </span>
+            }
         </div>
     )
 }
