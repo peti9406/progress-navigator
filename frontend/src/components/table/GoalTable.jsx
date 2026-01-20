@@ -11,7 +11,7 @@ export default function GoalTable({goals}) {
     const {loading} = useContext(GoalContext);
 
     return (
-        <div className='my-8 px-50 mx-auto max-w-full min-w-max'>
+        <div className='my-8 text-sm md:text-base mx-auto max-w-full md:px-[clamp(4rem,10vw,16rem)]'>
             <TableTools/>
 
             <TableHeader/>

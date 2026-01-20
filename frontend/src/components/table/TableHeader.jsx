@@ -11,7 +11,7 @@ export default function TableHeader() {
 
     return (
         <div
-            className='flex items-center w-full min-w-min p-2 rounded-lg font-bold shadow-md
+            className='hidden md:flex items-center w-full min-w-min p-2 rounded-lg font-bold shadow-md
             bg-[var(--primary)] text-[var(--text-soft)]'>
                 <span className='flex justify-center w-1/3 items-center'>
                     <p className='hover:underline cursor-pointer' onClick={() => handleSort('Goal List')}>

@@ -12,21 +12,27 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
     const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
     return (
-        <div
-            className={`flex items-center w-full font-bold p-2 rounded-lg ${open ? 'bg-[var(--surface-muted)] border-1 border-[var(--surface-muted)] backdrop-blur-md ' : ''}`}>
-            <div className='flex items-center w-1/3 gap-2'>
-                    <span onClick={() => setOpen(goal.id)}
-                          className='cursor-pointer'>
-                        {open
-                            ? <i className="fa-solid fa-caret-down"></i>
-                            : <i className="fa-solid fa-caret-right"></i>
-                        }
-                    </span>
+        <div onClick={() => {
+            if (window.innerWidth < 768) {
+                setOpen(goal.id);
+            }
+        }}
+             className={`flex flex-col md:flex md:flex-row items-center w-full font-bold p-2 rounded-lg ${open ? 'bg-[var(--surface-muted)] border-1 border-[var(--surface-muted)] backdrop-blur-md ' : ''}`}>
+            <div className='flex items-center md:w-1/3 gap-2'>
+                <span onClick={(e) => {
+                    e.stopPropagation();
+                    setOpen(goal.id);
+                }}
+                      className='cursor-pointer hidden md:inline-block'>
+                    {open
+                        ? <i className="fa-solid fa-caret-down"></i>
+                        : <i className="fa-solid fa-caret-right"></i>}
+                </span>
 
-                <span>{goal.goal}</span>
+                <span className='text-nowrap'>{goal.goal}</span>
             </div>
 
-            <div className='grid grid-cols-[1fr_1fr_1fr_auto] w-2/3 items-center'>
+            <div className='flex flex-col gap-y-2 md:grid grid-cols-[1fr_1fr_1fr_auto] w-2/3 items-center'>
                 <span>
                         {goal.completed ? (
                                 <h2>{goal.achieved_at}</h2>
@@ -47,7 +53,12 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                 <ProgressionBar percentage={percentage}/>
 
                 <ToolTipCustom tip='Delete Goal'>
-                    <DeleteModal goal={goal.goal} id={goal.id}/>
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex"
+                    >
+                        <DeleteModal goal={goal.goal} id={goal.id}/>
+                    </div>
                 </ToolTipCustom>
             </div>
         </div>)

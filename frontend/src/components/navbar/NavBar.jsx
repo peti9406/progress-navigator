@@ -66,6 +66,11 @@ export default function Navbar({onLogout}) {
                     {user ? (
                         <>
                             <p className="font-bold">Hi {user.name}!</p>
+                            <Link to="/">
+                                <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
+                                    Home
+                                </Button>
+                            </Link>
                             {user?.isAdmin && (
                                 <Link to="/admin">
                                     <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
