@@ -35,7 +35,7 @@ export default function SortableStep({ step, index, onChange, onRemove, canRemov
 
             {canRemove && (
                 <X
-                    className="text-[var(--destructive)] cursor-pointer mt-2"
+                    className="text-[var(--destructive)] cursor-pointer"
                     onClick={() => onRemove(index)}
                 />
             )}
