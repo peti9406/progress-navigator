@@ -62,11 +62,21 @@ throughout their learning journey.
 
 ### Built With
 
+#### Frontend
 * [![JavaScript][Javascript.com]][Javascript-url]
-* [![MySQL][MySQL.com]][MySQL-url]
-* [![Laravel][Laravel.com]][Laravel-url]
 * [![React][React.com]][React-url]
 * [![Tailwind][Tailwind.com]][Tailwind-url]
+* [![dnd-kit][dnd-kit.com]][dnd-kit-url]
+* [![radix-ui][radix-ui.com]][radix-ui-url]
+* [![axios][axios.com]][axios-url]
+
+#### Backend
+* [![PHP][PHP.com]][PHP-url]
+* [![Laravel][Laravel.com]][Laravel-url]
+* [![PHPUnit][phpunit.com]][phpunit-url]
+
+#### Database
+* [![MySQL][MySQL.com]][MySQL-url]
 
 <p>(<a href="#readme-top">back to top</a>)</p>
 
@@ -196,7 +206,33 @@ Docker Engine (Linux)
 
 ## Usage
 
-This section is currently under development.
+This application helps users track and manage their goals by breaking them down into actionable steps and monitoring progress over time.
+
+### Basic Flow
+1. Register on the platform
+2. Verify your email address 
+   > Email verification is handled via SMTP using Gmail in production.
+3. Create a new goal
+4. Add steps to the goal
+5. Mark steps as completed
+6. Track progress using the progression bar
+7. Delete or archive goals when finished
+
+### Screenshots
+
+#### Registration
+* Email must be unique
+* Password must be at least 6 characters
+![Registration](./screenshots/register.png)
+
+#### Goal management
+![Goals](./screenshots/goals.png)
+
+#### Progress tracking
+![Progress](./screenshots/progress.png)
+
+#### Dark mode
+![Dark](./screenshots/dark.png)
 
 <p>(<a href="#readme-top">back to top</a>)</p>
 
@@ -210,9 +246,10 @@ Items may change as the project evolves.
 - [x] Authentication & authorization
 - [x] Goal management
 - [x] Progress tracking
-- [ ] UI improvements
+- [x] UI improvements
 - [x] Light/Dark mode
 - [x] Docker
+- [ ] AI integration
 - [ ] Deployment
 
 ## Contact
@@ -265,3 +302,19 @@ Project Link: https://github.com/peti9406/progress-navigator
 [Tailwind.com]: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white
 
 [Tailwind-url]: https://tailwindcss.com/
+
+[PHP.com]: https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white
+
+[PHP-url]: https://www.php.net/
+
+[dnd-kit.com]: https://img.shields.io/badge/dnd--kit-0B5FFF?style=for-the-badge&logo=react&logoColor=white
+[dnd-kit-url]: https://dndkit.com/
+
+[radix-ui.com]: https://img.shields.io/badge/Radix_UI-161618?style=for-the-badge&logo=radix-ui&logoColor=white
+[radix-ui-url]: https://www.radix-ui.com/
+
+[axios.com]: https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white
+[axios-url]: https://axios-http.com/
+
+[phpunit.com]: https://img.shields.io/badge/PHPUnit-366488?style=for-the-badge&logo=phpunit&logoColor=white
+[phpunit-url]: https://phpunit.de/
