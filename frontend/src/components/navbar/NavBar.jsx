@@ -23,7 +23,7 @@ export default function Navbar({onLogout}) {
 
                 <div className='hidden md:flex justify-center'>
                     {Boolean(user?.isAdmin) &&
-                        <Link to='/admin'>
+                        <Link to='/users'>
                             <Button
                                 className='bg-[var(--primary)] hover:bg-[var(--primary)]/70 text-[var(--text-soft)]'>
                                 Users
@@ -72,7 +72,7 @@ export default function Navbar({onLogout}) {
                                 </Button>
                             </Link>
                             {user?.isAdmin && (
-                                <Link to="/admin">
+                                <Link to="/users">
                                     <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={() => setOpen(false)}>
                                         Users
                                     </Button>

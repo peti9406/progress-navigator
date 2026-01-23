@@ -84,4 +84,41 @@ class ProgressionService
     {
         $this->goalRepository->delete($id);
     }
+
+    public function getGoalById(string $id): Goal
+    {
+        return $this->goalRepository->find($id);
+    }
+
+    public function getCompletedSteps(array $steps): array
+    {
+        $completed = array_filter($steps, function ($step) {
+            return $step['completed'] === 1;
+        });
+
+        return array_map(function ($step) {
+            return $step['step'];
+        }, $completed);
+    }
+
+    public function getCurrentStep(array $steps): string
+    {
+        $current = array_find($steps, function ($step) {
+            return $step['completed'] === 0;
+        });
+        return $current['step'];
+    }
+
+    public function getUpcomingSteps(array $steps): array
+    {
+        $uncompleted = array_filter($steps, function ($step) {
+            return $step['completed'] === 0;
+        });
+
+        $upcoming = array_slice($uncompleted, 1);
+
+        return array_map(function ($step) {
+            return $step['step'];
+        }, $upcoming);
+    }
 }

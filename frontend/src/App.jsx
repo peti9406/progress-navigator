@@ -28,7 +28,7 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/verify-email" element={<VerifyEmail/>}/>
-                <Route path="/admin" element={<Admin/>}/>
+                <Route path="/users" element={<Admin/>}/>
                 <Route path="*" element={<NotFound />}/>
             </Routes>
         </BrowserRouter>
