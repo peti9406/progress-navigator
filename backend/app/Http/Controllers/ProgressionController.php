@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DTO\CreateGoalData;
 use App\DTO\GoalQuery;
 use App\Exceptions\StepsNotCompletedException;
-use App\Facades\ProgService;
+use App\Services\GoalAIService;
 use App\Services\ProgressionService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -14,10 +14,12 @@ use Illuminate\Http\Request;
 class ProgressionController extends Controller
 {
     protected ProgressionService $progressionService;
+    protected GoalAIService $goalAIService;
 
-    public function __construct(ProgressionService $progressionService)
+    public function __construct(ProgressionService $progressionService, GoalAIService $goalAIService)
     {
         $this->progressionService = $progressionService;
+        $this->goalAIService = $goalAIService;
     }
 
     public function store(Request $request): JsonResponse
@@ -71,7 +73,7 @@ class ProgressionController extends Controller
             $this->progressionService->completeGoal($id);
             return response()->json(['message' => 'Goal completed']);
         } catch (StepsNotCompletedException  $e) {
-            return response()->json(['message' => $e->getMessage()], 422);
+            return response()->json(['message' => 'Steps are not completed'], 422);
         }
     }
 
@@ -85,4 +87,9 @@ class ProgressionController extends Controller
         }
     }
 
+    public function help(string $id): JsonResponse
+    {
+        $help = $this->goalAIService->getHelp($id);
+        return response()->json($help);
+    }
 }

@@ -29,7 +29,7 @@ export default function GoalHeader({goal, open, setOpen, completedSteps}) {
                         : <i className="fa-solid fa-caret-right"></i>}
                 </span>
 
-                <span className='text-nowrap'>{goal.goal}</span>
+                <span className='truncate'>{goal.goal}</span>
             </div>
 
             <div className='flex flex-col gap-y-2 md:grid grid-cols-[1fr_1fr_1fr_auto] w-2/3 items-center'>

@@ -6,6 +6,7 @@ use App\Repositories\GoalRepository;
 use App\Repositories\StepRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthenticationService;
+use App\Services\GoalAIService;
 use App\Services\ProgressionService;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +27,12 @@ class AppServiceProvider extends ServiceProvider
             return new ProgressionService(
                 app(GoalRepository::class),
                 app(StepRepository::class),
+            );
+        });
+
+        $this->app->singleton('AIService', function () {
+            return new GoalAIService(
+                app(ProgressionService::class),
             );
         });
     }

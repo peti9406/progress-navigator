@@ -4,11 +4,10 @@ import {useEffect, useState} from "react";
 import LoadingComponent from "../components/LoadingComponent.jsx";
 import api from "../api/axios.js";
 import ErrorComponent from "../components/ErrorComponent.jsx";
-import UserRow from "../components/table/UserCard.jsx";
+import UserCard from "../components/table/UserCard.jsx";
 import {ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight} from "lucide-react";
 import useAuth from "../hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
-import UserCard from "../components/table/UserCard.jsx";
 import MobileUserHeader from "../components/table/MobileUserHeader.jsx";
 
 export default function Admin() {
@@ -67,9 +66,9 @@ export default function Admin() {
             {loading ? <LoadingComponent/>
                 : users.length > 0 ? (
                         users.map(user => (<div className='flex flex-row'>
-                            <MobileUserHeader />
-                            <UserCard key={user.id} user={user}/>
-                        </div>
+                                <MobileUserHeader/>
+                                <UserCard key={user.id} user={user}/>
+                            </div>
                         ))
                     ) :
                     <ErrorComponent message={error}/>
