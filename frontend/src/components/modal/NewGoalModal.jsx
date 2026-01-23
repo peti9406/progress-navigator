@@ -90,7 +90,7 @@ export default function NewGoalModal() {
                 </Button>}
             </DialogTrigger>
 
-            <DialogContent className="p-10 min-w-max">
+            <DialogContent className="p-8 min-w-max">
                 <DialogHeader>
                     <DialogTitle className='text-3xl text-center'>Set New Goal</DialogTitle>
                     <DialogDescription className='text-center my-4'>

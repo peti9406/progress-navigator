@@ -3,11 +3,10 @@
 namespace App\Services;
 
 use Gemini\Laravel\Facades\Gemini;
-use Illuminate\Support\Facades\Http;
 
 class GoalAIService
 {
-    protected string $PROMPT = 'The user has made good progress toward their goal but is currently stuck on the current step. Provide clear, practical, step-by-step guidance to help them move forward. Do not ask anything after giving an answer!';
+    protected string $PROMPT = 'The user has made good progress toward their goal but is currently stuck on the current step. Provide clear, practical, step-by-step guidance to help them move forward and try to be concise. Write down only your solution! Do not ask anything after giving an answer! Do not use markdown. Always put a number in front of each suggestion. At the end of each suggestion put |n. If the goal or the step is incomprehensible write Incomprehensible goal or step! Example: 1. First do this |n 2. Then do that |n 3. Continue like this |n';
     protected ProgressionService $progressionService;
 
     public function __construct(ProgressionService $progressionService)
@@ -19,7 +18,7 @@ class GoalAIService
     {
         $goalContext = $this->buildGoalContext($id);
 
-        $result = Gemini::generativeModel(model: 'gemini-2.5-flash-lite')->generateContent($this->PROMPT . "\n" . json_encode($goalContext));
+        $result = Gemini::generativeModel(model: 'gemini-2.5-flash')->generateContent($this->PROMPT . "\n" . json_encode($goalContext));
         return $result->text();
     }
 
