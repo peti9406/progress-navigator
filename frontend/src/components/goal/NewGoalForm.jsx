@@ -9,7 +9,7 @@ import {GoalContext} from "../../contexts/GoalContext.js";
 import loadingGif from "../../assets/loading.gif"
 import ErrorComponent from "../ErrorComponent.jsx";
 
-export default function NewGoalForm({onOpen, children, aiGoal = '', aiSteps = [{id: nanoid(), value: ''}]}) {
+export default function NewGoalForm({ onSet, children, aiGoal = '', aiSteps = [{id: nanoid(), value: ''}]}) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -29,7 +29,7 @@ export default function NewGoalForm({onOpen, children, aiGoal = '', aiSteps = [{
 
         try {
             await addGoal({goal, deadline, steps: steps.map(s => s.value)});
-            onOpen(false);
+            onSet && onSet();
             setGoal('');
             setDeadline('');
             setSteps([{id: nanoid(), value: ''}]);

@@ -93,7 +93,9 @@ class ProgressionController extends Controller
             'problem' => 'nullable|string|max:255',
         ]);
 
-        $help = $this->goalAIService->getHelp($request->id, $validated['problem'] || '');
+        $problem = $validated['problem'] ?? '';
+
+        $help = $this->goalAIService->getHelp($request->id, $problem);
         return response()->json($help);
     }
 
