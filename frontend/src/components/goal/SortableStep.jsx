@@ -21,7 +21,7 @@ export default function SortableStep({ step, index, onChange, onRemove, canRemov
         <div
             ref={setNodeRef}
             style={style}
-            className="flex flex-row space-x-3 min-w-md items-center"
+            className="flex flex-row space-x-3 items-center"
         >
             <InputField
                 id={`step_${index + 1}`}
