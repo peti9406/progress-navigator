@@ -32,8 +32,13 @@ export default function AiModal() {
         generated: 'Please note that the AI may occasionally provide inaccurate or incomplete information. Always verify the advice and suggestions before acting on them.',
     }
 
+    function handleOpen(isOpen) {
+        setView('menu');
+        setOpen(isOpen);
+    }
+
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={handleOpen} >
             <DialogTrigger asChild>
                 <Button className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'
                         onClick={() => {
@@ -43,19 +48,19 @@ export default function AiModal() {
                     <span className='hidden md:inline-block ml-2'>Ask AI</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] md:min-w-fit max-h-[100vh] overflow-y-auto">
+            <DialogContent className="md:min-w-fit max-h-[100vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className='text-3xl text-center'>{titleMap[view]}</DialogTitle>
                     <DialogDescription className='text-center my-4'>{descriptionMap[view]}</DialogDescription>
                 </DialogHeader>
 
-                {(view === 'assist' || view === 'assisted') && <Assist onSubmit={() => setView('assisted')}/>}
+                {(view === 'assist' || view === 'assisted') && <Assist onSubmit={() => setView('assisted')} onBack={setView} />}
 
-                {(view === 'new' || view === 'generated') && (<NewGoal onSubmit={() => setView('generated')} onOpen={setOpen} />)}
+                {(view === 'new' || view === 'generated') && (<NewGoal onSubmit={() => setView('generated')} onBack={setView} onSet={() => setOpen(false)}/>)}
 
                 <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-2">
                     <DialogClose asChild>
-                        <Button onClick={() => setView('menu')}
+                        <Button
                                 className='w-1/2 md:w-1/3 bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>
                             Close
                         </Button>

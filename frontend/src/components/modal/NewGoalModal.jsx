@@ -36,7 +36,7 @@ export default function NewGoalModal() {
                 <NewGoalForm onOpen={setOpen}>
                     <DialogClose asChild>
                         <Button
-                            className='mt-4 md:mt-0 bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>
+                            className='mt-4 bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>
                             Cancel
                         </Button>
                     </DialogClose>

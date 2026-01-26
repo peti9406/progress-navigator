@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
-use Gemini\Laravel\Facades\Gemini;
 use App\Enums\AiPrompt;
+use Gemini\Laravel\Facades\Gemini;
+use Illuminate\Support\Facades\Http;
 
 class GoalAIService
 {
@@ -16,6 +17,7 @@ class GoalAIService
 
     public function getHelp(string $id, string $problem): mixed
     {
+        logger()->debug($problem);
         $text = $this->getHelpString($id, $problem);
         $decoded = json_decode($text, true);
 
@@ -30,9 +32,18 @@ class GoalAIService
     protected function getHelpString(string $id, string $problem): string
     {
         $goalContext = $this->buildGoalContext($id, $problem);
+        $prompt = AiPrompt::STEP_HELP->value . "\n" . json_encode($goalContext);
 
-        $result = Gemini::generativeModel(model: 'gemini-2.5-flash')->generateContent(AiPrompt::STEP_HELP->value . "\n" . json_encode($goalContext));
-        return trim($result->text());
+        try {
+            $result = Gemini::generativeModel(model: 'gemini-2.5-flash')->generateContent($prompt);
+            return trim($result->text());
+        } catch (\Throwable $th) {
+            logger()->warning('Gemini failed, fallback to OpenRouter', [
+                'error' => $th->getMessage(),
+            ]);
+
+            return $this->callOpenRouter($prompt);
+        }
     }
 
     protected function buildGoalContext(string $id, string $problem): array
@@ -70,7 +81,52 @@ class GoalAIService
 
     protected function getNewGoalString(string $goal): string
     {
-        $result = Gemini::generativeModel(model: 'gemini-2.5-flash')->generateContent(AiPrompt::GOAL_HELP->value . "\n" . json_encode($goal));
-        return trim($result->text());
+        $prompt = AiPrompt::GOAL_HELP->value . "\n" . json_encode($goal);
+
+        try {
+            $result = Gemini::generativeModel(model: 'gemini-2.5-flash')->generateContent($prompt);
+            return trim($result->text());
+        } catch (\Throwable $th) {
+            logger()->warning('Gemini failed, fallback to OpenRouter', [
+                'error' => $th->getMessage(),
+            ]);
+
+            return $this->callOpenRouter($prompt);
+        }
+
+
+    }
+
+    protected function callOpenRouter(string $prompt): string
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . config('services.openrouter.key'),
+            'Content-Type' => 'application/json',
+            'HTTP-Referer' => config('app.url'),
+            'X-Title' => 'Progress Navigator',
+        ])->post('https://openrouter.ai/api/v1/chat/completions', [
+            'model' => 'liquid/lfm-2.5-1.2b-thinking:free',
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'Return ONLY valid JSON.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $prompt,
+                ],
+            ],
+            'temperature' => 0.6,
+        ]);
+
+        if ($response->failed()) {
+            logger()->error('OpenRouter failed', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+            throw new \RuntimeException('OpenRouter failed');
+        }
+
+        return trim($response->json('choices.0.message.content'));
     }
 }

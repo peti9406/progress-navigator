@@ -7,6 +7,7 @@ use App\Repositories\StepRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthenticationService;
 use App\Services\GoalAIService;
+use App\Services\Logging\LogThrottleService;
 use App\Services\ProgressionService;
 use Illuminate\Support\ServiceProvider;
 

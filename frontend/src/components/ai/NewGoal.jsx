@@ -6,7 +6,7 @@ import ErrorComponent from "../ErrorComponent.jsx";
 import NewGoalForm from "../goal/NewGoalForm.jsx";
 import {nanoid} from "nanoid";
 
-export default function NewGoal({onSubmit, onOpen}) {
+export default function NewGoal({onSubmit, onSet, onBack}) {
     const [goal, setGoal] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -79,9 +79,13 @@ export default function NewGoal({onSubmit, onOpen}) {
                                     </ul>
                                 )}
                             </div>
-                            <div className='flex items-center justify-center mt-4'>
+                            <div className='flex flex-col-reverse md:flex-row items-center justify-between gap-4 mt-4'>
+                                <Button disabled={loading} onClick={() => setSubmitted(false)}
+                                        className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                                    Back
+                                </Button>
                                 <Button onClick={handleSetGoal}
-                                    className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
+                                        className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                                     Set goal
                                 </Button>
                             </div>
@@ -89,7 +93,7 @@ export default function NewGoal({onSubmit, onOpen}) {
                     )}
 
                     {!loading && newGoal && !error && view === 'set' && (
-                        <NewGoalForm aiGoal={newGoal.goal} aiSteps={newGoal.steps} onOpen={onOpen} />
+                        <NewGoalForm aiGoal={newGoal.goal} aiSteps={newGoal.steps} onSet={onSet}/>
                     )}
                 </>)
                 : <form onSubmit={handleSubmit}>
@@ -101,7 +105,11 @@ export default function NewGoal({onSubmit, onOpen}) {
                                   className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md'/>
                     </div>
 
-                    <div className="flex justify-center mt-8">
+                    <div className="flex flex-col-reverse items-center gap-4 md:flex-row justify-between mt-8">
+                        <Button disabled={loading} onClick={() => onBack('menu')}
+                                className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                            Back
+                        </Button>
                         <Button type='submit' disabled={!goal || loading}
                                 className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                             Generate steps

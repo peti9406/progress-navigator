@@ -5,7 +5,7 @@ import api from "../../api/axios.js";
 import LoadingComponent from "../LoadingComponent.jsx";
 import ErrorComponent from "../ErrorComponent.jsx";
 
-export default function Assist({onSubmit}) {
+export default function Assist({onBack}) {
     const [goalId, setGoalId] = useState('');
     const [problem, setProblem] = useState('');
     const [submitted, setSubmitted] = useState(false);
@@ -28,7 +28,6 @@ export default function Assist({onSubmit}) {
                 setAdvice(null);
             } else if (Array.isArray(data.steps)) {
                 setAdvice(data);
-                onSubmit();
             } else {
                 setError('Unexpected AI response.')
             }
@@ -50,19 +49,27 @@ export default function Assist({onSubmit}) {
                 )}
 
                 {!loading && advice && !error && (
-                    <div className="max-h-[60vh] overflow-y-auto p-4 rounded-md bg-[var(--surface-soft)] shadow-md">
-                        {advice?.reflection && (
-                            <p className='mb-2 italic'>{advice.reflection}</p>
-                        )}
+                    <>
+                        <div className="max-h-[60vh] overflow-y-auto p-4 rounded-md bg-[var(--surface-soft)] shadow-md">
+                            {advice?.reflection && (
+                                <p className='mb-2 italic'>{advice.reflection}</p>
+                            )}
 
-                        {advice?.steps?.length > 0 && (
-                            <ul className='space-y-4'>
-                                {advice.steps.map((step, index) => (
-                                    <li key={index}>{`${index + 1}. ${step}`}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
+                            {advice?.steps?.length > 0 && (
+                                <ul className='space-y-4'>
+                                    {advice.steps.map((step, index) => (
+                                        <li key={index}>{`${index + 1}. ${step}`}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                        <div className='flex justify-center'>
+                            <Button disabled={loading} onClick={() => setSubmitted(false)}
+                                    className='mt-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                                Back
+                            </Button>
+                        </div>
+                    </>
                 )}
             </div>)
             : (<form className="flex flex-col" onSubmit={handleSubmit}>
@@ -94,9 +101,13 @@ export default function Assist({onSubmit}) {
                               className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md'/>
                 </div>
 
-                <div className="flex justify-center mt-8">
-                    <Button type='submit' disabled={!goalId || loading}
+                <div className="flex flex-col-reverse items-center md:flex-row justify-between gap-4 mt-8">
+                    <Button disabled={loading} onClick={() => onBack('menu')}
                             className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                        Back
+                    </Button>
+                    <Button type='submit' disabled={!goalId || loading}
+                            className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                         Get help from Ai
                     </Button>
                 </div>
