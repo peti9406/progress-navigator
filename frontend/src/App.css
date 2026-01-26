@@ -62,6 +62,12 @@ body.transition-enabled {
     --color-sidebar-ring: var(--sidebar-ring);
 }
 
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #ccc;
+}
+
 :root {
     --background: #f5f7fa;
     --surface: #ffffff;
@@ -75,6 +81,8 @@ body.transition-enabled {
     --text-soft: #fdfdfd;
     --complete: #28aa53;
     --destructive: oklch(0.558 0.186 23.027);
+
+    --option: #738ebf;
 
     --radius: 0.625rem;
     --foreground: oklch(0.145 0 0);
@@ -121,6 +129,8 @@ body.transition-enabled {
 
     --complete: #28aa53;
     --destructive: oklch(0.558 0.186 23.027);
+
+    --option: #738ebf;
 
     --input: #1c2538;
 
