@@ -90,6 +90,7 @@ export default function Assist({onSubmit}) {
                     <label htmlFor='problem'>Describe what is blocking you</label>
                     <textarea id='problem' onChange={(e) => setProblem(e.target.value)}
                               placeholder='I don’t know how to start the next step because…' maxLength='255'
+                              value={problem}
                               className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md'/>
                 </div>
 

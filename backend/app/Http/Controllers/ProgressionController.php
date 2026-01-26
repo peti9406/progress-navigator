@@ -96,4 +96,14 @@ class ProgressionController extends Controller
         $help = $this->goalAIService->getHelp($request->id, $validated['problem'] || '');
         return response()->json($help);
     }
+
+    public function aiNewGoal(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'goal' => 'required|string|min:6|max:50',
+        ]);
+
+        $goal = $this->goalAIService->getNewGoal($validated['goal']);
+        return response()->json($goal);
+    }
 }

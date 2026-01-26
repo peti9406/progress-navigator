@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/steps/{id}/toggle', [ProgressionController::class, 'toggle']);
     Route::delete('/goals/{id}', [ProgressionController::class, 'delete']);
     Route::post('/goals/{id}/help', [ProgressionController::class, 'help']);
+    Route::post('/goals/ai-new-goal', [ProgressionController::class, 'aiNewGoal']);
 });
 
 Route::middleware(AdminMiddleware::class)->group(function () {
