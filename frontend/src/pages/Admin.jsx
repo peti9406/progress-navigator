@@ -65,9 +65,9 @@ export default function Admin() {
         <TableBody>
             {loading ? <LoadingComponent/>
                 : users.length > 0 ? (
-                        users.map(user => (<div className='flex flex-row'>
+                        users.map(user => (<div className='flex flex-row' key={user.id}>
                                 <MobileUserHeader/>
-                                <UserCard key={user.id} user={user}/>
+                                <UserCard user={user}/>
                             </div>
                         ))
                     ) :

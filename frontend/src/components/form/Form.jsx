@@ -7,7 +7,7 @@ export default function Form({children, onSubmit, header, buttonText, loading}) 
         <form onSubmit={onSubmit} className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40
          mt-8 px-2 md:px-8 py-4 rounded-md shadow-md mx-auto
          w-full md:max-w-min'>
-            <h1 className="text-3xl">{header}</h1>
+            {header && <h1 className="text-3xl">{header}</h1>}
             <div className="flex flex-col items-center my-4 w-full">
                 {children}
             </div>

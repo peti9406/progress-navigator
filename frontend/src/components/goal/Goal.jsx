@@ -2,7 +2,6 @@ import StepElement from "./StepElement.jsx";
 import GoalHeader from "./GoalHeader.jsx";
 import {GoalContext} from "../../contexts/GoalContext";
 import CompleteModal from "../modal/CompleteModal.jsx";
-import AiChatModal from "../modal/AiChatModal.jsx";
 
 export default function Goal({goal, open, setOpen}) {
     const completedSteps = goal.steps.filter((step) => step.completed === 1).length;
@@ -19,12 +18,6 @@ export default function Goal({goal, open, setOpen}) {
                     <StepElement step={step} key={step.id} goalId={goal.id} goalCompleted={goal.completed}/>
                 ))}
             </ul>
-
-            {open && !goal.completed && completedSteps < goal.steps.length &&
-                <span className='flex justify-center md:justify-start my-1 ml-6'>
-                    <AiChatModal goalId={goal.id}/>
-                </span>
-            }
 
             {open && !goal.completed && completedSteps === goal.steps.length &&
                 <span className='flex justify-center md:justify-start my-1 ml-6'>

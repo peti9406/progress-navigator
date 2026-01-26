@@ -6,7 +6,28 @@ use Gemini\Laravel\Facades\Gemini;
 
 class GoalAIService
 {
-    protected string $PROMPT = 'The user has made good progress toward their goal but is currently stuck on the current step. Provide clear, practical, step-by-step guidance to help them move forward and try to be concise. Write down only your solution! Do not ask anything after giving an answer! Do not use markdown. Always put a number in front of each suggestion. At the end of each suggestion put |n. If the goal or the step is incomprehensible write Incomprehensible goal or step! Example: 1. First do this |n 2. Then do that |n 3. Continue like this |n';
+    protected string $PROMPT = 'Return ONLY valid JSON with keys "steps" and "reflection".
+Do not include ```json or any markdown, do not add extra text.
+The user is stuck on the current_step, help proceed to the next step even if no problem is provided.
+
+The JSON format must be:
+{
+  "steps": [
+    "First step",
+    "Second step",
+    "Third step"
+  ],
+  "reflection": "Short reflection if applicable, otherwise null, if no problem is provided write something like you did not specify the reason you are stuck."
+}
+
+Rules:
+- Provide clear, practical, step-by-step guidance.
+- Be concise.
+- Do not ask questions.
+- If the goal or step is incomprehensible, return:
+{
+  "error": "Incomprehensible goal or step"
+}';
     protected ProgressionService $progressionService;
 
     public function __construct(ProgressionService $progressionService)
@@ -14,15 +35,28 @@ class GoalAIService
         $this->progressionService = $progressionService;
     }
 
-    public function getHelp(string $id): string
+    public function getHelp(string $id, string $problem): mixed
     {
-        $goalContext = $this->buildGoalContext($id);
+        $text = trim($this->getHelpString($id, $problem));
+        $decoded = json_decode($text, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            logger()->error('Invalid AI JSON', ['ai_text' => $text]);
+            throw new \RuntimeException('AI returned invalid JSON');
+        }
+
+        return $decoded;
+    }
+
+    protected function getHelpString(string $id, string $problem): string
+    {
+        $goalContext = $this->buildGoalContext($id, $problem);
 
         $result = Gemini::generativeModel(model: 'gemini-2.5-flash')->generateContent($this->PROMPT . "\n" . json_encode($goalContext));
         return $result->text();
     }
 
-    protected function buildGoalContext(string $id): array
+    protected function buildGoalContext(string $id, string $problem): array
     {
         $goal = $this->progressionService->getGoalById($id);
         $steps = $goal['steps']->toArray();
@@ -38,6 +72,7 @@ class GoalAIService
             'current_step' => $currentStep,
             'upcoming_steps' => $upcomingSteps,
             'is_last_step' => empty($upcomingSteps),
+            'problem' => $problem,
         ];
     }
 }
