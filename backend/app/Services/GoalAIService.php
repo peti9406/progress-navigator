@@ -17,7 +17,6 @@ class GoalAIService
 
     public function getHelp(string $id, string $problem): mixed
     {
-        logger()->debug($problem);
         $text = $this->getHelpString($id, $problem);
         $decoded = json_decode($text, true);
 
@@ -105,7 +104,7 @@ class GoalAIService
             'HTTP-Referer' => config('app.url'),
             'X-Title' => 'Progress Navigator',
         ])->post('https://openrouter.ai/api/v1/chat/completions', [
-            'model' => 'liquid/lfm-2.5-1.2b-thinking:free',
+            'model' => 'allenai/molmo-2-8b:free',
             'messages' => [
                 [
                     'role' => 'system',
