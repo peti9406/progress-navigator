@@ -2,7 +2,7 @@
 
 namespace App\Services\AI;
 
-use App\Services\AI\AiClient;
+use RuntimeException;
 
 class AiClientChain implements AiClient
 {
@@ -19,6 +19,6 @@ class AiClientChain implements AiClient
             }
         }
 
-        throw new \RuntimeException('All ai clients failed');
+        throw new RuntimeException('All ai clients failed');
     }
 }

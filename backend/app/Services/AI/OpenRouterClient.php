@@ -2,9 +2,9 @@
 
 namespace App\Services\AI;
 
-use App\Services\AI\AiClient;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use RuntimeException;
 
 class OpenRouterClient implements AiClient
 {
@@ -36,7 +36,7 @@ class OpenRouterClient implements AiClient
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
-            throw new \RuntimeException('OpenRouter failed');
+            throw new RuntimeException('OpenRouter failed');
         }
 
         return trim($response->json('choices.0.message.content'));
