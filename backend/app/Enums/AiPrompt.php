@@ -22,6 +22,7 @@ Rules:
 - Provide clear, practical, step-by-step guidance.
 - Be concise.
 - Do not ask questions.
+- If all steps are completed and no problem was provided write this: The goal appears to be successfully completed, you just need to archive it now.
 - If the goal or step is incomprehensible, return:
 {
   "error": "Incomprehensible goal or step"

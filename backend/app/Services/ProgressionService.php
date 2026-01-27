@@ -96,6 +96,10 @@ class ProgressionService
             return $step['completed'] === 1;
         });
 
+        if (empty($completed)) {
+            return [];
+        }
+
         return array_map(function ($step) {
             return $step['step'];
         }, $completed);
@@ -106,6 +110,11 @@ class ProgressionService
         $current = array_find($steps, function ($step) {
             return $step['completed'] === 0;
         });
+
+        if (empty($current)) {
+            return '';
+        }
+
         return $current['step'];
     }
 

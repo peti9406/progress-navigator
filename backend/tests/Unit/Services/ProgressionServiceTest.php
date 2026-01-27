@@ -262,4 +262,15 @@ class ProgressionServiceTest extends TestCase
         $this->assertTrue(true, 'Goal should be updated');
     }
 
+    public function testGetCompletedSteps_whenAllStepsAreCompleted_ReturnsEmptyArray()
+    {
+        $step1 = new Step();
+        $step1->completed = 1;
+        $step2 = new Step();
+        $step2->completed = 1;
+
+        $result = $this->underTest->getCompletedSteps([$step1, $step2]);
+        $this->assertEquals([], $result, 'Expected empty array');
+    }
+
 }

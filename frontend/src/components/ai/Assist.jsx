@@ -1,18 +1,36 @@
-import Button from "../ui/Button.jsx";
-import {useContext, useState} from "react";
-import {GoalContext} from "../../contexts/GoalContext.js";
+import {useEffect, useState} from "react";
 import api from "../../api/axios.js";
 import LoadingComponent from "../LoadingComponent.jsx";
 import ErrorComponent from "../ErrorComponent.jsx";
+import AdviceView from "./AdviceView.jsx";
+import FormView from "./FormView.jsx";
 
 export default function Assist({onBack}) {
+    const [goals, setGoals] = useState([]);
     const [goalId, setGoalId] = useState('');
     const [problem, setProblem] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [advice, setAdvice] = useState(null);
-    const {goals} = useContext(GoalContext);
+
+    useEffect(() => {
+        async function fetchGoals() {
+            setLoading(true);
+            setError(null);
+            try {
+                await api.get('/sanctum/csrf-cookie');
+                const {data} = await api.get('/api/goals?filter=Not Completed');
+                setGoals(data.sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
+            } catch (error) {
+                setError(error.response?.data?.message || error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchGoals();
+    }, [])
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -39,78 +57,28 @@ export default function Assist({onBack}) {
         }
     }
 
-    return (<>
-        {submitted
-            ? (<div>
-                {loading && <LoadingComponent/>}
+    if (loading) {
+        return <LoadingComponent/>
+    }
 
-                {error && !loading && (
-                    <ErrorComponent message={error}/>
-                )}
+    if (error) {
+        return <ErrorComponent message={error}/>
+    }
 
-                {!loading && advice && !error && (
-                    <>
-                        <div className="max-h-[60vh] overflow-y-auto p-4 rounded-md bg-[var(--surface-soft)] shadow-md">
-                            {advice?.reflection && (
-                                <p className='mb-2 italic'>{advice.reflection}</p>
-                            )}
-
-                            {advice?.steps?.length > 0 && (
-                                <ul className='space-y-4'>
-                                    {advice.steps.map((step, index) => (
-                                        <li key={index}>{`${index + 1}. ${step}`}</li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                        <div className='flex justify-center'>
-                            <Button disabled={loading} onClick={() => setSubmitted(false)}
-                                    className='mt-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
-                                Back
-                            </Button>
-                        </div>
-                    </>
-                )}
-            </div>)
-            : (<form className="flex flex-col" onSubmit={handleSubmit}>
-                <div className="flex flex-col space-y-2">
-                    <label htmlFor='goal'>Select the goal you are stuck on</label>
-                    <select id='goal'
-                            value={goalId}
-                            onChange={(e) => setGoalId(e.target.value)}
-                            className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md'>
-                        <option value='' disabled
-                                className='bg-[var(--primary-muted)]/20 text-black'
-                        >
-                            Select a goal...
-                        </option>
-
-                        {goals.map(goal => (
-                            <option key={goal.id} value={goal.id}
-                                    className='bg-[var(--primary-muted)]/20 text-black'
-                            >
-                                {goal.goal}
-                            </option>
-                        ))}
-                    </select>
-
-                    <label htmlFor='problem'>Describe what is blocking you</label>
-                    <textarea id='problem' onChange={(e) => setProblem(e.target.value)}
-                              placeholder='I don’t know how to start the next step because…' maxLength='255'
-                              value={problem}
-                              className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md'/>
-                </div>
-
-                <div className="flex flex-col-reverse items-center md:flex-row justify-between gap-4 mt-8">
-                    <Button disabled={loading} onClick={() => onBack('menu')}
-                            className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
-                        Back
-                    </Button>
-                    <Button type='submit' disabled={!goalId || loading}
-                            className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
-                        Get help from Ai
-                    </Button>
-                </div>
-            </form>)}
-    </>)
+    return (
+        <>
+            {submitted
+                ? <AdviceView advice={advice} loading={loading} onSubmit={() => setSubmitted(false)}/>
+                : <FormView onSubmit={handleSubmit}
+                            onSelect={(e) => setGoalId(e.target.value)}
+                            onText={(e) => setProblem(e.target.value)}
+                            onBack={onBack}
+                            loading={loading}
+                            goalId={goalId}
+                            problem={problem}
+                            goals={goals}
+                />
+            }
+        < />
+    )
 }
