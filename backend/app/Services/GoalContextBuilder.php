@@ -21,7 +21,7 @@ class GoalContextBuilder
             'deadline' => $goal['deadline'],
             'completed_steps' => $this->progressionService->getStepsByCompleted($goal, true),
             'current_step' => $this->progressionService->getCurrentStep($goal),
-            'upcoming_steps' => $this->progressionService->getStepsByCompleted($goal, false),
+            'upcoming_steps' => array_slice($this->progressionService->getStepsByCompleted($goal, false), 1),
             'is_last_step' => $this->progressionService->isLastStep($goal),
             'problem' => $problem,
         ];

@@ -104,8 +104,7 @@ class ProgressionService
         return collect($goal['steps'])
             ->where('completed', 0)
             ->pluck('step')
-            ->values()
-            ->first() || '';
+            ->first() ?? '';
     }
 
     public function isLastStep(Goal $goal): bool

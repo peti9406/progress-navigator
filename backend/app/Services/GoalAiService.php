@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Enums\AiPrompt;
 use App\Services\AI\AiClient;
-use Gemini\Laravel\Facades\Gemini;
-use Illuminate\Support\Facades\Http;
 
 class GoalAiService
 {

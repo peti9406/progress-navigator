@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Date;
 use Mockery;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
 class ProgressionServiceTest extends TestCase
@@ -262,144 +264,183 @@ class ProgressionServiceTest extends TestCase
         $this->assertTrue(true, 'Goal should be updated');
     }
 
-    public function testGetCompletedSteps_whenAllStepsAreCompleted_ReturnsAllSteps()
+    #[DataProvider('stepsCompletedProvider')]
+    public function testGetStepsByCompleted_returnCorrectSteps($stepsData, $completed, $expected)
     {
-        $step1 = new Step();
-        $step1->completed = 1;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 1;
+        $goal = $this->createGoalWithSteps($stepsData);
 
-        $expected = [$step1['step'], $step2['step']];
-
-        $result = $this->underTest->getCompletedSteps([$step1, $step2]);
-        $this->assertEquals($expected, $result, 'Expected to return all steps');
+        $result = $this->underTest->getStepsByCompleted($goal, $completed);
+        $this->assertEquals($expected, $result, "Expected to return " . join(' ',$expected));
     }
 
-    public function testGetCompletedSteps_whenAllStepsAreNotCompleted_ReturnsEmptyArray()
+    #[DataProvider('currentStepProvider')]
+    public function testGetCurrentSteps_returnCorrectStep($stepsData, $expected)
     {
-        $step1 = new Step();
-        $step1->completed = 0;
-        $step2 = new Step();
-        $step2->completed = 0;
+        $goal = $this->createGoalWithSteps($stepsData);
 
-        $result = $this->underTest->getCompletedSteps([$step1, $step2]);
-        $this->assertEmpty($result, 'Expected to return empty array');
+        $result = $this->underTest->getCurrentStep($goal);
+        $this->assertEquals($expected, $result, 'Expected to return ' . $expected);
     }
 
-    public function testGetCompletedSteps_whenSomeStepsAreNotCompleted_ReturnsCorrectSteps()
+    #[DataProvider('isLastStepProvider')]
+    public function testIsLastStep_returnCorrectBoolean($stepsData, $expected)
     {
-        $step1 = new Step();
-        $step1->completed = 1;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 0;
-        $step3 = new Step();
-        $step3->step = 'Step 3';
-        $step3->completed = 1;
+        $goal = $this->createGoalWithSteps($stepsData);
 
-        $expected = [$step1['step'], $step3['step']];
-        $result = $this->underTest->getCompletedSteps([$step1, $step2, $step3]);
-        $this->assertEquals(array_values($expected), array_values($result), 'Expected to return Step 1 and Step 3');
+        $result = $this->underTest->isLastStep($goal);
+        $this->assertEquals($expected, $result, 'Expected to return ' . $expected);
     }
 
-    public function testGetCurrentSteps_whenAllStepsAreCompleted_ReturnsEmptyString()
+    protected function createGoalWithSteps(array $stepsData): Goal
     {
-        $step1 = new Step();
-        $step1->completed = 1;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 1;
+        $goal = new Goal();
+        $goal->id = 1;
+        $steps = collect();
 
-        $result = $this->underTest->getCurrentStep([$step1, $step2]);
-        $this->assertEmpty($result, 'Expected to return empty string');
+        foreach ($stepsData as $stepData) {
+            $step = new Step();
+            $step->step = $stepData['step'];
+            $step->completed = $stepData['completed'];
+            $steps->push($step);
+        }
+        $goal->setRelation('steps', $steps);
+
+        return $goal;
     }
 
-    public function testGetCurrentSteps_whenAllStepsAreNotCompleted_ReturnsFirstStep()
+    public static function stepsCompletedProvider(): array
     {
-        $step1 = new Step();
-        $step1->completed = 0;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 0;
-
-        $result = $this->underTest->getCurrentStep([$step1, $step2]);
-        $this->assertEquals($step1['step'], $result, 'Expected to return Step 1');
+        return [
+            'all completed with true flag' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 1],
+                    ['step' => 'Step 3', 'completed' => 1],
+                ],
+                true,
+                ['Step 1', 'Step 2', 'Step 3'],
+            ],
+          'none completed with true flag' => [
+              [
+                  ['step' => 'Step 1', 'completed' => 0],
+                  ['step' => 'Step 2', 'completed' => 0],
+                  ['step' => 'Step 3', 'completed' => 0],
+              ],
+              true,
+              []
+          ],
+          'some completed with true flag' => [
+              [
+                  ['step' => 'Step 1', 'completed' => 1],
+                  ['step' => 'Step 2', 'completed' => 0],
+                  ['step' => 'Step 3', 'completed' => 1],
+              ],
+              true,
+              ['Step 1', 'Step 3'],
+          ],
+            'all completed with false flag' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 1],
+                    ['step' => 'Step 3', 'completed' => 1],
+                ],
+                false,
+                [],
+            ],
+            'none completed with false flag' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 0],
+                    ['step' => 'Step 2', 'completed' => 0],
+                    ['step' => 'Step 3', 'completed' => 0],
+                ],
+                false,
+                ['Step 1', 'Step 2', 'Step 3']
+            ],
+            'some completed with false flag' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 0],
+                    ['step' => 'Step 3', 'completed' => 1],
+                ],
+                false,
+                ['Step 2'],
+            ],
+        ];
     }
 
-    public function testGetCurrentSteps_whenLastStepIsNotCompleted_ReturnsLastStep()
+    public static function currentStepProvider(): array
     {
-        $step1 = new Step();
-        $step1->completed = 1;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 1;
-        $step3 = new Step();
-        $step3->step = 'Step 3';
-        $step3->completed = 0;
-
-        $result = $this->underTest->getCurrentStep([$step1, $step2, $step3]);
-        $this->assertEquals($step3['step'], $result, 'Expected to return Step 3');
+        return [
+            'all completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 1],
+                    ['step' => 'Step 3', 'completed' => 1],
+                ],
+                ''
+            ],
+            'none completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 0],
+                    ['step' => 'Step 2', 'completed' => 0],
+                    ['step' => 'Step 3', 'completed' => 0],
+                ],
+                'Step 1'
+            ],
+            'first and last completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 0],
+                    ['step' => 'Step 3', 'completed' => 1],
+                ],
+                'Step 2'
+            ],
+            'all but last completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 1],
+                    ['step' => 'Step 3', 'completed' => 0],
+                ],
+                'Step 3'
+            ]
+        ];
     }
 
-    public function testGetUpcomingSteps_whenAllStepsAreCompleted_ReturnsEmptyArray()
+    public static function isLastStepProvider(): array
     {
-        $step1 = new Step();
-        $step1->completed = 1;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 1;
-
-        $result = $this->underTest->getUpcomingSteps([$step1, $step2]);
-        $this->assertEmpty($result, 'Expected to return empty array');
+        return [
+            'all completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 1],
+                    ['step' => 'Step 3', 'completed' => 1],
+                ],
+                false
+            ],
+            'none completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 0],
+                    ['step' => 'Step 2', 'completed' => 0],
+                    ['step' => 'Step 3', 'completed' => 0],
+                ],
+                false
+            ],
+            'first and last completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 0],
+                    ['step' => 'Step 3', 'completed' => 1],
+                ],
+                true
+            ],
+            'all but last completed' => [
+                [
+                    ['step' => 'Step 1', 'completed' => 1],
+                    ['step' => 'Step 2', 'completed' => 1],
+                    ['step' => 'Step 3', 'completed' => 0],
+                ],
+                true
+            ]
+        ];
     }
-
-    public function testGetUpcomingSteps_whenNoStepsAreCompleted_ReturnsAllSteps()
-    {
-        $step1 = new Step();
-        $step1->completed = 0;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 0;
-
-        $result = $this->underTest->getUpcomingSteps([$step1, $step2]);
-        $this->assertEquals([$step1['step'], $step2['step']], $result, 'Expected to return all steps');
-    }
-
-    public function testGetUpcomingSteps_whenLastStepIsNotCompleted_ReturnsLastStep()
-    {
-        $step1 = new Step();
-        $step1->completed = 1;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 0;
-
-        $result = $this->underTest->getUpcomingSteps([$step1, $step2]);
-        $this->assertEquals(array_values([$step2['step']]), array_values($result), 'Expected to return last step');
-    }
-
-    public function testGetUpcomingSteps_whenTwoStepsAreNotCompleted_ReturnsLastTwoStep()
-    {
-        $step1 = new Step();
-        $step1->completed = 1;
-        $step1->step = 'Step 1';
-        $step2 = new Step();
-        $step2->step = 'Step 2';
-        $step2->completed = 0;
-        $step3 = new Step();
-        $step3->step = 'Step 3';
-        $step3->completed = 0;
-
-        $result = $this->underTest->getUpcomingSteps([$step1, $step2, $step3]);
-        $this->assertEquals(array_values([$step2['step'], $step3['step']]), array_values($result), 'Expected to return last two steps');
-    }
-
 }
