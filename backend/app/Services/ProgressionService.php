@@ -90,42 +90,27 @@ class ProgressionService
         return $this->goalRepository->find($id);
     }
 
-    public function getCompletedSteps(array $steps): array
+    public function getStepsByCompleted(Goal $goal, bool $completed): array
     {
-        $completed = array_filter($steps, function ($step) {
-            return $step['completed'] === 1;
-        });
-
-        if (empty($completed)) {
-            return [];
-        }
-
-        return array_map(function ($step) {
-            return $step['step'];
-        }, $completed);
+        return collect($goal['steps'])
+            ->where('completed', $completed)
+            ->pluck('step')
+            ->values()
+            ->toArray();
     }
 
-    public function getCurrentStep(array $steps): string
+    public function getCurrentStep(Goal $goal): string
     {
-        $current = array_find($steps, function ($step) {
-            return $step['completed'] === 0;
-        });
-
-        if (empty($current)) {
-            return '';
-        }
-
-        return $current['step'];
+        return collect($goal['steps'])
+            ->where('completed', 0)
+            ->pluck('step')
+            ->values()
+            ->first() || '';
     }
 
-    public function getUpcomingSteps(array $steps): array
+    public function isLastStep(Goal $goal): bool
     {
-        $uncompleted = array_filter($steps, function ($step) {
-            return $step['completed'] === 0;
-        });
-
-        return array_map(function ($step) {
-            return $step['step'];
-        }, $uncompleted);
+        return count(collect($goal['steps'])
+            ->where('completed', 0)) === 1;
     }
 }

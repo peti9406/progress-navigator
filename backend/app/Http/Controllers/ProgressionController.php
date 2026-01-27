@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\DTO\CreateGoalData;
 use App\DTO\GoalQuery;
+use App\Enums\AiPrompt;
 use App\Exceptions\StepsNotCompletedException;
-use App\Services\GoalAIService;
+use App\Services\GoalAiService;
+use App\Services\GoalContextBuilder;
 use App\Services\ProgressionService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -14,12 +16,14 @@ use Illuminate\Http\Request;
 class ProgressionController extends Controller
 {
     protected ProgressionService $progressionService;
-    protected GoalAIService $goalAIService;
+    protected GoalAiService $goalAIService;
+    protected GoalContextBuilder $goalContextBuilder;
 
-    public function __construct(ProgressionService $progressionService, GoalAIService $goalAIService)
+    public function __construct(ProgressionService $progressionService, GoalAiService $goalAIService, GoalContextBuilder $goalContextBuilder)
     {
         $this->progressionService = $progressionService;
         $this->goalAIService = $goalAIService;
+        $this->goalContextBuilder = $goalContextBuilder;
     }
 
     public function store(Request $request): JsonResponse
@@ -94,8 +98,9 @@ class ProgressionController extends Controller
         ]);
 
         $problem = $validated['problem'] ?? '';
+        $context = $this->goalContextBuilder->build($request->id, $problem);
 
-        $help = $this->goalAIService->getHelp($request->id, $problem);
+        $help = $this->goalAIService->getHelp($context, AiPrompt::STEP_HELP);
         return response()->json($help);
     }
 
@@ -105,7 +110,7 @@ class ProgressionController extends Controller
             'goal' => 'required|string|min:6|max:50',
         ]);
 
-        $goal = $this->goalAIService->getNewGoal($validated['goal']);
+        $goal = $this->goalAIService->getHelp($validated['goal'], AiPrompt::GOAL_HELP);
         return response()->json($goal);
     }
 }
