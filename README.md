@@ -90,6 +90,10 @@ Currently, this is only a test environment.
 
 ### Prerequisites
 
+- A valid **Gemini API key** (used as the primary AI provider)
+- A valid **OpenRouter API key** (used as a fallback AI provider)
+- An **SMTP email service** configured for sending emails
+
 **For the project to run locally on your computer, you need:**
 
 * Node.js >= 18
@@ -126,6 +130,8 @@ Docker Engine (Linux)
     MAIL_USERNAME=
     MAIL_PASSWORD=
     MAIL_FROM_ADDRESS=
+    GEMINI_API_KEY=
+    OPENROUTER_API_KEY=
     ```
 5. **Generate the encryption key required for the application to run securely.**
     ```bash
@@ -179,6 +185,8 @@ Docker Engine (Linux)
     MAIL_USERNAME=
     MAIL_PASSWORD=
     MAIL_FROM_ADDRESS=
+    GEMINI_API_KEY=
+    OPENROUTER_API_KEY=
     ```
 5. **Build the Docker containers**
     ```bash
@@ -217,6 +225,7 @@ This application helps users track and manage their goals by breaking them down 
 5. Mark steps as completed
 6. Track progress using the progression bar
 7. Delete or archive goals when finished
+8. Use AI to assist with goal completion or setting a new goal
 
 ### Screenshots
 
@@ -234,6 +243,9 @@ This application helps users track and manage their goals by breaking them down 
 #### Dark mode
 ![Dark](./screenshots/dark.png)
 
+#### AI assisted goal setting
+![AiOptions](./screenshots/ainewgoal.png)
+
 <p>(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
@@ -249,7 +261,7 @@ Items may change as the project evolves.
 - [x] UI improvements
 - [x] Light/Dark mode
 - [x] Docker
-- [ ] AI integration
+- [x] AI integration
 - [ ] Deployment
 
 ## Contact
