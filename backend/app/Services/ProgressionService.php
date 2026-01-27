@@ -124,10 +124,8 @@ class ProgressionService
             return $step['completed'] === 0;
         });
 
-        $upcoming = array_slice($uncompleted, 1);
-
         return array_map(function ($step) {
             return $step['step'];
-        }, $upcoming);
+        }, $uncompleted);
     }
 }

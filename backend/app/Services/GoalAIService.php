@@ -51,6 +51,7 @@ class GoalAIService
         $steps = $goal['steps']->toArray();
 
         $completedSteps = $this->progressionService->getCompletedSteps($steps);
+        logger()->debug($completedSteps);
         $currentStep = $this->progressionService->getCurrentStep($steps);
         $upcomingSteps = $this->progressionService->getUpcomingSteps($steps);
 
