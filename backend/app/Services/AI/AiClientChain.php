@@ -2,6 +2,7 @@
 
 namespace App\Services\AI;
 
+use Illuminate\Support\Facades\Log;
 use RuntimeException;
 
 class AiClientChain implements AiClient
@@ -19,6 +20,7 @@ class AiClientChain implements AiClient
             }
         }
 
+        Log::error('All ai clients failed');
         throw new RuntimeException('All ai clients failed');
     }
 }
