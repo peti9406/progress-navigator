@@ -4,7 +4,10 @@ namespace Services\AI;
 
 use App\Services\AI\AiClient;
 use App\Services\AI\AiClientChain;
+use App\Services\AI\GeminiClient;
+use App\Services\AI\OpenRouterClient;
 use Illuminate\Support\Facades\Log;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class AiClientChainTest extends TestCase
@@ -17,11 +20,17 @@ class AiClientChainTest extends TestCase
         parent::setUp();
 
         $this->aiClientChain = [
-            \Mockery::mock(AiClient::class),
-            \Mockery::mock(AiClient::class),
+            Mockery::mock(GeminiClient::class),
+            Mockery::mock(OpenRouterClient::class),
         ];
 
         $this->underTest = new AiClientChain($this->aiClientChain);
+    }
+
+    public function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
     }
 
     public function testGenerate_returnsText(): void
@@ -29,13 +38,11 @@ class AiClientChainTest extends TestCase
         Log::spy();
         $prompt = 'Test prompt';
 
-        foreach ($this->aiClientChain as $aiClient) {
-            $aiClient
-                ->shouldReceive('generate')
-                ->with($prompt)
-                ->once()
-                ->andReturn('Generated text');
-        }
+        $this->aiClientChain[0]
+            ->shouldReceive('generate')
+            ->once()
+            ->with($prompt)
+            ->andReturn('Generated text');
 
         $result = $this->underTest->generate($prompt);
         $this->assertEquals('Generated text', $result);
@@ -51,6 +58,7 @@ class AiClientChainTest extends TestCase
         foreach ($this->aiClientChain as $aiClient) {
             $aiClient
                 ->shouldReceive('generate')
+                ->once()
                 ->with($prompt)
                 ->andThrow(\RuntimeException::class);
         }
