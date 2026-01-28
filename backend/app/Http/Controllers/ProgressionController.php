@@ -12,6 +12,7 @@ use App\Services\ProgressionService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProgressionController extends Controller
 {
@@ -97,8 +98,14 @@ class ProgressionController extends Controller
             'problem' => 'nullable|string|max:255',
         ]);
 
+        $goal = $this->progressionService->getGoalById($request->id);
+
+        if (auth()->user()->id !== $goal->user_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $problem = $validated['problem'] ?? '';
-        $context = $this->goalContextBuilder->build($request->id, $problem);
+        $context = $this->goalContextBuilder->build($goal, $problem);
 
         $help = $this->goalAIService->getHelp($context, AiPrompt::STEP_HELP);
         return response()->json($help);
