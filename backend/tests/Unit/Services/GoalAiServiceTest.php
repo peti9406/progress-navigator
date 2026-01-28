@@ -23,6 +23,12 @@ class GoalAiServiceTest extends TestCase
         $this->underTest = new GoalAiService($this->aiClient);
     }
 
+    public function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
+
     public function testDecodeJsonOrFail_validJson_returnsDecodedArray(): void
     {
         Log::spy();

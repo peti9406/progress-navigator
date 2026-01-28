@@ -5,6 +5,7 @@ namespace Services\AI;
 use App\Services\AI\OpenRouterClient;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Mockery;
 use Tests\TestCase;
 
 class OpenRouterClientTest extends TestCase
@@ -15,6 +16,12 @@ class OpenRouterClientTest extends TestCase
     {
         parent::setUp();
         $this->underTest = new OpenRouterClient();
+    }
+
+    public function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
     }
 
     public function testGenerate_returnsText(): void
