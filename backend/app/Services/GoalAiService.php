@@ -21,7 +21,7 @@ class GoalAiService
         return $this->decodeJsonOrFail($text);
     }
 
-    protected function decodeJsonOrFail(string $text): array
+    public function decodeJsonOrFail(string $text): array
     {
         $decoded = json_decode($text, true);
 
