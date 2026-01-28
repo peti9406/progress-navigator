@@ -29,7 +29,7 @@ class AuthenticationServiceTest extends TestCase
         $this->underTest = new AuthenticationService($this->userRepository);
     }
 
-    public function testRegister_ShouldCreateUserAndSendVerificationEmail()
+    public function testRegister_shouldCreateUser_andSendVerificationEmail()
     {
         $user = Mockery::mock(User::class);
 
@@ -53,7 +53,7 @@ class AuthenticationServiceTest extends TestCase
         $this->underTest->register($data);
     }
 
-    public function testVerifyEmail_WhenUserNotFound_ShouldThrowModelNotFoundException()
+    public function testVerifyEmail_whenUserNotFound_shouldThrowModelNotFoundException()
     {
         $data = new VerifyEmailData(
             9999,
@@ -70,7 +70,7 @@ class AuthenticationServiceTest extends TestCase
         $this->underTest->verifyEmail($data);
     }
 
-    public function testVerifyEmail_WhenHashDoesNotMatchEmail_ShouldThrowInvalidVerificationLinkException()
+    public function testVerifyEmail_whenHashDoesNotMatchEmail_shouldThrowInvalidVerificationLinkException()
     {
         $user = new User();
         $user->email = 'john@gmail.com';
@@ -91,7 +91,7 @@ class AuthenticationServiceTest extends TestCase
         $this->assertNull($user->email_verified_at);
     }
 
-    public function testVerifyEmail_WhenUserAlreadyVerified_ShouldThrowEmailAlreadyVerifiedException()
+    public function testVerifyEmail_whenUserAlreadyVerified_shouldThrowEmailAlreadyVerifiedException()
     {
         $user = new User();
         $user->email = 'john@gmail.com';
@@ -112,7 +112,7 @@ class AuthenticationServiceTest extends TestCase
         $this->underTest->verifyEmail($data);
     }
 
-    public function testVerifyEmail_WhenUserNotVerifiedAndHashMatchesEmail_ShouldVerifyEmail()
+    public function testVerifyEmail_whenUserNotVerified_andHashMatchesEmail_shouldVerifyEmail()
     {
         $user = Mockery::mock(User::class)->makePartial();
         $user->id = 1;
@@ -141,7 +141,7 @@ class AuthenticationServiceTest extends TestCase
         $this->underTest->verifyEmail($data);
     }
 
-    public function testLogin_WhenCredentialsInvalid_ShouldThrowAuthenticationException()
+    public function testLogin_whenCredentialsInvalid_shouldThrowAuthenticationException()
     {
         Auth::shouldReceive('attempt')
             ->once()
@@ -156,7 +156,7 @@ class AuthenticationServiceTest extends TestCase
         $this->underTest->login($data);
     }
 
-    public function testLogin_WhenUserHasNotVerifiedEmail_ShouldThrowEmailNotVerifiedException()
+    public function testLogin_whenUserHasNotVerifiedEmail_shouldThrowEmailNotVerifiedException()
     {
         $user = Mockery::mock(User::class);
 
@@ -182,7 +182,7 @@ class AuthenticationServiceTest extends TestCase
         $this->underTest->login($data);
     }
 
-    public function testLogin_WhenCredentialsValidAndHasVerifiedEmail_ShouldLoginSuccessfully()
+    public function testLogin_whenCredentialsValid_andHasVerifiedEmail_shouldLoginSuccessfully()
     {
         $user = Mockery::mock(User::class);
 
