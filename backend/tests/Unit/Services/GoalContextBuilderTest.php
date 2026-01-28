@@ -34,11 +34,6 @@ class GoalContextBuilderTest extends TestCase
         $problem = $providedProblem;
 
         $this->progressionService
-            ->shouldReceive('getGoalById')
-            ->once()
-            ->andReturn($goal);
-
-        $this->progressionService
             ->shouldReceive('getStepsByCompleted')
             ->once()
             ->with($goal, true)
@@ -73,28 +68,5 @@ class GoalContextBuilderTest extends TestCase
         ];
 
         $this->assertEquals($expected, $result, 'Goal context should be build with correct data');
-    }
-
-    public function testBuild_goalNotFound_shouldThrowException(): void
-    {
-        $id = 9999;
-
-        $this->progressionService
-            ->shouldReceive('getGoalById')
-            ->once()
-            ->with($id)
-            ->andThrow(ModelNotFoundException::class);
-
-        $this->progressionService
-            ->shouldNotReceive('getStepsByCompleted');
-
-        $this->progressionService
-            ->shouldReceive('getCurrentStep');
-
-        $this->progressionService
-            ->shouldNotReceive('isLastStep');
-
-        $this->expectException(ModelNotFoundException::class);
-        $this->underTest->build($id, '');
     }
 }

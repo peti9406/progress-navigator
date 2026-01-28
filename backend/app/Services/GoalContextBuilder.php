@@ -3,6 +3,8 @@
 namespace App\Services;
 
 
+use App\Models\Goal;
+
 class GoalContextBuilder
 {
     protected ProgressionService $progressionService;
@@ -12,10 +14,8 @@ class GoalContextBuilder
         $this->progressionService = $progressionService;
     }
 
-    public function build(string $goalId, string $problem): array
+    public function build(Goal $goal, string $problem): array
     {
-        $goal = $this->progressionService->getGoalById($goalId);
-
         return [
             'goal' => $goal['goal'],
             'deadline' => $goal['deadline'],
