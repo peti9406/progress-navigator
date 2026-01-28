@@ -54,7 +54,7 @@ class ProgressionServiceTest extends TestCase
         $this->assertEquals($goal, $result, 'Goal should be created');
     }
 
-    public function testGetGoals_WhenUserHasNoGoals_ReturnsEmptyCollection()
+    public function testGetGoals_whenUserHasNoGoals_returnsEmptyCollection()
     {
         $userId = 1;
 
@@ -70,7 +70,7 @@ class ProgressionServiceTest extends TestCase
         $this->assertEquals(0, $result->count(), 'Expected no goals for this user');
     }
 
-    public function testGetGoals_WithCompletedQuery()
+    public function testGetGoals_withCompletedQuery()
     {
         $goal1 = new Goal();
         $goal1->completed = 1;
@@ -94,7 +94,7 @@ class ProgressionServiceTest extends TestCase
         $this->assertEquals(2, $result->count(), 'Expected a collection of two goal');
     }
 
-    public function testGetGoals_WithNotCompletedQuery()
+    public function testGetGoals_withNotCompletedQuery()
     {
         $goal1 = new Goal();
         $goal1->completed = 1;
@@ -118,7 +118,7 @@ class ProgressionServiceTest extends TestCase
         $this->assertEquals(2, $result->count(), 'Expected a collection of two goal');
     }
 
-    public function testGetGoals_WithNoFilter_ReturnsAllGoals()
+    public function testGetGoals_withNoFilter_ReturnsAllGoals()
     {
         $goal1 = new Goal();
         $goal2 = new Goal();
@@ -138,7 +138,7 @@ class ProgressionServiceTest extends TestCase
         $this->assertEquals(2, $result->count(), 'Expected a collection of two goal');
     }
 
-    public function testToggleCompleted_WhenStepExists_TogglesCompleted()
+    public function testToggleCompleted_whenStepExists_togglesCompleted()
     {
         $step = new Step();
         $step->id = 1;
@@ -158,7 +158,7 @@ class ProgressionServiceTest extends TestCase
         $this->assertEquals($step, $result, 'Expected to toggle on the same step');
     }
 
-    public function testToggleCompleted_WhenStepDoesNotExist_ThrowModelNotFoundException()
+    public function testToggleCompleted_whenStepDoesNotExist_throwModelNotFoundException()
     {
         $this->stepRepository
             ->shouldReceive('toggleCompleted')
@@ -170,7 +170,7 @@ class ProgressionServiceTest extends TestCase
         $this->underTest->toggleCompleted(9999);
     }
 
-    public function testDelete_WhenGoalExists_DeletesSuccessfully()
+    public function testDelete_whenGoalExists_deletesSuccessfully()
     {
         $goal = new Goal();
         $goal->id = 1;
@@ -184,7 +184,7 @@ class ProgressionServiceTest extends TestCase
         $this->assertTrue(true, 'Delete method should be called once');
     }
 
-    public function testDelete_WhenGoalDoesNotExist_ThrowsModelNotFoundException()
+    public function testDelete_whenGoalDoesNotExist_throwsModelNotFoundException()
     {
         $this->goalRepository
             ->shouldReceive('delete')
@@ -196,7 +196,7 @@ class ProgressionServiceTest extends TestCase
         $this->underTest->delete(9999);
     }
 
-    public function testCompleteGoal_WhenGoalDoesNotExist_ThrowsModelNotFoundException()
+    public function testCompleteGoal_whenGoalDoesNotExist_throwsModelNotFoundException()
     {
         $this->goalRepository
             ->shouldReceive('find')
@@ -208,7 +208,7 @@ class ProgressionServiceTest extends TestCase
         $this->underTest->completeGoal(9999);
     }
 
-    public function testCompleteGoal_WhenSomeStepsNotCompleted_ThrowsRuntimeException()
+    public function testCompleteGoal_whenSomeStepsNotCompleted_throwsRuntimeException()
     {
         $goal = new Goal();
         $goal->id = 1;
@@ -229,7 +229,7 @@ class ProgressionServiceTest extends TestCase
         $this->underTest->completeGoal($goal->id);
     }
 
-    public function testCompleteGoal_WhenAllStepsCompleted_UpdatesSuccessfully()
+    public function testCompleteGoal_whenAllStepsCompleted_updatesSuccessfully()
     {
         $goal = new Goal();
         $goal->id = 1;
