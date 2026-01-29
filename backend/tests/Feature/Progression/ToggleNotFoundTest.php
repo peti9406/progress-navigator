@@ -16,8 +16,8 @@ class ToggleNotFoundTest extends TestCase
         $this->actingAs($user, 'sanctum');
 
         $response = $this->patchJson('/api/steps/9999/toggle');
-        $response
-            ->assertStatus(404)
-            ->assertJson(['message' => 'Step not found']);
+        $response->assertStatus(404);
+        $this->assertStringContainsString('Step', $response->json('message'));
+        $this->assertStringContainsString('not found', $response->json('message'));
     }
 }

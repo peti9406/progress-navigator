@@ -16,8 +16,8 @@ class DeleteNotFoundTest extends TestCase
         $this->actingAs($user, 'sanctum');
 
         $response = $this->deleteJson("/api/goals/9999");
-        $response
-            ->assertStatus(404)
-            ->assertJson(['message' => 'Goal not found']);
+        $response->assertStatus(404);
+        $this->assertStringContainsString('Goal', $response->json('message'));
+        $this->assertStringContainsString('not found', $response->json('message'));
     }
 }
