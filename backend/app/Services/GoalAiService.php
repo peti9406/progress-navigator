@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\AiPrompt;
+use App\Exceptions\AiReturnedInvalidJsonException;
 use App\Services\AI\AiClient;
 
 class GoalAiService
@@ -14,6 +15,9 @@ class GoalAiService
         $this->aiClient = $aiClient;
     }
 
+    /**
+     * @throws AiReturnedInvalidJsonException
+     */
     public function getHelp(array|string $context, AiPrompt $aiPrompt): array
     {
         $prompt = $aiPrompt->value . "\n" . json_encode($context);
@@ -21,13 +25,15 @@ class GoalAiService
         return $this->decodeJsonOrFail($text);
     }
 
+    /**
+     * @throws AiReturnedInvalidJsonException
+     */
     public function decodeJsonOrFail(string $text): array
     {
         $decoded = json_decode($text, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            logger()->error('Invalid AI JSON', ['ai_text' => $text]);
-            throw new \RuntimeException('AI returned invalid JSON');
+            throw new AiReturnedInvalidJsonException();
         }
 
         return $decoded;
