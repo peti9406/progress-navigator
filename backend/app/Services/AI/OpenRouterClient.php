@@ -2,13 +2,18 @@
 
 namespace App\Services\AI;
 
+use App\Exceptions\AiFailedException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use RuntimeException;
 
 class OpenRouterClient implements AiClient
 {
 
+    /**
+     * @throws AiFailedException
+     * @throws ConnectionException
+     */
     public function generate(string $prompt): string
     {
         $response = Http::withHeaders([
@@ -36,7 +41,7 @@ class OpenRouterClient implements AiClient
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
-            throw new RuntimeException('OpenRouter failed');
+            throw new AiFailedException('OpenRouter');
         }
 
         return trim($response->json('choices.0.message.content'));

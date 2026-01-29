@@ -2,6 +2,8 @@
 
 namespace Services\AI;
 
+use App\Exceptions\AiFailedException;
+use App\Exceptions\AllAiFailedException;
 use App\Services\AI\AiClient;
 use App\Services\AI\AiClientChain;
 use App\Services\AI\GeminiClient;
@@ -50,7 +52,7 @@ class AiClientChainTest extends TestCase
             ->shouldNotReceive('error');
     }
 
-    public function testGenerate_throwsException(): void
+    public function testGenerate_throwsAllAiFailedException(): void
     {
         Log::spy();
         $prompt = 'Test prompt';
@@ -58,17 +60,16 @@ class AiClientChainTest extends TestCase
         foreach ($this->aiClientChain as $aiClient) {
             $aiClient
                 ->shouldReceive('generate')
-                ->once()
                 ->with($prompt)
-                ->andThrow(\RuntimeException::class);
+                ->andThrow(new AllAiFailedException());
         }
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('All ai clients failed');
+        $this->expectException(AllAiFailedException::class);
+        $this->expectExceptionMessage('AI service currently unavailable, please try again later.');
 
         $this->underTest->generate($prompt);
         Log::shouldReceive('error')
             ->once()
-            ->with('All ai clients failed');
+            ->with('All AI failed');
     }
 }

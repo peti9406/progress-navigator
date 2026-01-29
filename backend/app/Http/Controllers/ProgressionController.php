@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DTO\CreateGoalData;
 use App\DTO\GoalQuery;
 use App\Enums\AiPrompt;
+use App\Exceptions\AiReturnedInvalidJsonException;
 use App\Exceptions\StepsNotCompletedException;
 use App\Services\GoalAiService;
 use App\Services\GoalContextBuilder;
@@ -82,6 +83,9 @@ class ProgressionController extends Controller
         return response()->json(['message' => 'Goal deleted']);
     }
 
+    /**
+     * @throws AiReturnedInvalidJsonException
+     */
     public function help(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -101,6 +105,9 @@ class ProgressionController extends Controller
         return response()->json($help);
     }
 
+    /**
+     * @throws AiReturnedInvalidJsonException
+     */
     public function aiNewGoal(Request $request): JsonResponse
     {
         $validated = $request->validate([

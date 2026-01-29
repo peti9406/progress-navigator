@@ -5,7 +5,7 @@ import ErrorComponent from "../ErrorComponent.jsx";
 import AdviceView from "./AdviceView.jsx";
 import FormView from "./FormView.jsx";
 
-export default function Assist({onBack}) {
+export default function Assist({onBack, onSubmit}) {
     const [goals, setGoals] = useState([]);
     const [goalId, setGoalId] = useState('');
     const [problem, setProblem] = useState('');
@@ -47,11 +47,12 @@ export default function Assist({onBack}) {
             } else if (Array.isArray(data.steps)) {
                 setAdvice(data);
             } else {
-                setError('Unexpected AI response.')
+                setError('Unexpected AI response. Please try again later.');
             }
 
-        } catch (e) {
-            setError('AI service is currently unavailable, try again later.');
+            onSubmit();
+        } catch (error) {
+            setError(error.response?.data?.message || 'Something went wrong');
         } finally {
             setLoading(false);
         }

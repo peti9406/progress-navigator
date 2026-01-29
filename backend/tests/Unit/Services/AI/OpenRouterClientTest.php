@@ -2,6 +2,7 @@
 
 namespace Services\AI;
 
+use App\Exceptions\AiFailedException;
 use App\Services\AI\OpenRouterClient;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -53,7 +54,7 @@ class OpenRouterClientTest extends TestCase
             )
         ]);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(AiFailedException::class);
         $this->expectExceptionMessage('OpenRouter failed');
 
         $this->underTest->generate('Server error');

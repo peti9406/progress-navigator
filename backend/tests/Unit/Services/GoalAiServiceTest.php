@@ -3,6 +3,7 @@
 namespace Services;
 
 use App\Enums\AiPrompt;
+use App\Exceptions\AiReturnedInvalidJsonException;
 use App\Services\AI\AiClient;
 use App\Services\GoalAiService;
 use Illuminate\Support\Facades\Log;
@@ -44,22 +45,18 @@ class GoalAiServiceTest extends TestCase
             ->shouldNotHaveReceived('error');
     }
 
-    public function testDecodeJsonOrFail_invalidJson_throwsRuntimeException_andLogsError(): void
+    public function testDecodeJsonOrFail_invalidJson_throwsAiReturnedInvalidJsonException(): void
     {
         $invalidJson = '{invalid json}';
 
-        Log::shouldReceive('error')
-            ->once()
-            ->with('Invalid AI JSON', ['ai_text' => $invalidJson]);
-
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(AiReturnedInvalidJsonException::class);
         $this->expectExceptionMessage('AI returned invalid JSON');
 
         $this->underTest->decodeJsonOrFail($invalidJson);
     }
 
     #[DataProvider('getHelpProvider')]
-    public function testGetHelp_invalidJsonText_throwsRuntimeException(array|string $context ,AiPrompt $aiPrompt): void
+    public function testGetHelp_invalidJsonText_throwsAiReturnedInvalidJsonException(array|string $context ,AiPrompt $aiPrompt): void
     {
         $prompt = $aiPrompt->value . "\n" . json_encode($context);
 
@@ -69,7 +66,7 @@ class GoalAiServiceTest extends TestCase
             ->with($prompt)
             ->andReturn('{invalid json}');
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(AiReturnedInvalidJsonException::class);
         $this->expectExceptionMessage('AI returned invalid JSON');
         $this->underTest->getHelp($context, $aiPrompt);
     }

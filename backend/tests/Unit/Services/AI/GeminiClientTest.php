@@ -2,6 +2,7 @@
 
 namespace Services\AI;
 
+use App\Exceptions\AiFailedException;
 use App\Services\AI\GeminiClient;
 use Gemini\Laravel\Facades\Gemini;
 use Illuminate\Support\Facades\Log;
@@ -46,11 +47,10 @@ class GeminiClientTest extends TestCase
         $this->assertEquals('generated text', $result);
     }
 
-    public function testGenerate_throwsException_whenGeminiFails(): void
+    public function testGenerate_throwsAiFailedException_whenGeminiFails(): void
     {
         Log::spy();
         $prompt = 'test';
-        $exception = new \RuntimeException('Ai failed');
 
         Gemini::shouldReceive('generativeModel')
             ->once()
@@ -60,14 +60,14 @@ class GeminiClientTest extends TestCase
         Gemini::shouldReceive('generateContent')
             ->once()
             ->with($prompt)
-            ->andThrow($exception);
+            ->andThrow(new AiFailedException('Gemini'));
 
         Log::shouldReceive('error')
             ->once()
             ->with('Gemini failed', ['error' => 'Ai failed']);
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Ai failed');
+        $this->expectException(AiFailedException::class);
+        $this->expectExceptionMessage('Gemini failed');
         $this->underTest->generate($prompt);
     }
 
