@@ -2,9 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
-
-class EmailAlreadyVerifiedException extends Exception
+class EmailAlreadyVerifiedException extends ApiException
 {
-    //
+    protected $message = 'Email already verified';
+    protected $code = 409;
 }

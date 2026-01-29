@@ -26,7 +26,7 @@ export default function Login() {
             setUser({name: data.name, isAdmin: data.isAdmin});
             navigate("/");
         } catch (error) {
-            setError(error.response?.data || error.message);
+            setError(error.response?.data?.message || error.message);
         } finally {
             setLoading(false);
         }
@@ -40,7 +40,7 @@ export default function Login() {
             <InputField id='password' label="Password:" type="password" value={password}
                         onChange={(event) => setPassword(event.target.value)}/>
 
-            {error && <ErrorComponent message={error.message}/>}
+            {error && <ErrorComponent message={error} />}
         </Form>
     )
 }

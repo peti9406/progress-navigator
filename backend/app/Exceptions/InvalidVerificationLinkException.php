@@ -2,9 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
-
-class InvalidVerificationLinkException extends Exception
+class InvalidVerificationLinkException extends ApiException
 {
-    //
+    protected $message = 'Invalid verification link';
+    protected $code = 400;
 }

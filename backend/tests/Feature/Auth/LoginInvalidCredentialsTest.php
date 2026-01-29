@@ -27,7 +27,6 @@ class LoginInvalidCredentialsTest extends TestCase
         $response = $this->postJson('/api/login', $payload);
         $response
             ->assertStatus(401)
-            ->assertJson(['message' => 'Invalid credentials.'])
-            ->assertJsonMissing(['token']);
+            ->assertJson(['message' => 'Invalid credentials.']);
     }
 }

@@ -42,6 +42,10 @@ class AuthController extends Controller
         return response()->json(['message' => 'User successfully registered'], 201);
     }
 
+    /**
+     * @throws InvalidVerificationLinkException
+     * @throws EmailAlreadyVerifiedException
+     */
     public function verifyEmail(Request $request): JsonResponse
     {
         $data = new VerifyEmailData(
@@ -49,16 +53,14 @@ class AuthController extends Controller
             $request->hash,
         );
 
-        try {
-            $this->authorizationService->verifyEmail($data);
-            return response()->json(['message' => 'Email verified successfully']);
-        } catch (InvalidVerificationLinkException $exception) {
-            return response()->json(['message' => $exception->getMessage()], 400);
-        } catch (EmailAlreadyVerifiedException $exception) {
-            return response()->json(['message' => $exception->getMessage()], 409);
-        }
+        $this->authorizationService->verifyEmail($data);
+        return response()->json(['message' => 'Email verified successfully']);
     }
 
+    /**
+     * @throws AuthenticationException
+     * @throws EmailNotVerifiedException
+     */
     public function login(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -71,22 +73,13 @@ class AuthController extends Controller
             $validated['password'],
         );
 
-        try {
-            $user = $this->authorizationService->login($data);
-            $token = $user->createToken('auth_token')->plainTextToken;
+        $user = $this->authorizationService->login($data);
 
-            return response()->json([
-                'message' => 'User successfully logged in',
-                'name' => $user->name,
-                'isAdmin' => $user->is_admin,
-                'token' => $token,
-            ]);
-        } catch (AuthenticationException $exception) {
-            return response()->json(['message' => $exception->getMessage()], 401);
-        } catch (EmailNotVerifiedException $exception) {
-            $request->user()?->tokens()->delete();
-            return response()->json(['message' => $exception->getMessage()], 403);
-        }
+        return response()->json([
+            'message' => 'User successfully logged in',
+            'name' => $user->name,
+            'isAdmin' => $user->is_admin,
+        ]);
     }
 
 
