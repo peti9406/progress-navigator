@@ -4,6 +4,7 @@ namespace Auth;
 
 use App\Models\User;
 use App\Notifications\VerifyEmailNotification;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
@@ -13,6 +14,9 @@ class RegisterTest extends TestCase
 
     use RefreshDatabase;
 
+    /**
+     * @throws Exception
+     */
     public function test_user_can_register_successfully(): void
     {
         Notification::fake();

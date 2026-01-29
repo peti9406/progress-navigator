@@ -22,12 +22,11 @@ class LoginEmailNotVerifiedTest extends TestCase
         $authService
             ->shouldReceive('login')
             ->once()
-            ->andThrow(new EmailNotVerifiedException('Your email address is not verified.'));
+            ->andThrow(new EmailNotVerifiedException('Email not verified'));
 
         $response = $this->postJson('/api/login', $payload);
         $response
-            ->assertStatus(403)
-            ->assertJson(['message' => 'Your email address is not verified.'])
-            ->assertJsonMissing(['token']);
+            ->assertStatus(401)
+            ->assertJson(['message' => 'Email not verified']);
     }
 }

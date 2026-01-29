@@ -9,10 +9,8 @@ use App\Exceptions\StepsNotCompletedException;
 use App\Services\GoalAiService;
 use App\Services\GoalContextBuilder;
 use App\Services\ProgressionService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ProgressionController extends Controller
 {
@@ -64,32 +62,24 @@ class ProgressionController extends Controller
 
     public function toggle(string $id): JsonResponse
     {
-        try {
-            $this->progressionService->toggleCompleted($id);
-            return response()->json(['message' => 'Step updated']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => 'Step not found'], 404);
-        }
+        $this->progressionService->toggleCompleted($id);
+        return response()->json(['message' => 'Step updated']);
     }
 
+    /**
+     * @throws StepsNotCompletedException
+     */
     public function complete(string $id): JsonResponse
     {
-        try {
-            $this->progressionService->completeGoal($id);
-            return response()->json(['message' => 'Goal completed']);
-        } catch (StepsNotCompletedException  $e) {
-            return response()->json(['message' => 'Steps are not completed'], 422);
-        }
+        $this->progressionService->completeGoal($id);
+        return response()->json(['message' => 'Goal completed']);
+
     }
 
     public function delete(string $id): JsonResponse
     {
-        try {
-            $this->progressionService->delete($id);
-            return response()->json(['message' => 'Goal deleted']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => 'Goal not found'], 404);
-        }
+        $this->progressionService->delete($id);
+        return response()->json(['message' => 'Goal deleted']);
     }
 
     public function help(Request $request): JsonResponse

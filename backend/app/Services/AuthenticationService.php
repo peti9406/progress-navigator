@@ -42,7 +42,7 @@ class AuthenticationService
         }
 
         if ($user->hasVerifiedEmail()) {
-            throw new EmailAlreadyVerifiedException('Email already verified.');
+            throw new EmailAlreadyVerifiedException();
         }
 
         $user->markEmailAsVerified();
@@ -61,7 +61,7 @@ class AuthenticationService
         $user = Auth::user();
 
         if (!$user->hasVerifiedEmail()) {
-            throw new EmailNotVerifiedException('Your email address is not verified.');
+            throw new EmailNotVerifiedException();
         }
 
         return $user;

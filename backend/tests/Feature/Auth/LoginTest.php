@@ -41,7 +41,6 @@ class LoginTest extends TestCase
                 'message',
                 'name',
                 'isAdmin',
-                'token',
             ])
             ->assertJson([
                 'message' => 'User successfully logged in',

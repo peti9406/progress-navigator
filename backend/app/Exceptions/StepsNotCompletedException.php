@@ -2,9 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
-
-class StepsNotCompletedException extends Exception
+class StepsNotCompletedException extends ApiException
 {
-    //
+    protected $message = "You need to complete the steps first!";
+    protected $code = 400;
 }

@@ -26,7 +26,12 @@ class CompleteStepsNotCompletedTest extends TestCase
             ]);
 
         $response = $this->patchJson("/api/goals/{$goal->id}/complete");
-        $response->assertStatus(422);
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                "message" => "You need to complete the steps first!",
+            ]);
+
 
         $this->assertDatabaseHas('goals', [
             'id' => $goal->id,
