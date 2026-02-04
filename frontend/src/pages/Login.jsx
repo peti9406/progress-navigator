@@ -2,9 +2,9 @@ import Form from "../components/form/Form.jsx";
 import InputField from "../components/form/InputField.jsx";
 import {useState} from "react";
 import api from "../api/axios.ts";
-import ErrorComponent from "../components/ErrorComponent.jsx";
+import ErrorComponent from "../components/ErrorComponent.tsx";
 import {useNavigate} from "react-router-dom";
-import LoadingComponent from "../components/LoadingComponent.jsx";
+import LoadingComponent from "../components/LoadingComponent.tsx";
 import useAuth from "../hooks/useAuth.js";
 
 export default function Login() {

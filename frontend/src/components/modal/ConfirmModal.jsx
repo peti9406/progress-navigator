@@ -10,8 +10,9 @@ import {
 } from "../ui/dialog.jsx";
 import Button from "../ui/Button.jsx";
 import {useState} from "react";
-import ErrorComponent from "../ErrorComponent.jsx";
-import loadingGif from "../../assets/loading.gif"
+import ErrorComponent from "../ErrorComponent.tsx";
+import loadingGif from "../../../public/loading.gif"
+import LoadingComponent from "../LoadingComponent.js";
 
 export default function ConfirmModal({trigger, title, description, confirmText, onConfirm, confirmButton = 'bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'}) {
     const [open, setOpen] = useState(false);
@@ -55,7 +56,7 @@ export default function ConfirmModal({trigger, title, description, confirmText, 
                         </Button>
                     </DialogClose>
                     <Button onClick={handleConfirm} disabled={loading} className={confirmButton}>
-                        {loading && <img src={loadingGif} alt='loading' className='inline w-8 h-8 mr-1'/>}
+                        {loading &&  <LoadingComponent size="sm" />}
                         {confirmText}
                     </Button>
                 </DialogFooter>

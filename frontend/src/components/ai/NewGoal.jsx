@@ -1,8 +1,8 @@
 import {useState} from "react";
 import Button from "../ui/Button.jsx";
 import api from "../../api/axios.ts";
-import LoadingComponent from "../LoadingComponent.jsx";
-import ErrorComponent from "../ErrorComponent.jsx";
+import LoadingComponent from "../LoadingComponent.tsx";
+import ErrorComponent from "../ErrorComponent.tsx";
 import NewGoalForm from "../goal/NewGoalForm.jsx";
 import {nanoid} from "nanoid";
 

@@ -4,7 +4,7 @@ import TableTools from "./TableTools.jsx";
 import TableHeader from "./TableHeader.jsx";
 import TableBody from "./TableBody.jsx";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import LoadingComponent from "../LoadingComponent.jsx";
+import LoadingComponent from "../LoadingComponent.tsx";
 
 export default function GoalTable({goals}) {
     const [openGoalId, setOpenGoalId] = useState(null);

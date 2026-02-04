@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import api from "../api/axios.ts";
-import ErrorComponent from "../components/ErrorComponent.jsx";
-import LoadingComponent from "../components/LoadingComponent.jsx";
+import ErrorComponent from "../components/ErrorComponent.tsx";
+import LoadingComponent from "../components/LoadingComponent.tsx";
 import ReturnHome from "../components/ui/ReturnHome.jsx";
 
 export default function VerifyEmail() {

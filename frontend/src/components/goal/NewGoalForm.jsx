@@ -6,8 +6,9 @@ import Button from "../ui/Button.jsx";
 import {useContext, useState} from "react";
 import {nanoid} from "nanoid";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import loadingGif from "../../assets/loading.gif"
-import ErrorComponent from "../ErrorComponent.jsx";
+import loadingGif from "../../../public/loading.gif"
+import ErrorComponent from "../ErrorComponent.tsx";
+import LoadingComponent from "../LoadingComponent.js";
 
 export default function NewGoalForm({ onSet, children, aiGoal = '', aiSteps = [{id: nanoid(), value: ''}]}) {
     const [loading, setLoading] = useState(false);
@@ -113,7 +114,7 @@ export default function NewGoalForm({ onSet, children, aiGoal = '', aiSteps = [{
 
                 <Button type="submit" disabled={loading}
                         className='bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
-                    {loading && <img src={loadingGif} alt='loading' className='inline w-8 h-8 mr-1'/>}
+                    {loading && <LoadingComponent size="sm" />}
                     Set goal
                 </Button>
             </div>

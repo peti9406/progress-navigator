@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import ErrorComponent from "../components/ErrorComponent.jsx";
+import ErrorComponent from "../components/ErrorComponent.tsx";
 import useAuthRedirect from "../hooks/useAuthRedirect.js";
 import GoalTable from "../components/table/GoalTable.jsx";
 import {GoalContext} from "../contexts/GoalContext.js";

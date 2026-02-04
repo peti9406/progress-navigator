@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import api from "../../api/axios.ts";
-import LoadingComponent from "../LoadingComponent.jsx";
-import ErrorComponent from "../ErrorComponent.jsx";
+import LoadingComponent from "../LoadingComponent.tsx";
+import ErrorComponent from "../ErrorComponent.tsx";
 import AdviceView from "./AdviceView.jsx";
 import FormView from "./FormView.jsx";
 

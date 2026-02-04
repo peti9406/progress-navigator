@@ -1,9 +1,9 @@
 import TableBody from "../components/table/TableBody.jsx";
 import UserTableHeader from "../components/table/UserTableHeader.jsx";
 import {useEffect, useState} from "react";
-import LoadingComponent from "../components/LoadingComponent.jsx";
+import LoadingComponent from "../components/LoadingComponent.tsx";
 import api from "../api/axios.ts";
-import ErrorComponent from "../components/ErrorComponent.jsx";
+import ErrorComponent from "../components/ErrorComponent.tsx";
 import UserCard from "../components/table/UserCard.jsx";
 import {ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight} from "lucide-react";
 import useAuth from "../hooks/useAuth.js";

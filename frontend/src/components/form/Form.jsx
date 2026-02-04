@@ -1,5 +1,5 @@
 import Button from "../ui/Button.jsx";
-import loadingGif from "../../assets/loading.gif";
+import LoadingComponent from "../LoadingComponent.js";
 
 export default function Form({children, onSubmit, header, buttonText, loading}) {
 
@@ -13,7 +13,7 @@ export default function Form({children, onSubmit, header, buttonText, loading}) 
             </div>
 
             <Button type="submit" className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
-                {loading && <img src={loadingGif} alt='loading' className='inline w-6 mr-1'/>}
+                {loading && <LoadingComponent size="sm" /> }
                 {buttonText}
             </Button>
         </form>)

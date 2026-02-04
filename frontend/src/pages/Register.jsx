@@ -2,8 +2,8 @@ import {useState} from "react";
 import InputField from "../components/form/InputField.jsx";
 import api from "../api/axios.ts";
 import Form from "../components/form/Form.jsx";
-import LoadingComponent from "../components/LoadingComponent.jsx";
-import ErrorComponent from "../components/ErrorComponent.jsx";
+import LoadingComponent from "../components/LoadingComponent.tsx";
+import ErrorComponent from "../components/ErrorComponent.tsx";
 
 export default function Register() {
     const [name, setName] = useState("");

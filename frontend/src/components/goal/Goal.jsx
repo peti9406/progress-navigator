@@ -1,6 +1,5 @@
 import StepElement from "./StepElement.jsx";
 import GoalHeader from "./GoalHeader.jsx";
-import {GoalContext} from "../../contexts/GoalContext";
 import CompleteModal from "../modal/CompleteModal.jsx";
 
 export default function Goal({goal, open, setOpen}) {
