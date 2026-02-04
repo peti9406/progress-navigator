@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import api from "../api/axios.js";
+import api from "../api/axios.ts";
 import {GoalContext} from "./GoalContext.js";
 import AuthContext from "./AuthContext.js";
 
