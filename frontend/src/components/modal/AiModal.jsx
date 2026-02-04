@@ -8,7 +8,7 @@ import {
     DialogTitle,
     DialogTrigger
 } from "../ui/dialog.jsx";
-import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.tsx";
 import Assist from "../ai/Assist.jsx";
 import NewGoal from "../ai/NewGoal.jsx";
 

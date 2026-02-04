@@ -1,5 +1,5 @@
 import {useState} from "react";
-import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.tsx";
 import api from "../../api/axios.ts";
 import LoadingComponent from "../LoadingComponent.tsx";
 import ErrorComponent from "../ErrorComponent.tsx";

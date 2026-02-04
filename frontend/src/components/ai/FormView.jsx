@@ -1,4 +1,4 @@
-import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.tsx";
 
 export default function FormView({onSubmit, onSelect, onText, onBack, loading, goalId, problem, goals  }) {
 

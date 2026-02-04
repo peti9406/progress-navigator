@@ -1,4 +1,4 @@
-import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.tsx";
 import LoadingComponent from "../LoadingComponent.js";
 
 export default function Form({children, onSubmit, header, buttonText, loading}) {

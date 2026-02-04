@@ -1,4 +1,4 @@
-import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.tsx";
 
 export default function AdviceView({advice, loading, onSubmit}) {
 

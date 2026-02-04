@@ -2,7 +2,7 @@ import InputField from "../form/InputField.jsx";
 import {closestCenter, DndContext} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import SortableStep from "./SortableStep.jsx";
-import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.tsx";
 import {useContext, useState} from "react";
 import {nanoid} from "nanoid";
 import {GoalContext} from "../../contexts/GoalContext.js";

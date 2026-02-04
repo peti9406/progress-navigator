@@ -7,7 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../ui/dialog.jsx";
-import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.tsx";
 import {useState} from "react";
 import NewGoalForm from "../goal/NewGoalForm.jsx";
 
