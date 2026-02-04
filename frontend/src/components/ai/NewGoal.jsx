@@ -1,6 +1,6 @@
 import {useState} from "react";
 import Button from "../ui/Button.jsx";
-import api from "../../api/axios.js";
+import api from "../../api/axios.ts";
 import LoadingComponent from "../LoadingComponent.jsx";
 import ErrorComponent from "../ErrorComponent.jsx";
 import NewGoalForm from "../goal/NewGoalForm.jsx";

@@ -5,7 +5,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Home from "./pages/Home.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
-import api from "./api/axios.js";
+import api from "./api/axios.ts";
 import useAuth from "./hooks/useAuth.js";
 import Admin from "./pages/Admin.jsx";
 import NotFound from "./pages/NotFound.jsx";

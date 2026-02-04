@@ -1,6 +1,6 @@
 import {useState} from "react";
 import InputField from "../components/form/InputField.jsx";
-import api from "../api/axios.js";
+import api from "../api/axios.ts";
 import Form from "../components/form/Form.jsx";
 import LoadingComponent from "../components/LoadingComponent.jsx";
 import ErrorComponent from "../components/ErrorComponent.jsx";

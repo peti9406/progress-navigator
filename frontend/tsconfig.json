@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es2020",         // specify ECMAScript target version
+    "module": "esnext",         // specify module code generation
+    "moduleResolution": "node", // needed for imports
+
+    "jsx": "react-jsx",             // use typescript to transpile jsx to js
+
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    "skipLibCheck": true,
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    "allowJs": true,            // allow a partial TypeScript and JavaScript codebase
+    "noEmit": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": [
+    "./src/"
+  ]
+}

@@ -2,7 +2,7 @@ import TableBody from "../components/table/TableBody.jsx";
 import UserTableHeader from "../components/table/UserTableHeader.jsx";
 import {useEffect, useState} from "react";
 import LoadingComponent from "../components/LoadingComponent.jsx";
-import api from "../api/axios.js";
+import api from "../api/axios.ts";
 import ErrorComponent from "../components/ErrorComponent.jsx";
 import UserCard from "../components/table/UserCard.jsx";
 import {ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight} from "lucide-react";

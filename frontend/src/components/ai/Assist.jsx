@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import api from "../../api/axios.js";
+import api from "../../api/axios.ts";
 import LoadingComponent from "../LoadingComponent.jsx";
 import ErrorComponent from "../ErrorComponent.jsx";
 import AdviceView from "./AdviceView.jsx";

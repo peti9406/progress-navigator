@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import api from "../api/axios.js";
+import api from "../api/axios.ts";
 import ErrorComponent from "../components/ErrorComponent.jsx";
 import LoadingComponent from "../components/LoadingComponent.jsx";
 import ReturnHome from "../components/ui/ReturnHome.jsx";
