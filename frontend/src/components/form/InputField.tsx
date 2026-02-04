@@ -1,4 +1,20 @@
-export default function InputField({label, id, type, placeholder, onChange, value, min, size = 'normal', labelProps = {}}) {
+import {ChangeEvent, JSX} from "react";
+
+interface InputFieldProps {
+    label: string,
+    id: string
+    type: "number" | "text" | "date" | "password" | "email";
+    placeholder?: string
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    value: string | number;
+    min?: number;
+    size?: "small" | "normal";
+    labelProps?: {
+        className?: string,
+    };
+}
+
+export default function InputField({label, id, type, placeholder, onChange, value, min, size = 'normal', labelProps = {}} : InputFieldProps) {
 
     return (<div className={`flex flex-row justify-between my-1 border-b border-[var(--border)] space-x-2 
     ${size === 'normal' ? 'md:max-w-lg md:min-w-lg w-full' : 'md:max-w-sm md:min-w-sm'} `}>

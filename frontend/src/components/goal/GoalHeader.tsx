@@ -1,15 +1,22 @@
-import ProgressionBar from "./ProgressionBar.jsx";
+import ProgressionBar from "./ProgressionBar";
 import DeleteModal from "../modal/DeleteModal.jsx";
 import ToolTipCustom from "../ui/ToolTipCustom.jsx";
 
-export default function GoalHeader({goal, open, setOpen, completedSteps}) {
-    const steps = goal.steps.length;
-    const percentage = Math.round(completedSteps / steps * 100);
+interface GoalHeaderProps {
+    goal: GoalType;
+    open: boolean;
+    setOpen: (open: number) => void;
+    completedSteps: number;
+}
 
-    const today = new Date();
-    const deadline = new Date(goal.deadline.replace(/\./g, '-'));
-    const diffMs = deadline - today;
-    const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+export default function GoalHeader({goal, open, setOpen, completedSteps}: GoalHeaderProps) {
+    const steps: number = goal.steps.length;
+    const percentage: number = Math.round(completedSteps / steps * 100);
+
+    const today: Date = new Date();
+    const deadline: Date = new Date(goal.deadline.replace(/\./g, '-'));
+    const diffMs: number = deadline.valueOf() - today.valueOf();
+    const daysLeft: number = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
     return (
         <div onClick={() => {

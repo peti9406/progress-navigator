@@ -1,12 +1,11 @@
-import InputField from "../form/InputField.jsx";
+import InputField from "../form/InputField.tsx";
 import {closestCenter, DndContext} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
-import SortableStep from "./SortableStep.jsx";
+import SortableStep from "./SortableStep.tsx";
 import Button from "../ui/Button.tsx";
 import {useContext, useState} from "react";
 import {nanoid} from "nanoid";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import loadingGif from "../../../public/loading.gif"
 import ErrorComponent from "../ErrorComponent.tsx";
 import LoadingComponent from "../LoadingComponent.js";
 

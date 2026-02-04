@@ -1,9 +1,15 @@
-import StepElement from "./StepElement.jsx";
-import GoalHeader from "./GoalHeader.jsx";
+import StepElement from "./StepElement";
+import GoalHeader from "./GoalHeader";
 import CompleteModal from "../modal/CompleteModal.jsx";
 
-export default function Goal({goal, open, setOpen}) {
-    const completedSteps = goal.steps.filter((step) => step.completed === 1).length;
+interface GoalProps {
+    goal: GoalType;
+    open: boolean;
+    setOpen: (open: number | null) => void;
+}
+
+export default function Goal({goal, open, setOpen}: GoalProps) {
+    const completedSteps: number = goal.steps.filter((step) => step.completed === 1).length;
 
     return (
         <div

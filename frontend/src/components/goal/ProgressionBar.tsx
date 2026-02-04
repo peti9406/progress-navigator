@@ -1,4 +1,8 @@
-export default function ProgressionBar({percentage}) {
+interface ProgressionBarProps {
+    percentage: number;
+}
+
+export default function ProgressionBar({percentage}: ProgressionBarProps) {
     return (
         <div
             className="relative px-4 w-full bg-[var(--surface-soft)] rounded-xl overflow-hidden h-6 flex items-center justify-center">

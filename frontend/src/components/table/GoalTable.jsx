@@ -1,4 +1,4 @@
-import Goal from "../goal/Goal.jsx";
+import Goal from "../goal/Goal.tsx";
 import {useContext, useState} from "react";
 import TableTools from "./TableTools.jsx";
 import TableHeader from "./TableHeader.jsx";
