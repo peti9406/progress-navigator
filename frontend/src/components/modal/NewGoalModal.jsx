@@ -9,7 +9,7 @@ import {
 } from "../ui/dialog.jsx";
 import Button from "../ui/Button.tsx";
 import {useState} from "react";
-import NewGoalForm from "../goal/NewGoalForm.jsx";
+import NewGoalForm from "../goal/NewGoalForm.tsx";
 
 export default function NewGoalModal() {
     const [open, setOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function NewGoalModal() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <NewGoalForm onOpen={setOpen}>
+                <NewGoalForm onOpen={setOpen} onSet={() => setOpen(false)}>
                     <DialogClose asChild>
                         <Button
                             className='mt-4 bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>

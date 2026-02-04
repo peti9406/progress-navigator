@@ -4,15 +4,10 @@ import {X} from 'lucide-react';
 import InputField from "../form/InputField.js";
 import {ChangeEvent} from "react";
 
-interface SortableStep {
-    id: number;
-    value: string;
-}
-
 interface SortableStepProps {
-    step: SortableStep
+    step: SortableStepType;
     index: number;
-    onChange: (index: number, value: SortableStep["value"]) => void;
+    onChange: (index: number, value: string) => void;
     onRemove: (index: number) => void;
     canRemove: boolean;
 }

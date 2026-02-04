@@ -5,7 +5,7 @@ import CompleteModal from "../modal/CompleteModal.jsx";
 interface GoalProps {
     goal: GoalType;
     open: boolean;
-    setOpen: (open: number | null) => void;
+    setOpen: (open: number) => void;
 }
 
 export default function Goal({goal, open, setOpen}: GoalProps) {

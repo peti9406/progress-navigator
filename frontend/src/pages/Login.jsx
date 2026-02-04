@@ -1,4 +1,4 @@
-import Form from "../components/form/Form.jsx";
+import Form from "../components/form/Form.tsx";
 import InputField from "../components/form/InputField.tsx";
 import {useState} from "react";
 import api from "../api/axios.ts";

@@ -1,10 +1,12 @@
 interface ErrorComponentProps {
-    message: string;
+    messages: string[];
 }
 
-export default function ErrorComponent({message}: ErrorComponentProps) {
+export default function ErrorComponent({messages}: ErrorComponentProps) {
 
-    return (<div className="flex justify-center my-2 self-center mx-auto w-full max-w-xs text-wrap">
-        <p className="text-red-600 font-bold">{message}</p>
+    return (<div className="flex flex-col justify-center items-center my-2 w-full max-w-xs text-wrap">
+        {messages.map((message, i) => (
+            <p key={i} className="text-red-600 font-bold">{message}</p>
+        ))}
     </div>)
 }

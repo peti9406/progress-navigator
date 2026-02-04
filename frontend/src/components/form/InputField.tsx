@@ -7,7 +7,7 @@ interface InputFieldProps {
     placeholder?: string
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     value: string | number;
-    min?: number;
+    min?: string;
     size?: "small" | "normal";
     labelProps?: {
         className?: string,

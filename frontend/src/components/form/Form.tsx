@@ -1,7 +1,16 @@
-import Button from "../ui/Button.tsx";
-import LoadingComponent from "../LoadingComponent.js";
+import Button from "../ui/Button";
+import LoadingComponent from "../LoadingComponent";
+import React, {ReactNode} from "react";
 
-export default function Form({children, onSubmit, header, buttonText, loading}) {
+interface FormProps {
+    children: ReactNode;
+    onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
+    header?: string;
+    buttonText: string;
+    loading?: boolean;
+}
+
+export default function Form({children, onSubmit, header, buttonText, loading}: FormProps) {
 
     return (
         <form onSubmit={onSubmit} className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40
@@ -13,7 +22,7 @@ export default function Form({children, onSubmit, header, buttonText, loading}) 
             </div>
 
             <Button type="submit" className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
-                {loading && <LoadingComponent size="sm" /> }
+                {loading && <LoadingComponent size="sm"/>}
                 {buttonText}
             </Button>
         </form>)

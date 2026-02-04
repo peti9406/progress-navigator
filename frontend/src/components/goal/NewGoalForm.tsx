@@ -1,48 +1,75 @@
-import InputField from "../form/InputField.tsx";
-import {closestCenter, DndContext} from "@dnd-kit/core";
+import InputField from "../form/InputField";
+import {closestCenter, DndContext, DragEndEvent} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
-import SortableStep from "./SortableStep.tsx";
-import Button from "../ui/Button.tsx";
-import {useContext, useState} from "react";
+import SortableStep from "./SortableStep";
+import Button from "../ui/Button";
+import React, {ReactNode, useContext, useState} from "react";
 import {nanoid} from "nanoid";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import ErrorComponent from "../ErrorComponent.tsx";
+import ErrorComponent from "../ErrorComponent";
 import LoadingComponent from "../LoadingComponent.js";
+import axios from "axios";
 
-export default function NewGoalForm({ onSet, children, aiGoal = '', aiSteps = [{id: nanoid(), value: ''}]}) {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+interface NewGoalFormProps {
+    onSet: () => void;
+    children: ReactNode;
+    aiGoal?: string;
+    aiSteps?: SortableStepType[];
+}
 
-    const [goal, setGoal] = useState(aiGoal);
-    const [deadline, setDeadline] = useState('');
-    const [steps, setSteps] = useState(aiSteps);
+export default function NewGoalForm({
+                                        onSet,
+                                        children,
+                                        aiGoal = '',
+                                        aiSteps = [{id: nanoid(), value: ''}]
+                                    }: NewGoalFormProps) {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string[]>([]);
+
+    const [goal, setGoal] = useState<string>(aiGoal);
+    const [deadline, setDeadline] = useState<string>('');
+    const [steps, setSteps] = useState<SortableStepType[]>(aiSteps);
     const {addGoal} = useContext(GoalContext);
 
-    const tomorrow = new Date();
+    const tomorrow: Date = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const minDate = tomorrow.toISOString().split('T')[0];
+    const minDate: string = new Intl.DateTimeFormat('sv-SE').format(tomorrow);
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
-        setError(null);
+        setError([]);
         setLoading(true);
 
         try {
-            await addGoal({goal, deadline, steps: steps.map(s => s.value)});
-            onSet && onSet();
+            await addGoal({goal: '', deadline: '', steps: steps.map(s => s.value)});
+            onSet();
             setGoal('');
             setDeadline('');
             setSteps([{id: nanoid(), value: ''}]);
-        } catch (error) {
-            setError(error.response?.data?.errors || error.message || 'Something went wrong');
+        } catch (error: unknown) {
+            if (axios.isAxiosError<BackendErrorType>(error)) {
+                setError(error.response?.data.errors
+                    ? Object.values(error.response.data.errors).flat()
+                    : ['Something went wrong']
+                );
+            } else if (error instanceof Error) {
+                setError([error.message]);
+            } else {
+                setError(['Something went wrong']);
+            }
         } finally {
             setLoading(false);
         }
     }
 
-    function handleStepChange(index, value) {
+    function handleStepChange(index: number, value: string) {
         setSteps(prev => {
             const updated = [...prev];
+
+            if (!updated[index]) {
+                return updated;
+            }
+
             updated[index] = {...updated[index], value};
             return updated;
         });
@@ -54,11 +81,11 @@ export default function NewGoalForm({ onSet, children, aiGoal = '', aiSteps = [{
         }
     }
 
-    function removeStep(index) {
+    function removeStep(index: number) {
         setSteps(prev => prev.filter((_, i) => i !== index));
     }
 
-    function handleDragEnd(event) {
+    function handleDragEnd(event: DragEndEvent) {
         const {active, over} = event;
 
         if (!over || active.id === over.id) return;
@@ -104,16 +131,14 @@ export default function NewGoalForm({ onSet, children, aiGoal = '', aiSteps = [{
                 </Button>
             }
 
-            {error && <div>
-                {Object.values(error).map((err, index) => <ErrorComponent key={index} message={err}/>)}
-            </div>}
+            {error && <ErrorComponent messages={error}/>}
 
             <div className="flex flex-col-reverse justify-between w-1/2 md:w-1/3 mt-4">
                 {children}
 
                 <Button type="submit" disabled={loading}
                         className='bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
-                    {loading && <LoadingComponent size="sm" />}
+                    {loading && <LoadingComponent size="sm"/>}
                     Set goal
                 </Button>
             </div>
