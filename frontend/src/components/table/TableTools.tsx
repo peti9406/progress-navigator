@@ -1,9 +1,9 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import NewGoalModal from "../modal/NewGoalModal.jsx";
+import NewGoalModal from "../modal/NewGoalModal.js";
 import FilterSelect from "../ui/FilterSelect.jsx";
 import SortingSelect from "../ui/SortingSelect.jsx";
-import AiModal from "../modal/AiModal.jsx";
+import AiModal from "../modal/AiModal.js";
 
 export default function TableTools() {
     const {filter, sortBy} = useContext(GoalContext);

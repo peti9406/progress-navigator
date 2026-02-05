@@ -6,7 +6,7 @@ import ErrorComponent from "../ErrorComponent.tsx";
 import NewGoalForm from "../goal/NewGoalForm.tsx";
 import {nanoid} from "nanoid";
 
-export default function NewGoal({onSubmit, onSet, onBack}) {
+export default function NewGoal({onViewChange, onSet}) {
     const [goal, setGoal] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -29,7 +29,7 @@ export default function NewGoal({onSubmit, onSet, onBack}) {
                 setNewGoal(null);
             } else if (Array.isArray(data.steps)) {
                 setNewGoal(data);
-                onSubmit();
+                onViewChange('generated');
             } else {
                 setError('Unexpected AI response.')
             }
@@ -106,7 +106,7 @@ export default function NewGoal({onSubmit, onSet, onBack}) {
                     </div>
 
                     <div className="flex flex-col-reverse items-center gap-4 md:flex-row justify-between mt-8">
-                        <Button disabled={loading} onClick={() => onBack('menu')}
+                        <Button disabled={loading} onClick={() => onViewChange('menu')}
                                 className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                             Back
                         </Button>

@@ -21,7 +21,7 @@ export default function SortableStep({step, index, onChange, onRemove, canRemove
         transition,
     } = useSortable({id: step.id});
 
-    const style: object = {
+    const style = {
         transform: CSS.Transform.toString(transform),
         transition,
     };

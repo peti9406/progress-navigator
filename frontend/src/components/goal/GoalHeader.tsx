@@ -1,6 +1,7 @@
 import ProgressionBar from "./ProgressionBar";
-import DeleteModal from "../modal/DeleteModal.jsx";
+import DeleteModal from "../modal/DeleteModal.js";
 import ToolTipCustom from "../ui/ToolTipCustom.jsx";
+import {GoalType} from "../../types/GoalType";
 
 interface GoalHeaderProps {
     goal: GoalType;

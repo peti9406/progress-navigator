@@ -1,14 +1,9 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext";
-
-interface Step {
-    id: number;
-    step: string;
-    completed: 0 | 1;
-}
+import {StepType} from "../../types/StepType";
 
 interface StepElementProps {
-    step: Step;
+    step: StepType;
     goalId: number;
     goalCompleted: 0 | 1;
 }

@@ -7,12 +7,12 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../ui/dialog.jsx";
-import Button from "../ui/Button.tsx";
+import Button from "../ui/Button";
 import {useState} from "react";
-import NewGoalForm from "../goal/NewGoalForm.tsx";
+import NewGoalForm from "../goal/NewGoalForm";
 
 export default function NewGoalModal() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -24,7 +24,7 @@ export default function NewGoalModal() {
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-[425px] md:min-w-fit">
-                <DialogHeader>
+                <DialogHeader className={undefined}>
                     <DialogTitle className='text-3xl text-center'>Set New Goal</DialogTitle>
                     <DialogDescription className='text-center my-4'>
                         Set up a new goal!<br/>
@@ -33,7 +33,7 @@ export default function NewGoalModal() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <NewGoalForm onOpen={setOpen} onSet={() => setOpen(false)}>
+                <NewGoalForm onSet={() => setOpen(false)}>
                     <DialogClose asChild>
                         <Button
                             className='mt-4 bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>

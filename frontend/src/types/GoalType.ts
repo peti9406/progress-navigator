@@ -1,8 +1,14 @@
-interface GoalType {
-    id: number;
-    goal: string;
-    deadline: string;
-    achieved_at: string | null;
-    completed: 0 | 1;
-    steps: StepType[];
-}
+import {z} from "zod";
+import { StepTypeSchema} from "./StepType";
+
+const GoalTypeSchema = z.object({
+    id: z.number(),
+    goal: z.string(),
+    deadline: z.string(),
+    achieved_at: z.string().nullable(),
+    completed: z.union([z.literal(0), z.literal(1)]),
+    steps: z.array(StepTypeSchema),
+})
+
+export type GoalType = z.infer<typeof GoalTypeSchema>;
+export const GoalResponseSchema = z.array(GoalTypeSchema);

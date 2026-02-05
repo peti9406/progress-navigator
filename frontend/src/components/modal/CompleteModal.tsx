@@ -1,9 +1,14 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import Button from "../ui/Button.tsx";
-import ConfirmModal from "./ConfirmModal.jsx";
+import Button from "../ui/Button";
+import ConfirmModal from "./ConfirmModal";
 
-export default function CompleteModal({goal, id}) {
+interface CompleteModalProps {
+    goal: string;
+    id: number;
+}
+
+export default function CompleteModal({goal, id}: CompleteModalProps) {
     const {completeGoal} = useContext(GoalContext);
 
     async function handleComplete() {
@@ -16,7 +21,7 @@ export default function CompleteModal({goal, id}) {
         description='Are you sure you want to complete this goal?'
         confirmText='Complete'
         onConfirm={handleComplete}
-        confirmButton='bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'
+        confirmButtonStyle='bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'
     />
 
 }

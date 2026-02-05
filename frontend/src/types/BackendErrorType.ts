@@ -1,6 +1,4 @@
-interface BackendErrorType {
+export type BackendErrorType = {
     message: string;
-    errors: {
-        [key: string]: string[];
-    };
+    error: string
 }

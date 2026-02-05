@@ -5,6 +5,7 @@ import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import {GoalContext} from "../../contexts/GoalContext.js";
 import LoadingComponent from "../LoadingComponent";
+import {GoalType} from "../../types/GoalType";
 
 interface GoalTableProps {
     goals: GoalType[];

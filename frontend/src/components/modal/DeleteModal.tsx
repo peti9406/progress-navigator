@@ -1,8 +1,13 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import ConfirmModal from "../../components/modal/ConfirmModal.jsx";
+import ConfirmModal from "./ConfirmModal";
 
-export default function DeleteModal({goal, id}) {
+interface DeleteModalProps {
+    goal: string;
+    id: number
+}
+
+export default function DeleteModal({goal, id}: DeleteModalProps) {
     const {deleteGoal} = useContext(GoalContext);
 
     async function handleDelete() {

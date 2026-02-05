@@ -1,3 +1,5 @@
+import type {UserType} from "../../types/UserType";
+
 interface UserCardProps {
     user: UserType
 }

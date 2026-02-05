@@ -1,6 +1,19 @@
-import Button from "../ui/Button.tsx";
+import Button from "../ui/Button";
+import React, {ChangeEvent} from "react";
+import {GoalType} from "../../types/GoalType";
 
-export default function FormView({onSubmit, onSelect, onText, onBack, loading, goalId, problem, goals  }) {
+interface FormViewProps {
+    onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
+    onSelect: (event: ChangeEvent<HTMLSelectElement>) => void;
+    onText: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+    onViewChange: (view: string) => void;
+    loading: boolean;
+    goalId: string;
+    problem: string;
+    goals: GoalType[]
+}
+
+export default function FormView({onSubmit, onSelect, onText, onViewChange, loading, goalId, problem, goals  }: FormViewProps) {
 
     return (
         <form className="flex flex-col" onSubmit={onSubmit}>
@@ -9,7 +22,7 @@ export default function FormView({onSubmit, onSelect, onText, onBack, loading, g
                 <select id='goal'
                         value={goalId}
                         onChange={onSelect}
-                        className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md'>
+                        className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md w-full max-w-full overflow-hidden truncate'>
                     <option value='' disabled
                             className='bg-[var(--primary-muted)]/20 text-black'
                     >
@@ -27,13 +40,13 @@ export default function FormView({onSubmit, onSelect, onText, onBack, loading, g
 
                 <label htmlFor='problem'>Describe what is blocking you</label>
                 <textarea id='problem' onChange={onText}
-                          placeholder='I don’t know how to start the next step because…' maxLength='255'
+                          placeholder='I don’t know how to start the next step because…' maxLength={255}
                           value={problem}
                           className='bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 p-2 rounded-md shadow-md'/>
             </div>
 
             <div className="flex flex-col-reverse items-center md:flex-row justify-between gap-4 mt-8">
-                <Button disabled={loading} onClick={() => onBack('menu')}
+                <Button disabled={loading} onClick={() => onViewChange('menu')}
                         className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                     Back
                 </Button>

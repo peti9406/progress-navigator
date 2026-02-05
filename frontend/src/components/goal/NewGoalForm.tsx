@@ -41,7 +41,7 @@ export default function NewGoalForm({
         setLoading(true);
 
         try {
-            await addGoal({goal: '', deadline: '', steps: steps.map(s => s.value)});
+            await addGoal({goal, deadline, steps: steps.map(s => s.value)});
             onSet();
             setGoal('');
             setDeadline('');
@@ -117,7 +117,7 @@ export default function NewGoalForm({
 
             {steps.length < 12 &&
                 <Button onClick={addStep}
-                        className='mt-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                        className='my-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                     Add Step
                 </Button>
             }

@@ -8,15 +8,15 @@ import {
     DialogTitle,
     DialogTrigger
 } from "../ui/dialog.jsx";
-import Button from "../ui/Button.tsx";
-import Assist from "../ai/Assist.jsx";
+import Button from "../ui/Button";
+import Assist from "../ai/Assist";
 import NewGoal from "../ai/NewGoal.jsx";
 
 export default function AiModal() {
-    const [open, setOpen] = useState(false);
-    const [view, setView] = useState('menu')
+    const [open, setOpen] = useState<boolean>(false);
+    const [view, setView] = useState<string>('menu')
 
-    const titleMap = {
+    const titleMap: AiModalTextMapType = {
         menu: 'Choose an option',
         assist: 'Stuck on a goal',
         assisted: 'Stuck on a goal',
@@ -24,7 +24,7 @@ export default function AiModal() {
         generated: 'Set a new goal'
     };
 
-    const descriptionMap = {
+    const descriptionMap: AiModalTextMapType = {
         menu: 'Ask the AI for help with an existing goal or create a new one.',
         assist: 'Which goal are you stuck on? Describe what is blocking your progress on this goal.',
         assisted: 'Please note that the AI may occasionally provide inaccurate or incomplete information. Always verify the advice and suggestions before acting on them.',
@@ -32,7 +32,7 @@ export default function AiModal() {
         generated: 'Please note that the AI may occasionally provide inaccurate or incomplete information. Always verify the advice and suggestions before acting on them.',
     }
 
-    function handleOpen(isOpen) {
+    function handleOpen(isOpen: boolean) {
         setView('menu');
         setOpen(isOpen);
     }
@@ -49,14 +49,14 @@ export default function AiModal() {
                 </Button>
             </DialogTrigger>
             <DialogContent className="md:min-w-fit max-h-[100vh] overflow-y-auto">
-                <DialogHeader>
+                <DialogHeader className={undefined}>
                     <DialogTitle className='text-3xl text-center'>{titleMap[view]}</DialogTitle>
                     <DialogDescription className='text-center my-4'>{descriptionMap[view]}</DialogDescription>
                 </DialogHeader>
 
-                {(view === 'assist' || view === 'assisted') && <Assist onSubmit={() => setView('assisted')} onBack={setView} />}
+                {(view === 'assist' || view === 'assisted') && <Assist onViewChange={setView} />}
 
-                {(view === 'new' || view === 'generated') && (<NewGoal onSubmit={() => setView('generated')} onBack={setView} onSet={() => setOpen(false)}/>)}
+                {(view === 'new' || view === 'generated') && (<NewGoal onViewChange={setView} onSet={() => setOpen(false)}/>)}
 
                 <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-2">
                     <DialogClose asChild>
