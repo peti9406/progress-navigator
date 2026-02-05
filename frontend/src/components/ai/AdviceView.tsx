@@ -1,8 +1,8 @@
 import Button from "../ui/Button";
-import {AdviceType} from "../../types/AdviceType";
+import {AiAdviceType} from "../../types/AiAdviceType";
 
 interface AdviceViewProps {
-    advice: AdviceType;
+    advice: AiAdviceType;
     loading: boolean;
     onBack: () => void;
 }

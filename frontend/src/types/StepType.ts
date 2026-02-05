@@ -4,6 +4,7 @@ export const StepTypeSchema = z.object({
     id: z.number(),
     step: z.string(),
     completed: z.union([z.literal(0), z.literal(1)]),
+    description: z.string().optional(),
 });
 
 export type StepType = z.infer<typeof StepTypeSchema>;

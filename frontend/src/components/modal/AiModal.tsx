@@ -10,7 +10,7 @@ import {
 } from "../ui/dialog.jsx";
 import Button from "../ui/Button";
 import Assist from "../ai/Assist";
-import NewGoal from "../ai/NewGoal.jsx";
+import NewGoal from "../ai/NewGoal.js";
 
 export default function AiModal() {
     const [open, setOpen] = useState<boolean>(false);

@@ -6,9 +6,7 @@ function hasErrors(obj: unknown): obj is MultipleBackendErrorType {
     return typeof obj === "object" && obj !== null && 'errors' in obj;
 }
 
-export default function handleError(error: unknown, onError: (errors: string[]) => void) {
-    const defaultMessage = ['Something went wrong'];
-
+export default function handleError(error: unknown, onError: (errors: string[]) => void, defaultMessage: string = 'Something went wrong') {
     if (axios.isAxiosError(error)) {
         const data = error.response?.data as BackendErrorType | MultipleBackendErrorType | undefined;
 
@@ -17,11 +15,11 @@ export default function handleError(error: unknown, onError: (errors: string[]) 
         } else if (data && 'error' in data) {
             onError([data.error])
         } else {
-            onError(defaultMessage)
+            onError([defaultMessage])
         }
     } else if (error instanceof Error) {
         onError([error.message]);
     } else {
-        onError(defaultMessage);
+        onError([defaultMessage]);
     }
 }

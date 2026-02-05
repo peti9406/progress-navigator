@@ -12,7 +12,7 @@ import handleError from "../../utils/HandleError";
 
 interface NewGoalFormProps {
     onSet: () => void;
-    children: ReactNode;
+    children?: ReactNode;
     aiGoal?: string;
     aiSteps?: SortableStepType[];
 }

@@ -5,4 +5,4 @@ export const AdviceTypeSchema = z.object({
     steps: z.array(z.string()),
 });
 
-export type AdviceType = z.infer<typeof AdviceTypeSchema>;
+export type AiAdviceType = z.infer<typeof AdviceTypeSchema>;
