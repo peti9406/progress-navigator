@@ -1,13 +1,17 @@
-import Goal from "../goal/Goal.tsx";
+import Goal from "../goal/Goal";
 import {useContext, useState} from "react";
-import TableTools from "./TableTools.jsx";
-import TableHeader from "./TableHeader.jsx";
-import TableBody from "./TableBody.jsx";
+import TableTools from "./TableTools";
+import TableHeader from "./TableHeader";
+import TableBody from "./TableBody";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import LoadingComponent from "../LoadingComponent.tsx";
+import LoadingComponent from "../LoadingComponent";
 
-export default function GoalTable({goals}) {
-    const [openGoalId, setOpenGoalId] = useState(null);
+interface GoalTableProps {
+    goals: GoalType[];
+}
+
+export default function GoalTable({goals}: GoalTableProps) {
+    const [openGoalId, setOpenGoalId] = useState<number | null>(null);
     const {loading} = useContext(GoalContext);
 
     return (

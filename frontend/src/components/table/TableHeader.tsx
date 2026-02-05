@@ -5,7 +5,7 @@ import SortIcon from "../ui/SortIcon.jsx";
 export default function TableHeader() {
     const {filter, sortGoals, sorted, sortBy} = useContext(GoalContext);
 
-    function handleSort(sort) {
+    function handleSort(sort: string) {
         sortGoals(sort);
     }
 

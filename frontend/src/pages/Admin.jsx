@@ -1,21 +1,22 @@
-import TableBody from "../components/table/TableBody.jsx";
-import UserTableHeader from "../components/table/UserTableHeader.jsx";
-import {useEffect, useState} from "react";
+import TableBody from "../components/table/TableBody.tsx";
+import UserTableHeader from "../components/table/UserTableHeader.tsx";
+import React, {useEffect, useState} from "react";
 import LoadingComponent from "../components/LoadingComponent.tsx";
 import api from "../api/axios.ts";
 import ErrorComponent from "../components/ErrorComponent.tsx";
-import UserCard from "../components/table/UserCard.jsx";
+import UserCard from "../components/table/UserCard.tsx";
 import {ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight} from "lucide-react";
 import useAuth from "../hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
-import MobileUserHeader from "../components/table/MobileUserHeader.jsx";
+import MobileUserHeader from "../components/table/MobileUserHeader.tsx";
+import handleError from "../utils/HandleError.js";
 
 export default function Admin() {
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState([]);
     const navigate = useNavigate();
     const {user} = useAuth();
 
@@ -26,6 +27,7 @@ export default function Admin() {
                 return;
             }
 
+            setError([]);
             setLoading(true);
             try {
                 await api.get('/sanctum/csrf-cookie');
@@ -34,7 +36,7 @@ export default function Admin() {
                 setPage(data['current_page']);
                 setLastPage(data['last_page'])
             } catch (error) {
-                setError(error?.response?.data?.message || error.message || 'Something went wrong.');
+                handleError(error, setError);
             } finally {
                 setLoading(false);
             }
@@ -63,16 +65,19 @@ export default function Admin() {
         <UserTableHeader/>
 
         <TableBody>
-            {loading ? <LoadingComponent/>
-                : users.length > 0 ? (
-                        users.map(user => (<div className='flex flex-row' key={user.id}>
-                                <MobileUserHeader/>
-                                <UserCard user={user}/>
-                            </div>
-                        ))
-                    ) :
-                    <ErrorComponent message={error}/>
+            {error.length > 0 && <ErrorComponent messages={error}/>}
+
+            {error.length === 0 && loading && <LoadingComponent/>}
+
+            {error.length === 0 && !loading && users.length > 0 && (
+                users.map(user => (
+                    <div className='flex flex-row' key={user.id}>
+                        <MobileUserHeader/>
+                        <UserCard user={user}/>
+                    </div>
+                )))
             }
+            {/*<p className='m-4 font-bold'>No users found.</p>*/}
         </TableBody>
 
         <div className='flex justify-center space-x-2 m-4'>

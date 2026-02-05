@@ -8,7 +8,7 @@ import {nanoid} from "nanoid";
 import {GoalContext} from "../../contexts/GoalContext.js";
 import ErrorComponent from "../ErrorComponent";
 import LoadingComponent from "../LoadingComponent.js";
-import axios from "axios";
+import handleError from "../../utils/HandleError";
 
 interface NewGoalFormProps {
     onSet: () => void;
@@ -47,16 +47,7 @@ export default function NewGoalForm({
             setDeadline('');
             setSteps([{id: nanoid(), value: ''}]);
         } catch (error: unknown) {
-            if (axios.isAxiosError<BackendErrorType>(error)) {
-                setError(error.response?.data.errors
-                    ? Object.values(error.response.data.errors).flat()
-                    : ['Something went wrong']
-                );
-            } else if (error instanceof Error) {
-                setError([error.message]);
-            } else {
-                setError(['Something went wrong']);
-            }
+            handleError(error, setError)
         } finally {
             setLoading(false);
         }
@@ -131,9 +122,9 @@ export default function NewGoalForm({
                 </Button>
             }
 
-            {error && <ErrorComponent messages={error}/>}
+            {error.length > 0 && <ErrorComponent messages={error}/>}
 
-            <div className="flex flex-col-reverse justify-between w-1/2 md:w-1/3 mt-4">
+            <div className="flex flex-col-reverse justify-between w-1/2 md:w-1/3">
                 {children}
 
                 <Button type="submit" disabled={loading}

@@ -1,4 +1,8 @@
-export default function UserCard({user}) {
+interface UserCardProps {
+    user: UserType
+}
+
+export default function UserCard({user}: UserCardProps) {
 
     return (
         <div className='flex flex-col gap-1 border-b-1 md:grid md:grid-cols-4 items-center w-full font-bold py-2'>
