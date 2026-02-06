@@ -21,17 +21,17 @@ class IndexTest extends TestCase
 
         Goal::factory()->create([
             'user_id' => $user->id,
-            'goal' => 'User Goal 1'
+            'goal' => 'User GoalType 1'
         ]);
 
         Goal::factory()->create([
             'user_id' => $user->id,
-            'goal' => 'User Goal 2'
+            'goal' => 'User GoalType 2'
         ]);
 
         Goal::factory()->create([
             'user_id' => $otherUser->id,
-            'goal' => 'Other User Goal'
+            'goal' => 'Other User GoalType'
         ]);
 
         $response = $this->getJson('/api/goals');
@@ -40,8 +40,8 @@ class IndexTest extends TestCase
         $data = $response->json();
 
         $this->assertCount(2, $data);
-        $this->assertEquals('User Goal 1', $data[0]['goal']);
-        $this->assertEquals('User Goal 2', $data[1]['goal']);
+        $this->assertEquals('User GoalType 1', $data[0]['goal']);
+        $this->assertEquals('User GoalType 2', $data[1]['goal']);
 
         foreach ($data as $goal) {
             $this->assertEquals($user->id, $goal['user_id']);
@@ -58,19 +58,19 @@ class IndexTest extends TestCase
         $this->actingAs($user, 'sanctum');
 
         Goal::factory()->create([
-            'goal' => 'User Goal 1',
+            'goal' => 'User GoalType 1',
             'user_id' => $user->id,
             'completed' => 1
         ]);
 
         Goal::factory()->create([
-            'goal' => 'User Goal 2',
+            'goal' => 'User GoalType 2',
             'user_id' => $user->id,
             'completed' => 0
         ]);
 
         Goal::factory()->create([
-            'goal' => 'Other User Goal',
+            'goal' => 'Other User GoalType',
             'user_id' => $otherUser->id,
             'completed' => 1
         ]);

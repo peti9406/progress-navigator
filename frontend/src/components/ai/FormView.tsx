@@ -1,6 +1,6 @@
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import React, {ChangeEvent} from "react";
-import {Goal} from "../../types/Goal";
+import {GoalType} from "../../types/GoalType";
 
 interface FormViewProps {
     onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
@@ -10,7 +10,7 @@ interface FormViewProps {
     loading: boolean;
     goalId: string;
     problem: string;
-    goals: Goal[]
+    goals: GoalType[]
 }
 
 export default function FormView({onSubmit, onSelect, onText, onViewChange, loading, goalId, problem, goals  }: FormViewProps) {
@@ -46,14 +46,14 @@ export default function FormView({onSubmit, onSelect, onText, onViewChange, load
             </div>
 
             <div className="flex flex-col-reverse items-center md:flex-row justify-between gap-4 mt-8">
-                <Button disabled={loading} onClick={() => onViewChange('menu')}
-                        className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                <CustomButton disabled={loading} onClick={() => onViewChange('menu')}
+                              className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                     Back
-                </Button>
-                <Button type='submit' disabled={!goalId || loading}
-                        className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
+                </CustomButton>
+                <CustomButton type='submit' disabled={!goalId || loading}
+                              className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                     Get help from Ai
-                </Button>
+                </CustomButton>
             </div>
         </form>
     )

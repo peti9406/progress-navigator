@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//        Goal::factory()
+//        GoalType::factory()
 //            ->withSteps()
 //            ->count(4)
 //            ->create();

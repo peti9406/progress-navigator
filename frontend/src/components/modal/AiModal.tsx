@@ -7,8 +7,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger
-} from "../ui/dialog.jsx";
-import Button from "../ui/Button";
+} from "../ui/dialog";
+import CustomButton from "../ui/CustomButton";
 import Assist from "../ai/Assist";
 import NewGoal from "../ai/NewGoal.js";
 
@@ -40,13 +40,13 @@ export default function AiModal() {
     return (
         <Dialog open={open} onOpenChange={handleOpen} >
             <DialogTrigger asChild>
-                <Button className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'
-                        onClick={() => {
+                <CustomButton className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'
+                              onClick={() => {
                             setOpen(true)
                         }}>
                     <i className="fa-solid fa-robot"></i>
                     <span className='hidden md:inline-block ml-2'>Ask AI</span>
-                </Button>
+                </CustomButton>
             </DialogTrigger>
             <DialogContent className="md:min-w-fit max-h-[100vh] overflow-y-auto">
                 <DialogHeader className={undefined}>
@@ -60,21 +60,21 @@ export default function AiModal() {
 
                 <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-2">
                     <DialogClose asChild>
-                        <Button
+                        <CustomButton
                                 className='w-1/2 md:w-1/3 bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>
                             Close
-                        </Button>
+                        </CustomButton>
                     </DialogClose>
 
-                    <Button onClick={() => setView('assist')}
-                            className={`w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70 ${view === 'menu' ? '' : 'hidden'}`}>
+                    <CustomButton onClick={() => setView('assist')}
+                                  className={`w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70 ${view === 'menu' ? '' : 'hidden'}`}>
                         Assist goal
-                    </Button>
+                    </CustomButton>
 
-                    <Button onClick={() => setView('new')}
-                            className={`w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70 ${view === 'menu' ? '' : 'hidden'}`}>
+                    <CustomButton onClick={() => setView('new')}
+                                  className={`w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70 ${view === 'menu' ? '' : 'hidden'}`}>
                         Set new goal
-                    </Button>
+                    </CustomButton>
                 </div>
             </DialogContent>
         </Dialog>

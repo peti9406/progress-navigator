@@ -25,7 +25,7 @@ class StoreTest extends TestCase
         $response
             ->assertStatus(201)
             ->assertJson([
-                'message' => 'Goal created',
+                'message' => 'GoalType created',
                 'goal' => [
                     'goal' => $payload['goal'],
                 ]

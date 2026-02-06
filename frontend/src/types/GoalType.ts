@@ -10,5 +10,5 @@ const GoalTypeSchema = z.object({
     steps: z.array(StepTypeSchema),
 })
 
-export type Goal = z.infer<typeof GoalTypeSchema>;
+export type GoalType = z.infer<typeof GoalTypeSchema>;
 export const GoalResponseSchema = z.array(GoalTypeSchema);

@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import React, {useContext} from "react";
 import AuthContext from "../../contexts/AuthContext";
 
@@ -20,35 +20,35 @@ export default function SmallDeviceMenu({ onNavigate }: MobileMenuProps) {
             <>
                 <p className="font-bold">Hi {user.name}!</p>
                 <Link to="/">
-                    <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
+                    <CustomButton className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
                         Home
-                    </Button>
+                    </CustomButton>
                 </Link>
                 {user?.isAdmin && (
                     <Link to="/users">
-                        <Button className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
+                        <CustomButton className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
                             Users
-                        </Button>
+                        </CustomButton>
                     </Link>
                 )}
-                <Button
+                <CustomButton
                     onClick={logout}
                     className="w-full bg-[var(--primary)] text-[var(--text-soft)]"
                 >
                     Logout
-                </Button>
+                </CustomButton>
             </>
         ) : (
             <>
                 <Link to="/register">
-                    <Button className="w-full  bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
+                    <CustomButton className="w-full  bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
                         Register
-                    </Button>
+                    </CustomButton>
                 </Link>
                 <Link to="/login">
-                    <Button className="w-full  bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
+                    <CustomButton className="w-full  bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
                         Sign in
-                    </Button>
+                    </CustomButton>
                 </Link>
             </>
         )}

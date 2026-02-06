@@ -28,7 +28,7 @@ class CompleteTest extends TestCase
         $response = $this->patchJson("/api/goals/{$goal->id}/complete");
         $response
             ->assertStatus(200)
-            ->assertJson(['message' => 'Goal completed']);
+            ->assertJson(['message' => 'GoalType completed']);
 
         $this->assertDatabaseHas('goals', [
             'id' => $goal->id,

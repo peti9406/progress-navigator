@@ -6,8 +6,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "../ui/dialog.jsx";
-import Button from "../ui/Button";
+} from "../ui/dialog";
+import CustomButton from "../ui/CustomButton";
 import {useState} from "react";
 import NewGoalForm from "../goal/NewGoalForm";
 
@@ -17,10 +17,10 @@ export default function NewGoalModal() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                {<Button className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                {<CustomButton className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                     <i className="fa-solid fa-plus mr-1"></i>
                     Set new goal
-                </Button>}
+                </CustomButton>}
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-[425px] md:min-w-fit">
@@ -35,10 +35,10 @@ export default function NewGoalModal() {
 
                 <NewGoalForm onSet={() => setOpen(false)}>
                     <DialogClose asChild>
-                        <Button
+                        <CustomButton
                             className='mt-4 bg-[var(--destructive)] text-[var(--text-soft)] hover:bg-[var(--destructive)]/70'>
                             Cancel
-                        </Button>
+                        </CustomButton>
                     </DialogClose>
                 </NewGoalForm>
             </DialogContent>

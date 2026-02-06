@@ -21,7 +21,7 @@ class DeleteTest extends TestCase
         $response = $this->deleteJson("/api/goals/{$goal->id}");
         $response
             ->assertStatus(200)
-            ->assertJson(['message' => 'Goal deleted']);
+            ->assertJson(['message' => 'GoalType deleted']);
 
         $this->assertDatabaseMissing('goals', [
             'id' => $goal->id,

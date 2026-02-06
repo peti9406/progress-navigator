@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext.js";
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import ConfirmModal from "./ConfirmModal";
 
 interface CompleteModalProps {
@@ -16,7 +16,7 @@ export default function CompleteModal({goal, id}: CompleteModalProps) {
     }
 
     return <ConfirmModal
-        trigger={<Button className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>Complete</Button>}
+        trigger={<CustomButton className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>Complete</CustomButton>}
         title={`Complete goal: ${goal}`}
         description='Are you sure you want to complete this goal?'
         confirmText='Complete'

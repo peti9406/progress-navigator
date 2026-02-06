@@ -67,6 +67,6 @@ class GoalContextBuilderTest extends TestCase
             'problem' => $providedProblem
         ];
 
-        $this->assertEquals($expected, $result, 'Goal context should be build with correct data');
+        $this->assertEquals($expected, $result, 'GoalType context should be build with correct data');
     }
 }

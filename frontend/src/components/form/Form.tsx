@@ -1,9 +1,9 @@
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import LoadingComponent from "../LoadingComponent";
 import React, {ReactNode} from "react";
 
 interface FormProps {
-    children: ReactNode;
+    children: ReactNode | ReactNode[];
     onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
     header?: string;
     buttonText: string;
@@ -21,9 +21,9 @@ export default function Form({children, onSubmit, header, buttonText, loading}: 
                 {children}
             </div>
 
-            <Button type="submit" className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+            <CustomButton type="submit" className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                 {loading && <LoadingComponent size="sm"/>}
                 {buttonText}
-            </Button>
+            </CustomButton>
         </form>)
 }

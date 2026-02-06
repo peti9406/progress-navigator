@@ -51,7 +51,7 @@ class ProgressionServiceTest extends TestCase
         );
 
         $result = $this->underTest->createGoal($data);
-        $this->assertEquals($goal, $result, 'Goal should be created');
+        $this->assertEquals($goal, $result, 'GoalType should be created');
     }
 
     public function testGetGoals_whenUserHasNoGoals_returnsEmptyCollection()
@@ -261,7 +261,7 @@ class ProgressionServiceTest extends TestCase
             ]);
 
         $this->underTest->completeGoal($goal->id);
-        $this->assertTrue(true, 'Goal should be updated');
+        $this->assertTrue(true, 'GoalType should be updated');
     }
 
     #[DataProvider('stepsCompletedProvider')]

@@ -234,7 +234,7 @@ This application helps users track and manage their goals by breaking them down 
 * Password must be at least 6 characters
 ![Registration](./screenshots/register.png)
 
-#### Goal management
+#### GoalType management
 ![Goals](./screenshots/goals.png)
 
 #### Progress tracking
@@ -256,7 +256,7 @@ This roadmap outlines the planned features and improvements for the project.<br>
 Items may change as the project evolves.
 
 - [x] Authentication & authorization
-- [x] Goal management
+- [x] GoalType management
 - [x] Progress tracking
 - [x] UI improvements
 - [x] Light/Dark mode

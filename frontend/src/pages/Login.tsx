@@ -1,23 +1,23 @@
-import Form from "../components/form/Form.tsx";
-import InputField from "../components/form/InputField.tsx";
-import {useState} from "react";
-import api from "../api/axios.ts";
-import ErrorComponent from "../components/ErrorComponent.tsx";
+import Form from "../components/form/Form";
+import InputField from "../components/form/InputField";
+import React, {useState} from "react";
+import api from "../api/axios";
+import ErrorComponent from "../components/ErrorComponent";
 import {useNavigate} from "react-router-dom";
-import LoadingComponent from "../components/LoadingComponent.tsx";
 import useAuth from "../hooks/useAuth.js";
+import handleError from "../utils/HandleError.js";
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const {setUser} = useAuth();
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
-        setError(null);
+        setError([]);
         setLoading(true);
 
         try {
@@ -26,7 +26,7 @@ export default function Login() {
             setUser({name: data.name, isAdmin: data.isAdmin});
             navigate("/");
         } catch (error) {
-            setError(error.response?.data?.message || error.message);
+            handleError(error, setError);
         } finally {
             setLoading(false);
         }
@@ -40,7 +40,7 @@ export default function Login() {
             <InputField id='password' label="Password:" type="password" value={password}
                         onChange={(event) => setPassword(event.target.value)}/>
 
-            {error && <ErrorComponent message={error} />}
+            {error.length > 0 && <ErrorComponent messages={error} />}
         </Form>
     )
 }

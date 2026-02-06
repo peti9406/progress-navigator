@@ -1,6 +1,13 @@
 import {ArrowDown, ArrowUp} from "lucide-react";
+import {SortOrder} from "../../types/SortOrder";
+import {JSX} from "react";
 
-export default function SortIcon({active, direction}) {
+interface SortIconProps {
+    direction: SortOrder;
+    active: boolean;
+}
+
+export default function SortIcon({active, direction}: SortIconProps): JSX.Element {
 
     return (
         <span className='inline-flex w-4 ml-1'>

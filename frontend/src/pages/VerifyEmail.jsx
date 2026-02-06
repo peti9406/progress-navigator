@@ -3,7 +3,7 @@ import {useSearchParams} from "react-router-dom";
 import api from "../api/axios.ts";
 import ErrorComponent from "../components/ErrorComponent.tsx";
 import LoadingComponent from "../components/LoadingComponent.tsx";
-import ReturnHome from "../components/ui/ReturnHome.jsx";
+import ReturnHome from "../components/ui/ReturnHome.tsx";
 
 export default function VerifyEmail() {
     const [searchParams] = useSearchParams();

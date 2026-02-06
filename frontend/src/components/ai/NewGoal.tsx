@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import api from "../../api/axios";
 import LoadingComponent from "../LoadingComponent";
 import ErrorComponent from "../ErrorComponent";
@@ -88,14 +88,14 @@ export default function NewGoal({onViewChange, onSet}: NewGoalProps) {
                                 )}
                             </div>
                             <div className='flex flex-col-reverse md:flex-row items-center justify-between gap-4 mt-4'>
-                                <Button disabled={loading} onClick={() => setSubmitted(false)}
-                                        className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                                <CustomButton disabled={loading} onClick={() => setSubmitted(false)}
+                                              className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                                     Back
-                                </Button>
-                                <Button onClick={handleSetGoal}
-                                        className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
+                                </CustomButton>
+                                <CustomButton onClick={handleSetGoal}
+                                              className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                                     Set goal
-                                </Button>
+                                </CustomButton>
                             </div>
                         </>
                     )}
@@ -114,14 +114,14 @@ export default function NewGoal({onViewChange, onSet}: NewGoalProps) {
                     </div>
 
                     <div className="flex flex-col-reverse items-center gap-4 md:flex-row justify-between mt-8">
-                        <Button disabled={loading} onClick={() => onViewChange('menu')}
-                                className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                        <CustomButton disabled={loading} onClick={() => onViewChange('menu')}
+                                      className='w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                             Back
-                        </Button>
-                        <Button type='submit' disabled={!goal || loading}
-                                className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
+                        </CustomButton>
+                        <CustomButton type='submit' disabled={!goal || loading}
+                                      className='w-1/2 md:w-1/3 bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                             Generate steps
-                        </Button>
+                        </CustomButton>
                     </div>
                 </form>}
         </>

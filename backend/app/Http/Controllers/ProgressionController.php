@@ -45,7 +45,7 @@ class ProgressionController extends Controller
         $goal = $this->progressionService->createGoal($data);
 
         return response()->json([
-            'message' => 'Goal created',
+            'message' => 'GoalType created',
             'goal' => $goal
         ], 201);
     }
@@ -73,14 +73,14 @@ class ProgressionController extends Controller
     public function complete(string $id): JsonResponse
     {
         $this->progressionService->completeGoal($id);
-        return response()->json(['message' => 'Goal completed']);
+        return response()->json(['message' => 'GoalType completed']);
 
     }
 
     public function delete(string $id): JsonResponse
     {
         $this->progressionService->delete($id);
-        return response()->json(['message' => 'Goal deleted']);
+        return response()->json(['message' => 'GoalType deleted']);
     }
 
     /**

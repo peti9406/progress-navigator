@@ -1,4 +1,4 @@
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import {AiAdvice} from "../../types/AiAdvice";
 
 interface AdviceViewProps {
@@ -24,10 +24,10 @@ export default function AdviceView({advice, loading, onBack} : AdviceViewProps) 
                 )}
             </div>
             <div className='flex justify-center'>
-                <Button disabled={loading} onClick={onBack}
-                        className='mt-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                <CustomButton disabled={loading} onClick={onBack}
+                              className='mt-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                     Back
-                </Button>
+                </CustomButton>
             </div>
         </>
     )

@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import AuthContext from "../../contexts/AuthContext";
 import {Link} from "react-router-dom";
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import ThemeToggle from "./ThemeToggle";
 
 export default function LargeDeviceMenu() {
@@ -12,10 +12,10 @@ export default function LargeDeviceMenu() {
             <div className='hidden md:flex justify-center'>
                 {Boolean(user?.isAdmin) &&
                     <Link to='/users'>
-                        <Button
+                        <CustomButton
                             className='bg-[var(--primary)] hover:bg-[var(--primary)]/70 text-[var(--text-soft)]'>
                             Users
-                        </Button>
+                        </CustomButton>
                     </Link>
                 }
             </div>
@@ -25,23 +25,23 @@ export default function LargeDeviceMenu() {
                 {user ?
                     (<>
                         <p className='font-bold'>Hi {user.name}!</p>
-                        <Button onClick={handleLogout}
-                                className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
+                        <CustomButton onClick={handleLogout}
+                                      className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                             <i className="fa-solid fa-right-from-bracket"></i>
-                        </Button>
+                        </CustomButton>
                     </>)
                     : (<>
                         <Link to='/register'>
-                            <Button
+                            <CustomButton
                                 className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                                 Register
-                            </Button>
+                            </CustomButton>
                         </Link>
                         <Link to='/login'>
-                            <Button
+                            <CustomButton
                                 className='bg-[var(--primary)] hover:bg-[var(--primary)]/70  text-[var(--text-soft)]'>
                                 Sign in
-                            </Button>
+                            </CustomButton>
                         </Link>
                     </>)}
             </div>

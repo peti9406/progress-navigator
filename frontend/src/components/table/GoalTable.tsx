@@ -5,10 +5,10 @@ import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import {GoalContext} from "../../contexts/GoalContext.js";
 import LoadingComponent from "../LoadingComponent";
-import {Goal} from "../../types/Goal";
+import {GoalType} from "../../types/GoalType";
 
 interface GoalTableProps {
-    goals: Goal[];
+    goals: GoalType[];
 }
 
 export default function GoalTable({goals}: GoalTableProps) {

@@ -8,7 +8,7 @@ interface ButtonProps {
     disabled?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const CustomButton = forwardRef<HTMLButtonElement, ButtonProps>(
     (
     {
         onClick,
@@ -31,4 +31,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
 });
 
-export default Button;
+export default CustomButton;

@@ -8,7 +8,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../ui/dialog.jsx";
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import React, {useState} from "react";
 import ErrorComponent from "../ErrorComponent";
 import LoadingComponent from "../LoadingComponent";
@@ -58,14 +58,14 @@ export default function ConfirmModal({trigger, title, description, confirmText, 
 
                 <DialogFooter className={undefined}>
                     <DialogClose asChild>
-                        <Button disabled={loading} className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                        <CustomButton disabled={loading} className='bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                             Cancel
-                        </Button>
+                        </CustomButton>
                     </DialogClose>
-                    <Button onClick={handleConfirm} disabled={loading} className={confirmButtonStyle}>
+                    <CustomButton onClick={handleConfirm} disabled={loading} className={confirmButtonStyle}>
                         {loading &&  <LoadingComponent size="sm" />}
                         {confirmText}
-                    </Button>
+                    </CustomButton>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

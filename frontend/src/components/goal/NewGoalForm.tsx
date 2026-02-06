@@ -2,7 +2,7 @@ import InputField from "../form/InputField";
 import {closestCenter, DndContext, DragEndEvent} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import SortableStep from "./SortableStep";
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import React, {ReactNode, useContext, useState} from "react";
 import {nanoid} from "nanoid";
 import {GoalContext} from "../../contexts/GoalContext.js";
@@ -92,7 +92,7 @@ export default function NewGoalForm({
     return (
         <form onSubmit={handleSubmit} className="flex flex-col items-center mt-4">
 
-            <InputField id='goal' label="Goal:" placeholder="Learn..." type="text" value={goal}
+            <InputField id='goal' label="GoalType:" placeholder="Learn..." type="text" value={goal}
                         onChange={(event) => setGoal(event.target.value)}/>
 
             <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}
@@ -116,10 +116,10 @@ export default function NewGoalForm({
             </DndContext>
 
             {steps.length < 12 &&
-                <Button onClick={addStep}
-                        className='my-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
+                <CustomButton onClick={addStep}
+                              className='my-4 w-1/2 md:w-1/3 bg-[var(--primary)] text-[var(--text-soft)] hover:bg-[var(--primary)]/70'>
                     Add Step
-                </Button>
+                </CustomButton>
             }
 
             {error.length > 0 && <ErrorComponent messages={error}/>}
@@ -127,11 +127,11 @@ export default function NewGoalForm({
             <div className="flex flex-col-reverse justify-between w-1/2 md:w-1/3">
                 {children}
 
-                <Button type="submit" disabled={loading}
-                        className='bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
+                <CustomButton type="submit" disabled={loading}
+                              className='bg-[var(--complete)] text-[var(--text-soft)] hover:bg-[var(--complete)]/70'>
                     {loading && <LoadingComponent size="sm"/>}
                     Set goal
-                </Button>
+                </CustomButton>
             </div>
         </form>)
 }

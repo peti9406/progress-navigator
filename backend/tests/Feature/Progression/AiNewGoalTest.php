@@ -16,7 +16,7 @@ class AiNewGoalTest extends TestCase
     {
         $user = User::factory()->create();
         $this->actingAs($user, 'sanctum');
-        $goal = 'Test Goal';
+        $goal = 'Test GoalType';
 
         $aiResponse = [
             "steps" => [
