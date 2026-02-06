@@ -1,7 +1,7 @@
-import type {UserType} from "../../types/UserType";
+import type {User} from "../../types/User";
 
 interface UserCardProps {
-    user: UserType
+    user: User
 }
 
 export default function UserCard({user}: UserCardProps) {

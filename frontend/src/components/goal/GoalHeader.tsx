@@ -1,10 +1,10 @@
 import ProgressionBar from "./ProgressionBar";
 import DeleteModal from "../modal/DeleteModal.js";
 import ToolTipCustom from "../ui/ToolTipCustom.jsx";
-import {GoalType} from "../../types/GoalType";
+import {Goal} from "../../types/Goal";
 
 interface GoalHeaderProps {
-    goal: GoalType;
+    goal: Goal;
     open: boolean;
     setOpen: (open: number) => void;
     completedSteps: number;

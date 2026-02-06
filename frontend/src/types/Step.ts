@@ -7,4 +7,4 @@ export const StepTypeSchema = z.object({
     description: z.string().optional(),
 });
 
-export type StepType = z.infer<typeof StepTypeSchema>;
+export type Step = z.infer<typeof StepTypeSchema>;

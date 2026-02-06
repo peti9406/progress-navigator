@@ -1,10 +1,10 @@
 import StepElement from "./StepElement";
 import GoalHeader from "./GoalHeader";
 import CompleteModal from "../modal/CompleteModal.js";
-import {GoalType} from "../../types/GoalType";
+import {Goal} from "../../types/Goal";
 
 interface GoalProps {
-    goal: GoalType;
+    goal: Goal;
     open: boolean;
     setOpen: (open: number) => void;
 }

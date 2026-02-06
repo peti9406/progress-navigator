@@ -5,7 +5,7 @@ import LoadingComponent from "../LoadingComponent";
 import ErrorComponent from "../ErrorComponent";
 import NewGoalForm from "../goal/NewGoalForm";
 import {nanoid} from "nanoid";
-import {AiNewGoalType, AiNewGoalTypeSchema} from "../../types/AiNewGoalType";
+import {AiNewGoal, AiNewGoalTypeSchema} from "../../types/AiNewGoal";
 import handleError from "../../utils/HandleError";
 
 interface NewGoalProps {
@@ -18,8 +18,8 @@ export default function NewGoal({onViewChange, onSet}: NewGoalProps) {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string[]>([]);
     const [submitted, setSubmitted] = useState<boolean>(false);
-    const [newGoal, setNewGoal] = useState<AiNewGoalType | null>(null);
-    const [sortableSteps, setSortableSteps] = useState<SortableStepType[]>([]);
+    const [newGoal, setNewGoal] = useState<AiNewGoal | null>(null);
+    const [sortableSteps, setSortableSteps] = useState<SortableStep[]>([]);
     const [view, setView] = useState<string>('get')
 
     async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {

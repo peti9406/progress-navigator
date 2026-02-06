@@ -1,6 +1,6 @@
 import Button from "../ui/Button";
 import React, {ChangeEvent} from "react";
-import {GoalType} from "../../types/GoalType";
+import {Goal} from "../../types/Goal";
 
 interface FormViewProps {
     onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
@@ -10,7 +10,7 @@ interface FormViewProps {
     loading: boolean;
     goalId: string;
     problem: string;
-    goals: GoalType[]
+    goals: Goal[]
 }
 
 export default function FormView({onSubmit, onSelect, onText, onViewChange, loading, goalId, problem, goals  }: FormViewProps) {

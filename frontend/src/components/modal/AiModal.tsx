@@ -16,7 +16,7 @@ export default function AiModal() {
     const [open, setOpen] = useState<boolean>(false);
     const [view, setView] = useState<string>('menu')
 
-    const titleMap: AiModalTextMapType = {
+    const titleMap: AiModalTextMap = {
         menu: 'Choose an option',
         assist: 'Stuck on a goal',
         assisted: 'Stuck on a goal',
@@ -24,7 +24,7 @@ export default function AiModal() {
         generated: 'Set a new goal'
     };
 
-    const descriptionMap: AiModalTextMapType = {
+    const descriptionMap: AiModalTextMap = {
         menu: 'Ask the AI for help with an existing goal or create a new one.',
         assist: 'Which goal are you stuck on? Describe what is blocking your progress on this goal.',
         assisted: 'Please note that the AI may occasionally provide inaccurate or incomplete information. Always verify the advice and suggestions before acting on them.',

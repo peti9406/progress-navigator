@@ -5,21 +5,21 @@ import ErrorComponent from "../ErrorComponent";
 import AdviceView from "./AdviceView";
 import FormView from "./FormView";
 import handleError from "../../utils/HandleError";
-import {GoalResponseSchema, GoalType} from "../../types/GoalType";
-import {AiAdviceType, AdviceTypeSchema} from "../../types/AiAdviceType";
+import {GoalResponseSchema, Goal} from "../../types/Goal";
+import {AiAdvice, AdviceTypeSchema} from "../../types/AiAdvice";
 
 interface AssistProps {
     onViewChange: (view: string) => void;
 }
 
 export default function Assist({onViewChange}: AssistProps) {
-    const [goals, setGoals] = useState<GoalType[]>([]);
+    const [goals, setGoals] = useState<Goal[]>([]);
     const [goalId, setGoalId] = useState<string>('');
     const [problem, setProblem] = useState<string>('');
     const [submitted, setSubmitted] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string[]>([]);
-    const [advice, setAdvice] = useState<AiAdviceType | null>(null);
+    const [advice, setAdvice] = useState<AiAdvice | null>(null);
 
     useEffect(() => {
         async function fetchGoals() {

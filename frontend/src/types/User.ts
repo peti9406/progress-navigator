@@ -8,4 +8,4 @@ const UserTypeSchema = z.object({
     isAdmin: z.union([z.literal(0), z.literal(1)])
 });
 
-export type UserType = z.infer<typeof UserTypeSchema>;
+export type User = z.infer<typeof UserTypeSchema>;

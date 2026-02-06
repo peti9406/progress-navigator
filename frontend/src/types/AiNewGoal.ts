@@ -10,4 +10,4 @@ export const AiNewGoalTypeSchema = z.object({
     steps: z.array(AiNewGoalStepsTypeSchema),
 });
 
-export type AiNewGoalType = z.infer<typeof AiNewGoalTypeSchema>;
+export type AiNewGoal = z.infer<typeof AiNewGoalTypeSchema>;

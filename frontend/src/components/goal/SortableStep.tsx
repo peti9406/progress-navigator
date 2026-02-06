@@ -5,7 +5,7 @@ import InputField from "../form/InputField.js";
 import {ChangeEvent} from "react";
 
 interface SortableStepProps {
-    step: SortableStepType;
+    step: SortableStep;
     index: number;
     onChange: (index: number, value: string) => void;
     onRemove: (index: number) => void;

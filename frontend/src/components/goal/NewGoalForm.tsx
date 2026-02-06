@@ -14,7 +14,7 @@ interface NewGoalFormProps {
     onSet: () => void;
     children?: ReactNode;
     aiGoal?: string;
-    aiSteps?: SortableStepType[];
+    aiSteps?: SortableStep[];
 }
 
 export default function NewGoalForm({
@@ -28,7 +28,7 @@ export default function NewGoalForm({
 
     const [goal, setGoal] = useState<string>(aiGoal);
     const [deadline, setDeadline] = useState<string>('');
-    const [steps, setSteps] = useState<SortableStepType[]>(aiSteps);
+    const [steps, setSteps] = useState<SortableStep[]>(aiSteps);
     const {addGoal} = useContext(GoalContext);
 
     const tomorrow: Date = new Date();

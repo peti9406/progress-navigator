@@ -1,5 +1,5 @@
 import {z} from "zod";
-import { StepTypeSchema} from "./StepType";
+import { StepTypeSchema} from "./Step";
 
 const GoalTypeSchema = z.object({
     id: z.number(),
@@ -10,5 +10,5 @@ const GoalTypeSchema = z.object({
     steps: z.array(StepTypeSchema),
 })
 
-export type GoalType = z.infer<typeof GoalTypeSchema>;
+export type Goal = z.infer<typeof GoalTypeSchema>;
 export const GoalResponseSchema = z.array(GoalTypeSchema);
