@@ -9,7 +9,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="/frontend/src/assets/icon.png" alt="Logo" width="160">
+    <img src="/frontend/public/icon.png" alt="Logo" width="280">
 
 <h3 >Progress Navigator</h3>
 
@@ -63,7 +63,7 @@ throughout their learning journey.
 ### Built With
 
 #### Frontend
-* [![JavaScript][Javascript.com]][Javascript-url]
+* [![TypeScript][Typescript.com]][Typescript-url]
 * [![React][React.com]][React-url]
 * [![Tailwind][Tailwind.com]][Tailwind-url]
 * [![dnd-kit][dnd-kit.com]][dnd-kit-url]
@@ -295,9 +295,9 @@ Project Link: https://github.com/peti9406/progress-navigator
 
 <!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->
 
-[Javascript.com]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[Typescript.com]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
 
-[Javascript-url]: https://www.javascript.com/
+[Typescript-url]: https://www.typescriptlang.org/
 
 [MySQL.com]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white
 
