@@ -1,14 +1,14 @@
 import {Link} from "react-router-dom";
 import CustomButton from "../ui/CustomButton";
-import React, {useContext} from "react";
-import AuthContext from "../../contexts/AuthContext";
+import React from "react";
+import useAuth from "../../hooks/useAuth";
 
 interface MobileMenuProps {
     onNavigate: () => void;
 }
 
-export default function SmallDeviceMenu({ onNavigate }: MobileMenuProps) {
-    const {user, handleLogout} = useContext(AuthContext);
+export default function SmallDeviceMenu({onNavigate}: MobileMenuProps) {
+    const {user, handleLogout} = useAuth();
 
     function logout(event: React.MouseEvent<HTMLButtonElement>) {
         handleLogout(event);
@@ -24,9 +24,10 @@ export default function SmallDeviceMenu({ onNavigate }: MobileMenuProps) {
                         Home
                     </CustomButton>
                 </Link>
-                {user?.isAdmin && (
+                {user?.is_admin && (
                     <Link to="/users">
-                        <CustomButton className="w-full bg-[var(--primary)] text-[var(--text-soft)]" onClick={onNavigate}>
+                        <CustomButton className="w-full bg-[var(--primary)] text-[var(--text-soft)]"
+                                      onClick={onNavigate}>
                             Users
                         </CustomButton>
                     </Link>

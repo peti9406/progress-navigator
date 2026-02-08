@@ -4,8 +4,9 @@ import React, {useState} from "react";
 import api from "../api/axios";
 import ErrorComponent from "../components/ErrorComponent";
 import {useNavigate} from "react-router-dom";
-import useAuth from "../hooks/useAuth.js";
-import handleError from "../utils/HandleError.js";
+import handleError from "../utils/HandleError";
+import {LoginResponseSchema} from "../types/responses/LoginResponse";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
     const [email, setEmail] = useState<string>('');
@@ -23,8 +24,13 @@ export default function Login() {
         try {
             await api.get("/sanctum/csrf-cookie");
             const {data} = await api.post("/api/login", {email, password});
-            setUser({name: data.name, isAdmin: data.isAdmin});
-            navigate("/");
+            const parsed = LoginResponseSchema.safeParse(data);
+
+            if (parsed.success) {
+                setUser(parsed.data.user);
+                navigate("/");
+                return;
+            }
         } catch (error) {
             handleError(error, setError);
         } finally {
@@ -40,7 +46,7 @@ export default function Login() {
             <InputField id='password' label="Password:" type="password" value={password}
                         onChange={(event) => setPassword(event.target.value)}/>
 
-            {error.length > 0 && <ErrorComponent messages={error} />}
+            {error.length > 0 && <ErrorComponent messages={error}/>}
         </Form>
     )
 }

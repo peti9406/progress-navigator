@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import api from "../api/axios.ts";
 import {GoalContext} from "./GoalContext.js";
-import AuthContext from "./AuthContext.js";
+import AuthContext from "./AuthContext.ts";
 
 export function GoalProvider({children}) {
     const [goals, setGoals] = useState([]);

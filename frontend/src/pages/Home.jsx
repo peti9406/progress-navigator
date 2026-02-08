@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import ErrorComponent from "../components/ErrorComponent.tsx";
-import useAuthRedirect from "../hooks/useAuthRedirect.js";
+import useAuthRedirect from "../hooks/useAuthRedirect.ts";
 import GoalTable from "../components/table/GoalTable.tsx";
 import {GoalContext} from "../contexts/GoalContext.js";
 
@@ -9,10 +9,8 @@ export default function Home() {
     const {goals, error} = useContext(GoalContext);
 
     return (<>
-        {error && <ErrorComponent message={error}/>}
+        {error.length > 0 && <ErrorComponent messages={error}/>}
 
-        {!error && (
-            <GoalTable goals={goals}/>
-        )}
+        {error.length === 0 && <GoalTable goals={goals} />}
     </>)
 }

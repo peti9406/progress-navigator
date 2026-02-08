@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import api from "../api/axios.ts";
-import ErrorComponent from "../components/ErrorComponent.tsx";
-import LoadingComponent from "../components/LoadingComponent.tsx";
-import ReturnHome from "../components/ui/ReturnHome.tsx";
+import api from "../api/axios";
+import ErrorComponent from "../components/ErrorComponent";
+import LoadingComponent from "../components/LoadingComponent";
+import ReturnHome from "../components/ui/ReturnHome";
+import handleError from "../utils/HandleError";
 
 export default function VerifyEmail() {
     const [searchParams] = useSearchParams();
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         async function verifyEmail() {
@@ -16,7 +17,7 @@ export default function VerifyEmail() {
             const hash = searchParams.get("hash");
 
             if (!id || !hash) {
-                setError("Invalid verification link");
+                setError(["Invalid verification link"]);
                 return;
             }
 
@@ -24,7 +25,7 @@ export default function VerifyEmail() {
             try {
                 await api.get(`/api/email/verify/${id}/${hash}`);
             } catch (error) {
-                setError(error.response?.data?.message || error.message);
+                handleError(error, setError);
             } finally {
                 setLoading(false);
             }
@@ -40,9 +41,9 @@ export default function VerifyEmail() {
                 ? (<LoadingComponent/>)
                 : (<>
                     {error
-                        ? (<ErrorComponent message={error}/>)
+                        ? (<ErrorComponent messages={error}/>)
                         : (<h1 className='text-xl font-bold my-2'>Email verification successful.</h1>)}
                     <ReturnHome/>
                 </>)}
-        < /div>)
+        </div>)
 }
