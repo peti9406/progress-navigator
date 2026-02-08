@@ -2,11 +2,11 @@ import './App.css'
 import Navbar from "./components/navbar/NavBar.tsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login.tsx";
-import Register from "./pages/Register.jsx";
+import Register from "./pages/Register.tsx";
 import Home from "./pages/Home.jsx";
-import VerifyEmail from "./pages/VerifyEmail.jsx";
-import Admin from "./pages/Admin.jsx";
-import NotFound from "./pages/NotFound.jsx";
+import VerifyEmail from "./pages/VerifyEmail.tsx";
+import Admin from "./pages/Admin.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 function App() {
 

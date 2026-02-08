@@ -39,12 +39,11 @@ class LoginTest extends TestCase
             ->assertStatus(200)
             ->assertJsonStructure([
                 'message',
-                'name',
-                'isAdmin',
+                'user',
             ])
             ->assertJson([
                 'message' => 'User successfully logged in',
-                'name' => $user->name
+                'user' => $user->toArray(),
             ]);
     }
 }

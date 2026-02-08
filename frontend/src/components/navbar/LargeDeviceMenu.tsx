@@ -1,16 +1,15 @@
-import {useContext} from "react";
-import AuthContext from "../../contexts/AuthContext";
 import {Link} from "react-router-dom";
 import CustomButton from "../ui/CustomButton";
 import ThemeToggle from "./ThemeToggle";
+import useAuth from "../../hooks/useAuth";
 
 export default function LargeDeviceMenu() {
-    const {user, handleLogout} = useContext(AuthContext);
+    const {user, handleLogout} = useAuth();
 
     return (
         <>
             <div className='hidden md:flex justify-center'>
-                {Boolean(user?.isAdmin) &&
+                {Boolean(user?.is_admin) &&
                     <Link to='/users'>
                         <CustomButton
                             className='bg-[var(--primary)] hover:bg-[var(--primary)]/70 text-[var(--text-soft)]'>

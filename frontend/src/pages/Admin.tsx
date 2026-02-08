@@ -1,28 +1,30 @@
-import TableBody from "../components/table/TableBody.tsx";
-import UserTableHeader from "../components/table/UserTableHeader.tsx";
+import TableBody from "../components/table/TableBody";
+import UserTableHeader from "../components/table/UserTableHeader";
 import React, {useEffect, useState} from "react";
-import LoadingComponent from "../components/LoadingComponent.tsx";
-import api from "../api/axios.ts";
-import ErrorComponent from "../components/ErrorComponent.tsx";
-import UserCard from "../components/table/UserCard.tsx";
+import LoadingComponent from "../components/LoadingComponent";
+import api from "../api/axios";
+import ErrorComponent from "../components/ErrorComponent";
+import UserCard from "../components/table/UserCard";
 import {ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight} from "lucide-react";
-import useAuth from "../hooks/useAuth.js";
+import useAuth from "../hooks/useAuth";
 import {useNavigate} from "react-router-dom";
-import MobileUserHeader from "../components/table/MobileUserHeader.tsx";
-import handleError from "../utils/HandleError.js";
+import MobileUserHeader from "../components/table/MobileUserHeader";
+import handleError from "../utils/HandleError";
+import {User} from "../types/User";
+import {UsersResponseSchema} from "../types/responses/UsersResponse";
 
 export default function Admin() {
-    const [users, setUsers] = useState([]);
-    const [page, setPage] = useState(1);
-    const [lastPage, setLastPage] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState([]);
+    const [users, setUsers] = useState<User[]>([]);
+    const [page, setPage] = useState<number>(1);
+    const [lastPage, setLastPage] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string[]>([]);
     const navigate = useNavigate();
     const {user} = useAuth();
 
     useEffect(() => {
         async function getUsers() {
-            if (!user?.isAdmin) {
+            if (!user?.is_admin) {
                 navigate("/");
                 return;
             }
@@ -32,9 +34,15 @@ export default function Admin() {
             try {
                 await api.get('/sanctum/csrf-cookie');
                 const {data} = await api.get('/api/admin/users?page=' + page);
-                setUsers(data.data);
-                setPage(data['current_page']);
-                setLastPage(data['last_page'])
+                const parsed = UsersResponseSchema.safeParse(data);
+
+                if (parsed.success) {
+                    setUsers(data.data);
+                    setPage(parsed.data.current_page);
+                    setLastPage(parsed.data.last_page);
+                } else {
+                    setError(['Something went wrong']);
+                }
             } catch (error) {
                 handleError(error, setError);
             } finally {
@@ -77,7 +85,6 @@ export default function Admin() {
                     </div>
                 )))
             }
-            {/*<p className='m-4 font-bold'>No users found.</p>*/}
         </TableBody>
 
         <div className='flex justify-center space-x-2 m-4'>

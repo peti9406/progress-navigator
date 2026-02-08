@@ -1,4 +1,4 @@
-import ReturnHome from "../components/ui/ReturnHome.tsx";
+import ReturnHome from "../components/ui/ReturnHome";
 
 export default function NotFound() {
 
