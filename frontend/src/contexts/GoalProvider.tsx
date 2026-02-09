@@ -16,14 +16,13 @@ interface GoalProviderProps {
 export function GoalProvider({children}: GoalProviderProps) {
     const [goals, setGoals] = useState<GoalType[]>([]);
     const [error, setError] = useState<string[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [filter, setFilter] = useState<Filter>("Not Completed");
     const [sorted, setSorted] = useState<SortOrder>("Ascending");
     const [sortBy, setSortBy] = useState<SortBy>("Deadline")
     const {user} = useAuth();
 
     async function fetchGoals(filter = 'Not Completed') {
-        setLoading(true);
         setError([]);
         try {
             await api.get('/sanctum/csrf-cookie');

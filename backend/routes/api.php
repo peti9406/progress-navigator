@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [AuthController::class, 'getRememberedUser']);
+    Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/goals', [ProgressionController::class, 'store']);
     Route::get('/goals', [ProgressionController::class, 'index']);
     Route::patch('/goals/{id}/complete', [ProgressionController::class, 'complete']);
