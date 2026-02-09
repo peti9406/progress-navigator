@@ -54,13 +54,19 @@ class AuthenticationService
      */
     public function login(LoginData $data): User
     {
-        if (!Auth::attempt($data->toArray())) {
+        if (!Auth::attempt([
+            'email' => $data->email,
+            'password' => $data->password,
+        ], $data->remember )) {
             throw new AuthenticationException('Invalid credentials.');
         }
+
+        request()->session()->regenerate();
 
         $user = Auth::user();
 
         if (!$user->hasVerifiedEmail()) {
+            Auth::logout();
             throw new EmailNotVerifiedException();
         }
 

@@ -4,11 +4,11 @@ import useAuth from "./useAuth";
 
 export default function useAuthRedirect() {
     const navigate = useNavigate();
-    const {user} = useAuth();
+    const {user, loading} = useAuth();
 
     useEffect(() => {
-        if (!user) {
+        if (!loading && !user) {
             navigate("/login");
         }
-    }, [navigate, user]);
+    }, [navigate, user, loading]);
 }

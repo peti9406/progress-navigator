@@ -11,6 +11,7 @@ import useAuth from "../hooks/useAuth";
 export default function Login() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [remember, setRemember] = useState<boolean>(false);
     const [error, setError] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Login() {
 
         try {
             await api.get("/sanctum/csrf-cookie");
-            const {data} = await api.post("/api/login", {email, password});
+            const {data} = await api.post("/api/login", {email, password, remember});
             const parsed = LoginResponseSchema.safeParse(data);
 
             if (parsed.success) {
@@ -45,6 +46,13 @@ export default function Login() {
 
             <InputField id='password' label="Password:" type="password" value={password}
                         onChange={(event) => setPassword(event.target.value)}/>
+
+            <div className='flex self-start gap-2 mt-2'>
+                <input id='remember' name='remember' type='checkbox' className='w-4'
+                       onChange={(event) => setRemember(event.target.checked)}
+                />
+                <label htmlFor="remember">Keep me signed in</label>
+            </div>
 
             {error.length > 0 && <ErrorComponent messages={error}/>}
         </Form>
