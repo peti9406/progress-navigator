@@ -24,6 +24,7 @@ export function GoalProvider({children}: GoalProviderProps) {
 
     async function fetchGoals(filter = 'Not Completed') {
         setError([]);
+        setLoading(true);
         try {
             await api.get('/sanctum/csrf-cookie');
             const {data} = await api.get(`/api/goals?filter=${filter}`);

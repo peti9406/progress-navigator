@@ -64,6 +64,7 @@ throughout their learning journey.
 ### Built With
 
 #### Frontend
+
 * [![TypeScript][Typescript.com]][Typescript-url]
 * [![React][React.com]][React-url]
 * [![Tailwind][Tailwind.com]][Tailwind-url]
@@ -72,11 +73,13 @@ throughout their learning journey.
 * [![axios][axios.com]][axios-url]
 
 #### Backend
+
 * [![PHP][PHP.com]][PHP-url]
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![PHPUnit][phpunit.com]][phpunit-url]
 
 #### Database
+
 * [![MySQL][MySQL.com]][MySQL-url]
 
 <p>(<a href="#readme-top">back to top</a>)</p>
@@ -121,7 +124,7 @@ Docker Engine (Linux)
     cd backend
     composer install
     ```
-3. **Create the environment file**
+3. **Create the environment file for the backend**
     ```bash
     cp .env.example .env
     ```
@@ -147,7 +150,11 @@ Docker Engine (Linux)
     cd ../frontend
     npm install
     ```
-8. **Run the application**
+8. **Create the environment file for the frontend**
+   ```bash
+   cp .env.example .env
+   ```
+9. **Run the application**
 
    Open **two terminals**:
 
@@ -161,7 +168,7 @@ Docker Engine (Linux)
         cd frontend
         npm run dev
         ```
-9. **Open the application in your browser**
+10. **Open the application in your browser**
 
     - Frontend: [http://localhost:5173](http://localhost:5173)
 
@@ -189,25 +196,33 @@ Docker Engine (Linux)
     GEMINI_API_KEY=
     OPENROUTER_API_KEY=
     ```
-5. **Build the Docker containers**
+5. **Navigate to the frontend folder**
+    ```bash
+    cd ../frontend
+    ```
+6. **Create the environment file for the frontend**
+   ```bash
+   cp .env.example .env
+   ```
+7. **Build the Docker containers**
     ```bash
     docker-compose build
     ```
-6. **Start the containers in detach mode**
+8. **Start the containers in detach mode**
     ```bash
    docker-compose up-d
    ```
-7. **Access the backend application container**
+9. **Access the backend application container**
     ```bash
    docker exec -it backend sh
    ```
-8. **Create the database tables based on the migration files.**
-   ```bash
-   php artisan migrate
-    ```
-9. **Open the application in your browser**
+10. **Create the database tables based on the migration files.**
+    ```bash
+    php artisan migrate
+     ```
+11. **Open the application in your browser**
 
-    - Frontend: [http://localhost:5173](http://localhost:5173)
+     - Frontend: [http://localhost:5173](http://localhost:5173)
 
 <p>(<a href="#readme-top">back to top</a>)</p>
 
@@ -215,11 +230,13 @@ Docker Engine (Linux)
 
 ## Usage
 
-This application helps users track and manage their goals by breaking them down into actionable steps and monitoring progress over time.
+This application helps users track and manage their goals by breaking them down into actionable steps and monitoring
+progress over time.
 
 ### Basic Flow
+
 1. Register on the platform
-2. Verify your email address 
+2. Verify your email address
    > Email verification is handled via SMTP using Gmail in development.
 3. Create a new goal
 4. Add steps to the goal
@@ -233,20 +250,25 @@ This application helps users track and manage their goals by breaking them down 
 ### Screenshots
 
 #### Registration
+
 * Email must be unique
 * Password must be at least 6 characters
-![Registration](./screenshots/register.png)
+  ![Registration](./screenshots/register.png)
 
 #### GoalType management
+
 ![Goals](./screenshots/goals.png)
 
 #### Progress tracking
+
 ![Progress](./screenshots/progress.png)
 
 #### Dark mode
+
 ![Dark](./screenshots/dark.png)
 
 #### AI assisted goal setting
+
 ![AiOptions](./screenshots/ainewgoal.png)
 
 <p>(<a href="#readme-top">back to top</a>)</p>
@@ -323,13 +345,17 @@ Project Link: https://github.com/peti9406/progress-navigator
 [PHP-url]: https://www.php.net/
 
 [dnd-kit.com]: https://img.shields.io/badge/dnd--kit-0B5FFF?style=for-the-badge&logo=react&logoColor=white
+
 [dnd-kit-url]: https://dndkit.com/
 
 [radix-ui.com]: https://img.shields.io/badge/Radix_UI-161618?style=for-the-badge&logo=radix-ui&logoColor=white
+
 [radix-ui-url]: https://www.radix-ui.com/
 
 [axios.com]: https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white
+
 [axios-url]: https://axios-http.com/
 
 [phpunit.com]: https://img.shields.io/badge/PHPUnit-366488?style=for-the-badge&logo=phpunit&logoColor=white
+
 [phpunit-url]: https://phpunit.de/
