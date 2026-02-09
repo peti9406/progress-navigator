@@ -22,6 +22,7 @@ return [
     'allowed_origins' => [
         'http://localhost:8000',
         'http://localhost:5173',
+        'https://progress-navigator.vercel.app'
     ],
 
     'allowed_origins_patterns' => [],
