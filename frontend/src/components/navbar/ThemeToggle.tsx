@@ -1,10 +1,9 @@
 import ToolTipCustom from "../ui/ToolTipCustom.jsx";
 import {Moon, Sun} from "lucide-react";
-import {useContext} from "react";
-import ThemeContext from "../../contexts/ThemeContext.js";
+import useTheme from "../../hooks/useTheme";
 
 export default function ThemeToggle() {
-    const {theme, toggleTheme} = useContext(ThemeContext);
+    const {theme, toggleTheme} = useTheme();
 
     return <button onClick={toggleTheme}>
         {theme === 'dark'

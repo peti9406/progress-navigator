@@ -1,9 +1,8 @@
-import {useContext} from "react";
-import {GoalContext} from "../../contexts/GoalContext.js";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "./dropdown-menu";
+import useGoals from "../../hooks/useGoals";
 
 export default function FilterSelect() {
-    const {filterGoals} = useContext(GoalContext);
+    const {filterGoals} = useGoals();
 
     return (
         <DropdownMenu>

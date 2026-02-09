@@ -9,6 +9,7 @@ import {GoalContext} from "../../contexts/GoalContext.js";
 import ErrorComponent from "../ErrorComponent";
 import LoadingComponent from "../LoadingComponent.js";
 import handleError from "../../utils/HandleError";
+import useGoals from "../../hooks/useGoals";
 
 interface NewGoalFormProps {
     onSet: () => void;
@@ -29,7 +30,7 @@ export default function NewGoalForm({
     const [goal, setGoal] = useState<string>(aiGoal);
     const [deadline, setDeadline] = useState<string>('');
     const [steps, setSteps] = useState<SortableStep[]>(aiSteps);
-    const {addGoal} = useContext(GoalContext);
+    const {addGoal} = useGoals();
 
     const tomorrow: Date = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -41,7 +42,7 @@ export default function NewGoalForm({
         setLoading(true);
 
         try {
-            await addGoal({goal, deadline, steps: steps.map(s => s.value)});
+            addGoal({goal, deadline, steps: steps.map(s => s.value)});
             onSet();
             setGoal('');
             setDeadline('');

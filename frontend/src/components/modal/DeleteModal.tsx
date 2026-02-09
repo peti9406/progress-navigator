@@ -1,6 +1,5 @@
-import {useContext} from "react";
-import {GoalContext} from "../../contexts/GoalContext.js";
 import ConfirmModal from "./ConfirmModal";
+import useGoals from "../../hooks/useGoals";
 
 interface DeleteModalProps {
     goal: string;
@@ -8,10 +7,10 @@ interface DeleteModalProps {
 }
 
 export default function DeleteModal({goal, id}: DeleteModalProps) {
-    const {deleteGoal} = useContext(GoalContext);
+    const {deleteGoal} = useGoals();
 
     async function handleDelete() {
-        await deleteGoal(id);
+        deleteGoal(id);
     }
 
     return <ConfirmModal
