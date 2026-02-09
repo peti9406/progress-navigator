@@ -77,8 +77,6 @@ class AuthController extends Controller
 
         $user = $this->authorizationService->login($data);
 
-        $request->session()->regenerate();
-
         return response()->json([
             'message' => 'User successfully logged in',
             'user' => $user->toArray(),
@@ -88,7 +86,6 @@ class AuthController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

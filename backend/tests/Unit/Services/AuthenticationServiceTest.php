@@ -149,7 +149,8 @@ class AuthenticationServiceTest extends TestCase
 
         $data = new LoginData(
             'john@gmail.com',
-            'wrong_password'
+            'wrong_password',
+            false
         );
 
         $this->expectException(AuthenticationException::class);
@@ -168,15 +169,26 @@ class AuthenticationServiceTest extends TestCase
             ->once()
             ->andReturn($user);
 
-        $data = new LoginData(
-            'not_verified@gmail.com',
-            'password'
-        );
+        $session = Mockery::mock('Illuminate\Session\Store');
+        $session->shouldReceive('regenerate')->once();
+        $session->shouldReceive('invalidate')->once();
+        $session->shouldReceive('regenerateToken')->once();
+
+        $requestMock = Mockery::mock('Illuminate\Http\Request');
+        $requestMock->shouldReceive('session')->andReturn($session);
+
+        request()->setLaravelSession($session);
 
         $user
             ->shouldReceive('hasVerifiedEmail')
             ->once()
             ->andReturn(false);
+
+        $data = new LoginData(
+            'not_verified@gmail.com',
+            'password',
+            false
+        );
 
         $this->expectException(EmailNotVerifiedException::class);
         $this->underTest->login($data);
@@ -186,6 +198,10 @@ class AuthenticationServiceTest extends TestCase
     {
         $user = Mockery::mock(User::class);
 
+        $session = Mockery::mock('Illuminate\Session\Store');
+        $session->shouldReceive('regenerate')->once();
+        request()->setLaravelSession($session);
+
         Auth::shouldReceive('attempt')
             ->once()
             ->andReturn(true);
@@ -194,8 +210,6 @@ class AuthenticationServiceTest extends TestCase
             ->once()
             ->andReturn($user);
 
-        Auth::shouldReceive('logout')->never();
-
         $user
             ->shouldReceive('hasVerifiedEmail')
             ->once()
@@ -203,7 +217,8 @@ class AuthenticationServiceTest extends TestCase
 
         $data = new LoginData(
             'john@gmail.com',
-            'password'
+            'password',
+            false
         );
 
         $result = $this->underTest->login($data);

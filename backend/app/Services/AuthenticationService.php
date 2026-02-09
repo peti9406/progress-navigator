@@ -66,7 +66,8 @@ class AuthenticationService
         $user = Auth::user();
 
         if (!$user->hasVerifiedEmail()) {
-            Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
             throw new EmailNotVerifiedException();
         }
 

@@ -16,6 +16,7 @@ class LoginInvalidCredentialsTest extends TestCase
         $payload = [
             'email' => 'john@gmail.com',
             'password' => 'password',
+            'remember' => false,
         ];
 
         $authService = $this->mock(AuthenticationService::class);

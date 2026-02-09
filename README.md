@@ -40,6 +40,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -226,6 +227,8 @@ This application helps users track and manage their goals by breaking them down 
 6. Track progress using the progression bar
 7. Delete or archive goals when finished
 8. Use AI to assist with goal completion or setting a new goal
+
+<p>(<a href="#readme-top">back to top</a>)</p>
 
 ### Screenshots
 
