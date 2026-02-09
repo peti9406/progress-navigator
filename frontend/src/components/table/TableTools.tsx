@@ -1,12 +1,11 @@
-import {useContext} from "react";
-import {GoalContext} from "../../contexts/GoalContext.js";
 import NewGoalModal from "../modal/NewGoalModal.js";
 import FilterSelect from "../ui/FilterSelect.js";
 import SortingSelect from "../ui/SortingSelect.js";
 import AiModal from "../modal/AiModal.js";
+import useGoals from "../../hooks/useGoals";
 
 export default function TableTools() {
-    const {filter, sortBy} = useContext(GoalContext);
+    const {filter, sortBy} = useGoals();
 
     return (
         <div className='px-2 md:px-0 flex flex-row mb-2 font-bold w-full justify-between items-center truncate'>
@@ -29,7 +28,7 @@ export default function TableTools() {
             </div>
 
             <div className='flex items-center justify-between space-x-4'>
-                <AiModal />
+                <AiModal/>
                 <NewGoalModal/>
             </div>
         </div>

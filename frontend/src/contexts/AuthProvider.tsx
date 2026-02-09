@@ -10,7 +10,7 @@ interface AuthProviderProps {
 export default function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null);
 
-    async function handleLogout(event: React.SubmitEvent<HTMLFormElement>) {
+    async function handleLogout(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
         setUser(null);

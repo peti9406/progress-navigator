@@ -1,11 +1,11 @@
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "./dropdown-menu";
-import {useContext} from "react";
-import {GoalContext} from "../../contexts/GoalContext.js";
+import useGoals from "../../hooks/useGoals";
+import {SortBy} from "../../types/SortBy";
 
 export default function SortingSelect() {
-    const {filter, sortGoals} = useContext(GoalContext);
+    const {filter, sortGoals} = useGoals();
 
-    function handleSort(sort: string) {
+    function handleSort(sort: SortBy) {
         sortGoals(sort);
     }
 

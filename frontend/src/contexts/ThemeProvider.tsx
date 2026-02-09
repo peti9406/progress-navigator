@@ -1,8 +1,16 @@
-import ThemeContext from "./ThemeContext.js";
-import {useEffect, useState} from "react";
+import ThemeContext from "./ThemeContext";
+import {ReactNode, useEffect, useState} from "react";
+import {Theme} from "../types/Theme";
 
-export default function ThemeProvider({children}) {
-    const [theme, setTheme] = useState(localStorage.getItem("theme") || 'light');
+interface ThemeProviderProps {
+    children: ReactNode;
+}
+
+export default function ThemeProvider({children}: ThemeProviderProps) {
+    const [theme, setTheme] = useState<Theme>(() => {
+        const saved = localStorage.getItem("theme");
+        return (saved === "dark" || saved === "light") ? saved : 'light'
+    });
 
     useEffect(() => {
         if (theme === 'dark') {

@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
 
-    "allowJs": true,            // allow a partial TypeScript and JavaScript codebase
+    "allowJs": false,            // allow a partial TypeScript and JavaScript codebase
     "noEmit": true,
 
     "strict": true,

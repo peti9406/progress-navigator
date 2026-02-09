@@ -1,0 +1,1 @@
+export type SortBy = 'Deadline' | 'Goal List' | 'Completed' | 'Achieved At' | 'Progression';

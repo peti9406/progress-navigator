@@ -1,6 +1,7 @@
 import {useContext} from "react";
 import {GoalContext} from "../../contexts/GoalContext";
 import {Step} from "../../types/Step";
+import useGoals from "../../hooks/useGoals";
 
 interface StepElementProps {
     step: Step;
@@ -9,11 +10,11 @@ interface StepElementProps {
 }
 
 export default function StepElement({step, goalId, goalCompleted} : StepElementProps) {
-    const {toggleStep} = useContext(GoalContext);
+    const {toggleStep} = useGoals();
 
     async function handleCheck(): Promise<void> {
         try {
-            await toggleStep(goalId, step.id);
+            toggleStep(goalId, step.id);
         } catch (error) {
             console.log(error)
         }

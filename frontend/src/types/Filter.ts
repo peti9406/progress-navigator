@@ -1,0 +1,1 @@
+export type Filter = 'Completed' | 'Not Completed';
