@@ -26,7 +26,7 @@ class AuthenticationService
     public function register(UserData $data): void
     {
         $user = $this->userRepository->create($data->toArray());
-        $user->sendEmailVerificationNotification();
+//        $user->sendEmailVerificationNotification();
     }
 
     /**

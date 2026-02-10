@@ -4,6 +4,7 @@ import api from "../api/axios";
 import Form from "../components/form/Form";
 import ErrorComponent from "../components/ErrorComponent";
 import handleError from "../utils/HandleError";
+import ReturnHome from "../components/ui/ReturnHome";
 
 export default function Register() {
     const [name, setName] = useState<string>("");
@@ -36,9 +37,10 @@ export default function Register() {
                 ? <div
                     className="mt-8 px-2 md:px-8 pt-2 pb-6 bg-[var(--primary-muted)]/20 border-1 border-[var(--primary-muted)]/40 rounded-lg shadow-md max-w-max mx-auto">
                     <h1 className='text-xl font-bold my-2'>Your account has been created!</h1>
-                    <p> To complete your registration, please check your email inbox and click the activation link we’ve
-                        sent you.<br/>
-                        If you don’t see the email, be sure to check your spam or junk folder as well.</p>
+                    <ReturnHome />
+                    {/*<p> To complete your registration, please check your email inbox and click the activation link we’ve*/}
+                    {/*    sent you.<br/>*/}
+                    {/*    If you don’t see the email, be sure to check your spam or junk folder as well.</p>*/}
                 </div>
                 : <Form onSubmit={handleSubmit} header="Register Now!" buttonText="Register" loading={loading}>
                     <InputField id='name' label="Name:" placeholder="Name" type="text" value={name}
