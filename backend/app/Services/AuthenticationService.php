@@ -26,7 +26,6 @@ class AuthenticationService
     public function register(UserData $data): void
     {
         $user = $this->userRepository->create($data->toArray());
-//        $user->sendEmailVerificationNotification();
     }
 
     /**
@@ -50,7 +49,6 @@ class AuthenticationService
 
     /**
      * @throws AuthenticationException
-     * @throws EmailNotVerifiedException
      */
     public function login(LoginData $data): User
     {
@@ -61,12 +59,6 @@ class AuthenticationService
             throw new AuthenticationException('Invalid credentials.');
         }
 
-        $user = Auth::user();
-
-        if (!$user->hasVerifiedEmail()) {
-            throw new EmailNotVerifiedException();
-        }
-
-        return $user;
+        return Auth::user();
     }
 }
