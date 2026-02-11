@@ -26,7 +26,6 @@ export function GoalProvider({children}: GoalProviderProps) {
         setError([]);
         setLoading(true);
         try {
-            await api.get('/sanctum/csrf-cookie');
             const {data} = await api.get(`/api/goals?filter=${filter}`, {
                 headers: {
                     Authorization: `Bearer ${token}`

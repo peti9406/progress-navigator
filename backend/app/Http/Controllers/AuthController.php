@@ -12,6 +12,7 @@ use App\Services\AuthenticationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -75,7 +76,13 @@ class AuthController extends Controller
         );
 
         $user = $this->authorizationService->login($data);
-        $token = $user->createToken('token')->plainTextToken;
+        $user->tokens()->delete();
+
+        $expiration = $data->remember
+            ? now()->addDays(30)
+            : now()->addHours(2);
+
+        $token = $user->createToken('token', ['*'], $expiration)->plainTextToken;
 
         return response()->json([
             'message' => 'User successfully logged in',
@@ -96,11 +103,15 @@ class AuthController extends Controller
         return response()->json(['message' => 'User successfully logged out']);
     }
 
-    public function getRememberedUser(Request $request): JsonResponse
+    public function getRememberedUser(): JsonResponse
     {
+        $user = Auth::user();
+        $token = $user->createToken('token', ['*'], now()->addDays(30))->plainTextToken;
+
         return response()->json([
             'message' => 'User successfully logged in via remember token',
-            'user' => $request->user()
+            'user' => $user->toArray(),
+            'token' => $token,
         ]);
     }
 }

@@ -10,39 +10,47 @@ interface AuthProviderProps {
 
 export default function AuthProvider({children}: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [token, setToken] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
 
-    // useEffect(() => {
-    //     async function rememberUser() {
-    //         try {
-    //             const {data} = await api.get("/api/user");
-    //             const parsed = LoginResponseSchema.safeParse(data);
-    //
-    //             if (parsed.success) {
-    //                 setUser(parsed.data.user);
-    //                 setToken(parsed.data.token);
-    //             }
-    //         } catch (error) {
-    //             setUser(null);
-    //             setToken(null);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     }
-    //     rememberUser();
-    // }, [])
+    useEffect(() => {
+        async function rememberUser() {
+                try {
+                    if (token) {
+                        const {data} = await api.get("/api/user", {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
+                        });
+                        const parsed = LoginResponseSchema.safeParse(data);
+
+                        if (parsed.success) {
+                            setUser(parsed.data.user);
+                            setToken(parsed.data.token);
+                        }
+                    }
+                } catch (error) {
+                    setUser(null);
+                    setToken(null);
+                } finally {
+                    setLoading(false);
+                }
+        }
+
+        rememberUser();
+    }, []);
 
     async function handleLogout(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
-        await api.post("/api/logout",{}, {
+        await api.post("/api/logout", {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
         setUser(null);
         setToken(null);
+        localStorage.removeItem("token");
     }
 
     return (

@@ -29,6 +29,11 @@ export default function Login() {
             if (parsed.success) {
                 setUser(parsed.data.user);
                 setToken(parsed.data.token);
+
+                if (remember) {
+                    localStorage.setItem("token", parsed.data.token);
+                }
+
                 navigate("/");
                 return;
             }
