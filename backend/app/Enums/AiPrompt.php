@@ -52,6 +52,16 @@ The JSON format must be:
 }
 
 Rules:
+- Return STRICT JSON ONLY.
+- Do NOT include any markdown, code blocks, backticks, or extra text.
+- Provide a JSON object with keys "steps" and "goal" exactly.
+- Example format:
+{
+  "steps": [
+    { "step": "First step", "description": "Short description" }
+  ],
+  "goal": "Short description of the goal"
+}
 - Provide clear, practical, step-by-step guidance.
 - Be concise.
 - Do not ask questions.
