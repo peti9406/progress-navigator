@@ -169,20 +169,11 @@ class AuthenticationServiceTest extends TestCase
             ->once()
             ->andReturn($user);
 
-        $session = Mockery::mock('Illuminate\Session\Store');
-        $session->shouldReceive('regenerate')->once();
-        $session->shouldReceive('invalidate')->once();
-        $session->shouldReceive('regenerateToken')->once();
-
-        $requestMock = Mockery::mock('Illuminate\Http\Request');
-        $requestMock->shouldReceive('session')->andReturn($session);
-
-        request()->setLaravelSession($session);
-
         $user
             ->shouldReceive('hasVerifiedEmail')
             ->once()
             ->andReturn(false);
+
 
         $data = new LoginData(
             'not_verified@gmail.com',
@@ -197,10 +188,6 @@ class AuthenticationServiceTest extends TestCase
     public function testLogin_whenCredentialsValid_andHasVerifiedEmail_shouldLoginSuccessfully()
     {
         $user = Mockery::mock(User::class);
-
-        $session = Mockery::mock('Illuminate\Session\Store');
-        $session->shouldReceive('regenerate')->once();
-        request()->setLaravelSession($session);
 
         Auth::shouldReceive('attempt')
             ->once()

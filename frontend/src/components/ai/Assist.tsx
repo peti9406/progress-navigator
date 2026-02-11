@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import api from "../../api/axios";
 import LoadingComponent from "../LoadingComponent";
 import ErrorComponent from "../ErrorComponent";
@@ -7,6 +7,7 @@ import FormView from "./FormView";
 import handleError from "../../utils/HandleError";
 import {GoalResponseSchema, GoalType} from "../../types/GoalType";
 import {AiAdvice, AdviceTypeSchema} from "../../types/AiAdvice";
+import useAuth from "../../hooks/useAuth";
 
 interface AssistProps {
     onViewChange: (view: string) => void;
@@ -20,14 +21,18 @@ export default function Assist({onViewChange}: AssistProps) {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string[]>([]);
     const [advice, setAdvice] = useState<AiAdvice | null>(null);
+    const {token} = useAuth();
 
     useEffect(() => {
         async function fetchGoals() {
             setLoading(true);
             setError([]);
             try {
-                await api.get('/sanctum/csrf-cookie');
-                const {data} = await api.get('/api/goals?filter=Not Completed');
+                const {data} = await api.get('/api/goals?filter=Not Completed', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
                 const parsed = GoalResponseSchema.safeParse(data);
 
                 if (parsed.success) {
@@ -56,7 +61,11 @@ export default function Assist({onViewChange}: AssistProps) {
         setError([]);
 
         try {
-            const {data} = await api.post(`/api/goals/${goalId}/help`, {problem});
+            const {data} = await api.post(`/api/goals/${goalId}/help`, {problem}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const parsed = AdviceTypeSchema.safeParse(data);
 
             if (parsed.success) {

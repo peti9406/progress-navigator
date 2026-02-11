@@ -20,10 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/goals/{id}', [ProgressionController::class, 'delete']);
     Route::post('/goals/{id}/help', [ProgressionController::class, 'help']);
     Route::post('/goals/ai-new-goal', [ProgressionController::class, 'aiNewGoal']);
-});
-
-Route::middleware(AdminMiddleware::class)->group(function () {
-    Route::get('/admin/users', [AdminController::class, 'index']);
+    Route::get('/admin/users', [AdminController::class, 'index'])->middleware(AdminMiddleware::class);
 });
 
 

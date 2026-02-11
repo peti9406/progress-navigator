@@ -22,7 +22,6 @@ export default function Register() {
 
         try {
             setLoading(true);
-            await api.get("/sanctum/csrf-cookie");
             await api.post("/api/register", {name, email, email_confirmation, password});
             setSubmitted(true);
         } catch (error) {

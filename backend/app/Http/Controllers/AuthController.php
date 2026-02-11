@@ -76,27 +76,42 @@ class AuthController extends Controller
         );
 
         $user = $this->authorizationService->login($data);
+        $user->tokens()->delete();
+
+        $expiration = $data->remember
+            ? now()->addDays(30)
+            : now()->addHours(2);
+
+        $token = $user->createToken('token', ['*'], $expiration)->plainTextToken;
 
         return response()->json([
             'message' => 'User successfully logged in',
             'user' => $user->toArray(),
+            'token' => $token,
         ]);
     }
 
 
     public function logout(Request $request): JsonResponse
     {
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $user = $request->user();
+
+        if ($user) {
+            $user->tokens()->delete();
+        }
 
         return response()->json(['message' => 'User successfully logged out']);
     }
 
-    public function getRememberedUser(Request $request): JsonResponse
+    public function getRememberedUser(): JsonResponse
     {
+        $user = Auth::user();
+        $token = $user->createToken('token', ['*'], now()->addDays(30))->plainTextToken;
+
         return response()->json([
             'message' => 'User successfully logged in via remember token',
-            'user' => $request->user()
+            'user' => $user->toArray(),
+            'token' => $token,
         ]);
     }
 }
