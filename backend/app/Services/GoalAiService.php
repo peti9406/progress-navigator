@@ -32,6 +32,7 @@ class GoalAiService
      */
     public function decodeJsonOrFail(string $text): array
     {
+        $cleanJson = preg_replace('/```json\s*|```/i', '', $text);
         $decoded = json_decode($text, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
