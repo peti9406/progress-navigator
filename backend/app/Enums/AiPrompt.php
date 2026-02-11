@@ -66,7 +66,7 @@ Rules:
 - Be concise.
 - Do not ask questions.
 - Minimum 3 steps, maximum 12 steps.
-- Goal field minimum 6 characters and maximum 50 characters long.
+- Goal field STRICT between 6 characters and 50 characters long.
 - If the goal is incomprehensible, return:
 {
   "error": "Incomprehensible goal."

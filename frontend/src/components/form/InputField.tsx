@@ -9,6 +9,8 @@ interface InputFieldProps {
     value: string | number;
     min?: string | number;
     max?: string | number;
+    minLength?: number;
+    maxLength?: number;
     size?: "small" | "normal";
     labelProps?: {
         className?: string,
@@ -24,6 +26,8 @@ export default function InputField({
                                        value,
                                        min,
                                        max,
+    minLength,
+    maxLength,
                                        size = 'normal',
                                        labelProps = {}
                                    }: InputFieldProps) {
@@ -37,7 +41,7 @@ export default function InputField({
                    className={`text-nowrap text-left font-bold ${size === 'normal' ? 'w-1/2' : 'w-1/5'} ${labelProps.className || ''}`}>{label}</label>
             <input id={id}
                    className={`border-l border-[var(--border)] bg-[var(--input)] px-1 ${size === 'normal' ? 'w-1/2' : 'w-3/4'}`}
-                   value={value} min={min} max={max}
+                   value={value} min={min} max={max} minLength={minLength} maxLength={maxLength}
                    type={type} placeholder={placeholder} onChange={onChange} required autoComplete='true'/>
         </div>
     )

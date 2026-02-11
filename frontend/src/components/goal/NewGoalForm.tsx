@@ -94,7 +94,7 @@ export default function NewGoalForm({
     return (
         <form onSubmit={handleSubmit} className="flex flex-col items-center mt-4">
 
-            <InputField id='goal' label="GoalType:" placeholder="Learn..." type="text" value={goal} min={6} max={50}
+            <InputField id='goal' label="GoalType:" placeholder="Learn..." type="text" value={goal} minLength={6} maxLength={50}
                         onChange={(event) => setGoal(event.target.value)}/>
 
             <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}
