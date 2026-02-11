@@ -11,7 +11,7 @@ export default function CompleteModal({goal, id}: CompleteModalProps) {
     const {completeGoal} = useGoals();
 
     async function handleComplete() {
-        completeGoal(id);
+        await completeGoal(id);
     }
 
     return <ConfirmModal

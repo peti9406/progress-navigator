@@ -26,6 +26,7 @@ class LoginTest extends TestCase
             'remember' => false,
         ];
 
+
         $authService = $this->mock(AuthenticationService::class);
         $authService
             ->shouldReceive('login')
@@ -41,6 +42,7 @@ class LoginTest extends TestCase
             ->assertJsonStructure([
                 'message',
                 'user',
+                'token'
             ])
             ->assertJson([
                 'message' => 'User successfully logged in',

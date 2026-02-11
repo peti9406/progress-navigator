@@ -20,7 +20,7 @@ export default function Admin() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string[]>([]);
     const navigate = useNavigate();
-    const {user} = useAuth();
+    const {user, token} = useAuth();
 
     useEffect(() => {
         async function getUsers() {
@@ -32,8 +32,11 @@ export default function Admin() {
             setError([]);
             setLoading(true);
             try {
-                await api.get('/sanctum/csrf-cookie');
-                const {data} = await api.get('/api/admin/users?page=' + page);
+                const {data} = await api.get('/api/admin/users?page=' + page, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
                 const parsed = UsersResponseSchema.safeParse(data);
 
                 if (parsed.success) {

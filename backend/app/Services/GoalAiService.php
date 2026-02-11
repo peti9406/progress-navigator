@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enums\AiPrompt;
 use App\Exceptions\AiReturnedInvalidJsonException;
 use App\Services\AI\AiClient;
+use Illuminate\Support\Facades\Log;
 
 class GoalAiService
 {
@@ -22,6 +23,7 @@ class GoalAiService
     {
         $prompt = $aiPrompt->value . "\n" . json_encode($context);
         $text = $this->aiClient->generate($prompt);
+        Log::debug($text);
         return $this->decodeJsonOrFail($text);
     }
 

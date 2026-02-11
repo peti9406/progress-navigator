@@ -10,7 +10,7 @@ export default function DeleteModal({goal, id}: DeleteModalProps) {
     const {deleteGoal} = useGoals();
 
     async function handleDelete() {
-        deleteGoal(id);
+        await deleteGoal(id);
     }
 
     return <ConfirmModal

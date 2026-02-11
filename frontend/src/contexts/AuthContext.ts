@@ -6,6 +6,8 @@ interface AuthContextType {
     setUser: (user: User | null) => void;
     handleLogout: (event: React.MouseEvent<HTMLButtonElement>) => void;
     loading: boolean;
+    token: string | null;
+    setToken: (token: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
