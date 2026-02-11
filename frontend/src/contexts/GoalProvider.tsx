@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import api from "../api/axios";
 import {GoalContext} from "./GoalContext";
 import useAuth from "../hooks/useAuth";
@@ -89,7 +89,7 @@ export function GoalProvider({children}: GoalProviderProps) {
         } : g));
 
         try {
-            await api.patch(`/api/steps/${stepId}/toggle`, {
+            await api.patch(`/api/steps/${stepId}/toggle`,{}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -107,7 +107,7 @@ export function GoalProvider({children}: GoalProviderProps) {
         setGoals((gList) => gList.map((g) => g.id === goalId ? {...g, completed: 1} : g));
 
         try {
-            await api.patch(`/api/goals/${goalId}/complete`, {
+            await api.patch(`/api/goals/${goalId}/complete`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
