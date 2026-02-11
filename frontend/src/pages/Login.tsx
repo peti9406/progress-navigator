@@ -15,7 +15,7 @@ export default function Login() {
     const [error, setError] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
-    const {setUser} = useAuth();
+    const {setUser, setToken} = useAuth();
 
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -23,12 +23,12 @@ export default function Login() {
         setLoading(true);
 
         try {
-            await api.get("/sanctum/csrf-cookie");
             const {data} = await api.post("/api/login", {email, password, remember});
             const parsed = LoginResponseSchema.safeParse(data);
 
             if (parsed.success) {
                 setUser(parsed.data.user);
+                setToken(parsed.data.token);
                 navigate("/");
                 return;
             }

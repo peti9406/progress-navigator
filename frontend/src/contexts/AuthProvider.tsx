@@ -10,36 +10,43 @@ interface AuthProviderProps {
 
 export default function AuthProvider({children}: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [token, setToken] = useState<string | null>(null);
 
-    useEffect(() => {
-        async function rememberUser() {
-            try {
-                const {data} = await api.get("/api/user");
-                const parsed = LoginResponseSchema.safeParse(data);
-
-                if (parsed.success) {
-                    setUser(parsed.data.user);
-                }
-            } catch (error) {
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        }
-        rememberUser();
-    }, [])
+    // useEffect(() => {
+    //     async function rememberUser() {
+    //         try {
+    //             const {data} = await api.get("/api/user");
+    //             const parsed = LoginResponseSchema.safeParse(data);
+    //
+    //             if (parsed.success) {
+    //                 setUser(parsed.data.user);
+    //                 setToken(parsed.data.token);
+    //             }
+    //         } catch (error) {
+    //             setUser(null);
+    //             setToken(null);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     }
+    //     rememberUser();
+    // }, [])
 
     async function handleLogout(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
 
-        await api.get('sanctum/csrf-cookie');
-        await api.post("/api/logout");
+        await api.post("/api/logout",{}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         setUser(null);
+        setToken(null);
     }
 
     return (
-        <AuthContext.Provider value={{user, setUser, handleLogout, loading}}>
+        <AuthContext.Provider value={{user, setUser, handleLogout, loading, token, setToken}}>
             {children}
         </AuthContext.Provider>
     )

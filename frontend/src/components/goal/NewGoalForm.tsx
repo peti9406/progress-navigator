@@ -10,6 +10,7 @@ import ErrorComponent from "../ErrorComponent";
 import LoadingComponent from "../LoadingComponent.js";
 import handleError from "../../utils/HandleError";
 import useGoals from "../../hooks/useGoals";
+import useAuth from "../../hooks/useAuth";
 
 interface NewGoalFormProps {
     onSet: () => void;
@@ -42,7 +43,7 @@ export default function NewGoalForm({
         setLoading(true);
 
         try {
-            addGoal({goal, deadline, steps: steps.map(s => s.value)});
+            await addGoal({goal, deadline, steps: steps.map(s => s.value)});
             onSet();
             setGoal('');
             setDeadline('');
@@ -93,7 +94,7 @@ export default function NewGoalForm({
     return (
         <form onSubmit={handleSubmit} className="flex flex-col items-center mt-4">
 
-            <InputField id='goal' label="GoalType:" placeholder="Learn..." type="text" value={goal}
+            <InputField id='goal' label="GoalType:" placeholder="Learn..." type="text" value={goal} min={6} max={50}
                         onChange={(event) => setGoal(event.target.value)}/>
 
             <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}

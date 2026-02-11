@@ -7,7 +7,8 @@ interface InputFieldProps {
     placeholder?: string
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     value: string | number;
-    min?: string;
+    min?: string | number;
+    max?: string | number;
     size?: "small" | "normal";
     labelProps?: {
         className?: string,
@@ -22,6 +23,7 @@ export default function InputField({
                                        onChange,
                                        value,
                                        min,
+                                       max,
                                        size = 'normal',
                                        labelProps = {}
                                    }: InputFieldProps) {
@@ -35,7 +37,7 @@ export default function InputField({
                    className={`text-nowrap text-left font-bold ${size === 'normal' ? 'w-1/2' : 'w-1/5'} ${labelProps.className || ''}`}>{label}</label>
             <input id={id}
                    className={`border-l border-[var(--border)] bg-[var(--input)] px-1 ${size === 'normal' ? 'w-1/2' : 'w-3/4'}`}
-                   value={value} min={min}
+                   value={value} min={min} max={max}
                    type={type} placeholder={placeholder} onChange={onChange} required autoComplete='true'/>
         </div>
     )

@@ -7,6 +7,7 @@ import NewGoalForm from "../goal/NewGoalForm";
 import {nanoid} from "nanoid";
 import {AiNewGoal, AiNewGoalTypeSchema} from "../../types/AiNewGoal";
 import handleError from "../../utils/HandleError";
+import useAuth from "../../hooks/useAuth";
 
 interface NewGoalProps {
     onViewChange: (view: string) => void;
@@ -21,6 +22,7 @@ export default function NewGoal({onViewChange, onSet}: NewGoalProps) {
     const [newGoal, setNewGoal] = useState<AiNewGoal | null>(null);
     const [sortableSteps, setSortableSteps] = useState<SortableStep[]>([]);
     const [view, setView] = useState<string>('get')
+    const {token} = useAuth();
 
     async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -29,11 +31,15 @@ export default function NewGoal({onViewChange, onSet}: NewGoalProps) {
         setView('get');
 
         try {
-            setSubmitted(true);
-            const {data} = await api.post(`/api/goals/ai-new-goal`, {goal});
+            const {data} = await api.post(`/api/goals/ai-new-goal`, {goal}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const parsed = AiNewGoalTypeSchema.safeParse(data);
 
             if (parsed.success) {
+                setSubmitted(true);
                 setNewGoal(parsed.data);
                 onViewChange('generated');
             } else {

@@ -20,14 +20,18 @@ export function GoalProvider({children}: GoalProviderProps) {
     const [filter, setFilter] = useState<Filter>("Not Completed");
     const [sorted, setSorted] = useState<SortOrder>("Ascending");
     const [sortBy, setSortBy] = useState<SortBy>("Deadline")
-    const {user} = useAuth();
+    const {user, token} = useAuth();
 
     async function fetchGoals(filter = 'Not Completed') {
         setError([]);
         setLoading(true);
         try {
             await api.get('/sanctum/csrf-cookie');
-            const {data} = await api.get(`/api/goals?filter=${filter}`);
+            const {data} = await api.get(`/api/goals?filter=${filter}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const parsed = GoalResponseSchema.safeParse(data);
 
             if (parsed.success) {
@@ -52,8 +56,11 @@ export function GoalProvider({children}: GoalProviderProps) {
     }, [user]);
 
     async function addGoal(goal: AddGoalRequest) {
-        await api.get("/sanctum/csrf-cookie");
-        const {data} = await api.post("/api/goals", goal);
+        const {data} = await api.post("/api/goals", goal, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         setGoals((prev) => [...prev, data.goal]);
     }
 
@@ -63,7 +70,11 @@ export function GoalProvider({children}: GoalProviderProps) {
         setGoals(goals.filter(g => g.id !== id));
 
         try {
-            await api.delete(`/api/goals/${id}`);
+            await api.delete(`/api/goals/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
         } catch (error) {
             setGoals(prev);
             throw error;
@@ -79,8 +90,11 @@ export function GoalProvider({children}: GoalProviderProps) {
         } : g));
 
         try {
-            await api.get("/sanctum/csrf-cookie");
-            await api.patch(`/api/steps/${stepId}/toggle`);
+            await api.patch(`/api/steps/${stepId}/toggle`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
         } catch (error) {
             setGoals(prev);
             handleError(error, setError);
@@ -94,8 +108,11 @@ export function GoalProvider({children}: GoalProviderProps) {
         setGoals((gList) => gList.map((g) => g.id === goalId ? {...g, completed: 1} : g));
 
         try {
-            await api.get("/sanctum/csrf-cookie");
-            await api.patch(`/api/goals/${goalId}/complete`);
+            await api.patch(`/api/goals/${goalId}/complete`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
         } catch (error) {
             setGoals(prev);
             throw error;
@@ -118,7 +135,7 @@ export function GoalProvider({children}: GoalProviderProps) {
         setSortBy(sort);
         const direction = newSorted === "Ascending" ? 1 : -1;
 
-        const completedCount: (goal: GoalType) => number = goal  => goal.steps.filter(step => step.completed).length;
+        const completedCount: (goal: GoalType) => number = goal => goal.steps.filter(step => step.completed).length;
 
         const sortMap = {
             Deadline: (a: GoalType, b: GoalType) => direction * (new Date(a.deadline).getTime() - new Date(b.deadline).getTime()),

@@ -20,7 +20,6 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'http://localhost:8000',
         'http://localhost:5173',
         'https://progress-navigator.vercel.app'
     ],
@@ -33,6 +32,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
 
 ];

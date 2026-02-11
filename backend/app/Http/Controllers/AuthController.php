@@ -12,7 +12,6 @@ use App\Services\AuthenticationService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -76,18 +75,23 @@ class AuthController extends Controller
         );
 
         $user = $this->authorizationService->login($data);
+        $token = $user->createToken('token')->plainTextToken;
 
         return response()->json([
             'message' => 'User successfully logged in',
             'user' => $user->toArray(),
+            'token' => $token,
         ]);
     }
 
 
     public function logout(Request $request): JsonResponse
     {
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $user = $request->user();
+
+        if ($user) {
+            $user->tokens()->delete();
+        }
 
         return response()->json(['message' => 'User successfully logged out']);
     }
