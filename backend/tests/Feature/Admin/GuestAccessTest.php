@@ -15,8 +15,8 @@ class GuestAccessTest extends TestCase
 
         $response = $this->getJson('/api/admin/users');
         $response
-            ->assertStatus(403)
-            ->assertJson(['message' => 'Forbidden']);
+            ->assertStatus(401)
+            ->assertJson(['message' => 'Unauthenticated.']);
     }
 
 }
