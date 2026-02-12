@@ -255,7 +255,7 @@ progress over time.
 * Password must be at least 6 characters
   ![Registration](./screenshots/register.png)
 
-#### GoalType management
+#### Goal management
 
 ![Goals](./screenshots/goals.png)
 
@@ -287,7 +287,7 @@ Items may change as the project evolves.
 - [x] Light/Dark mode
 - [x] Docker
 - [x] AI integration
-- [ ] Deployment
+- [x] Deployment
 
 ## Contact
 
