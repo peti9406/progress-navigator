@@ -1,16 +1,22 @@
 import InputField from "../form/InputField";
-import {closestCenter, DndContext, DragEndEvent} from "@dnd-kit/core";
+import {
+    closestCenter,
+    DndContext,
+    DragEndEvent,
+    PointerSensor,
+    TouchSensor,
+    useSensor,
+    useSensors
+} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import SortableStep from "./SortableStep";
 import CustomButton from "../ui/CustomButton";
-import React, {ReactNode, useContext, useState} from "react";
+import React, {ReactNode, useState} from "react";
 import {nanoid} from "nanoid";
-import {GoalContext} from "../../contexts/GoalContext.js";
 import ErrorComponent from "../ErrorComponent";
 import LoadingComponent from "../LoadingComponent.js";
 import handleError from "../../utils/HandleError";
 import useGoals from "../../hooks/useGoals";
-import useAuth from "../../hooks/useAuth";
 
 interface NewGoalFormProps {
     onSet: () => void;
@@ -36,6 +42,20 @@ export default function NewGoalForm({
     const tomorrow: Date = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const minDate: string = new Intl.DateTimeFormat('sv-SE').format(tomorrow);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 8,
+            },
+        }),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 150,
+                tolerance: 5,
+            },
+        })
+    );
 
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -100,7 +120,7 @@ export default function NewGoalForm({
             <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}
                         onChange={(event) => setDeadline(event.target.value)}/>
 
-            <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                 <SortableContext items={steps.map(s => s.id)} strategy={verticalListSortingStrategy}>
                     <div className="my-2 space-y-1 max-h-[30vh] md:max-h-[60vh] overflow-y-auto">
                         {steps.map((step, index) => (
