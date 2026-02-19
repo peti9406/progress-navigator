@@ -43,20 +43,6 @@ export default function NewGoalForm({
     tomorrow.setDate(tomorrow.getDate() + 1);
     const minDate: string = new Intl.DateTimeFormat('sv-SE').format(tomorrow);
 
-    const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: {
-                distance: 8,
-            },
-        }),
-        useSensor(TouchSensor, {
-            activationConstraint: {
-                delay: 150,
-                tolerance: 5,
-            },
-        })
-    );
-
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
         setError([]);
@@ -120,7 +106,7 @@ export default function NewGoalForm({
             <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}
                         onChange={(event) => setDeadline(event.target.value)}/>
 
-            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+            <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                 <SortableContext items={steps.map(s => s.id)} strategy={verticalListSortingStrategy}>
                     <div className="my-2 space-y-1 max-h-[30vh] md:max-h-[60vh] overflow-y-auto">
                         {steps.map((step, index) => (

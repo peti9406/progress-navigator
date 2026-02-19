@@ -30,7 +30,7 @@ export default function SortableStep({step, index, onChange, onRemove, canRemove
         <div
             ref={setNodeRef}
             style={style}
-            className="flex flex-row space-x-3 items-center"
+            className="flex flex-row space-x-3 items-center touch-none"
         >
             <InputField
                 id={`step_${index + 1}`}
