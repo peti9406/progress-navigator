@@ -3,14 +3,12 @@ import {closestCenter, DndContext, DragEndEvent} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import SortableStep from "./SortableStep";
 import CustomButton from "../ui/CustomButton";
-import React, {ReactNode, useContext, useState} from "react";
+import React, {ReactNode, useState} from "react";
 import {nanoid} from "nanoid";
-import {GoalContext} from "../../contexts/GoalContext.js";
 import ErrorComponent from "../ErrorComponent";
 import LoadingComponent from "../LoadingComponent.js";
 import handleError from "../../utils/HandleError";
 import useGoals from "../../hooks/useGoals";
-import useAuth from "../../hooks/useAuth";
 
 interface NewGoalFormProps {
     onSet: () => void;
@@ -94,7 +92,8 @@ export default function NewGoalForm({
     return (
         <form onSubmit={handleSubmit} className="flex flex-col items-center mt-4">
 
-            <InputField id='goal' label="GoalType:" placeholder="Learn..." type="text" value={goal} minLength={6} maxLength={50}
+            <InputField id='goal' label="GoalType:" placeholder="Learn..." type="text" value={goal} minLength={6}
+                        maxLength={50}
                         onChange={(event) => setGoal(event.target.value)}/>
 
             <InputField id="deadline" label="Deadline:" type="date" min={minDate} value={deadline}
